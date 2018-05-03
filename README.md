@@ -1,24 +1,18 @@
-# README
+Git para el trabajo de Ingenieria 2 "Un aventon"
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Este trabjo esta hecho en ruby 2.2.5p319
 
-Things you may want to cover:
 
-* Ruby version
 
-* System dependencies
+Para installar las gemas necesarias:
 
-* Configuration
+```console
+bundle install
+```
 
-* Database creation
+o si eso no funciona
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```console
+bundle update
+bundle install
+```
