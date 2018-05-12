@@ -2,12 +2,21 @@
   <div class="container">
     <nav>
       <ul class="nav navbar-nav navbar-left">
-        <li>Logo</li>
+        <li><%= image_tag('Logo.jpg', :alt=>'Un Aventon!') %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <a><%= link_to "Inicio", root_path %></a>
         <% if user_signed_in? %>
           <a> <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %></a>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <%= link_to 'Perfil', current_user %>
+                <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %>
+              </li>
+            </ul>
         <% else %>
           <a><%= link_to 'Crear cuenta', new_user_registration_path %></a>
           <a><%= link_to 'Iniciar sesión', new_user_session_path %></a>
