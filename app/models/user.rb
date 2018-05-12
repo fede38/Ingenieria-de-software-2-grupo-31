@@ -15,8 +15,8 @@ class User < ApplicationRecord
   validate :mayor_de_18
 
   def mayor_de_18
-    if self.fecha_nacimiento
-      errors.add('Debes tener mas de 18 años para usar esta página.') if self.fecha_nacimiento > 18.years.ago.to_date
+    if self.fecha_nacimiento > 18.years.ago.to_date
+      errors.add("Debes tener mas ", 'de 18 años para usar esta página.')
     end
   end
 end
