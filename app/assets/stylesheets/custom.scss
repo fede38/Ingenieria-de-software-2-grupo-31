@@ -7,31 +7,33 @@
   border-color: #F17376;
 }
 
-/*flash*/
+/*------------------------Mensajes-------------------------*/
+/* Mensaje rojo de fallo */
 .alert-error {
     background-color: #f2dede;
     border-color: #eed3d7;
     color: #b94a48;
     text-align: left;
  }
-
+ /* Mensaje amarillo de alerta */
 .alert-alert {
     background-color: #f2dede;
     border-color: #eed3d7;
     color: #b94a48;
     text-align: left;
  }
-
+ /* Mensaje verde de exito */
 .alert-success {
     background-color: #dff0d8;
     border-color: #d6e9c6;
     color: #468847;
     text-align: left;
  }
-
+ /* Mensaje azul de aviso */
 .alert-notice {
     background-color: #dff0d8;
     border-color: #d6e9c6;
     color: #468847;
     text-align: left;
  }
+/*------------------Fin estilos mensajes-------------------*/
