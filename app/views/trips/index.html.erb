@@ -1,3 +1,9 @@
 <% provide(:titulo, 'Un aventon!') %>
 
-<h1>Aca van a ir un monton de viajes re locos.</h1>
+<% if @trips.empty? %>
+  <h1>No hay viajes, <%= link_to ' crea uno!', '#' %></h1>
+<% else %>
+  <% @trips.each do |t| %>
+    <!-- Aca va el codigo de mostrar viaje -->
+  <% end %>
+<% end %>
