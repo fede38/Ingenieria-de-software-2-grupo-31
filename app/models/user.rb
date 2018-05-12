@@ -8,4 +8,15 @@ class User < ApplicationRecord
 
   # Falta configurar envio de mail en inscripcion
 
+  validates :password, length: {maximum: 25}
+  validates :nombre, :apellido, length: {maximum: 50}
+  validates :nombre, :apellido, :fecha_nacimiento, presence: true
+
+  validate :mayor_de_18
+
+  def mayor_de_18
+    if self.fecha_nacimiento
+      errors.add('Debes tener mas de 18 años para usar esta página.') if self.fecha_nacimiento > 18.years.ago.to_date
+    end
+  end
 end
