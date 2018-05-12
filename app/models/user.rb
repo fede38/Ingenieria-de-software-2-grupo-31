@@ -5,4 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_attached_file :avatar, :styles => {:small => "100x100"},
                              :default_url => 'missing_user.png'
+
+  # Falta configurar envio de mail en inscripcion
+
 end

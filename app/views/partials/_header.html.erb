@@ -13,6 +13,7 @@
             <ul class="dropdown-menu">
               <li>
                 <%= link_to 'Perfil', current_user %>
+                <%= link_to 'Editar cuenta', edit_user_registration_path %>
                 <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %>
               </li>
             </ul>
