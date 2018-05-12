@@ -1,6 +1,15 @@
 <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
 
-<h1>Este es el perfil de loco de: <%= @user.nombre %></h1>
+<%= image_tag(@user.avatar.url) %>
+<h3>
+  <%= @user.nombre+' '+@user.apellido %>
+</h3>
 <p>
-  Me llamo <%= @user.nombre + ' ' + @user.apellido %>
+  <%= @user.email %>
+</p>
+<p>
+  <%= formato_fecha %>
+</p>
+<p>
+  <%= link_to 'Mis viajes', '#' %>
 </p>
