@@ -1,12 +1,6 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
-
-.navbar-default {
-  background-color: #F17376;
-  border-color: #F17376;
-}
-
 /*------------------------Mensajes-------------------------*/
 /* Mensaje rojo de fallo */
 .alert-error {
@@ -37,3 +31,15 @@
     text-align: left;
  }
 /*------------------Fin estilos mensajes-------------------*/
+
+/*-------------------Estilos del header--------------------*/
+.navbar-default {
+  background-color: #F17376;
+  border-color: #F18973;
+}
+.navbar{
+    a {
+        color: #000 !important;
+    }
+}
+/*----------------Fin estilos del header-------------------*/
