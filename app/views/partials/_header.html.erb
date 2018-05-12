@@ -5,14 +5,12 @@
         <li>Logo</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Inicio", root_path %></li>
+        <a><%= link_to "Inicio", root_path %></a>
         <% if user_signed_in? %>
-          <li>
-            <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %>
-          </li>
+          <a> <%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %></a>
         <% else %>
-          <li><%= link_to 'Crear cuenta', new_user_registration_path %></li>
-          <li><%= link_to 'Iniciar sesión', new_user_session_path %></li>
+          <a><%= link_to 'Crear cuenta', new_user_registration_path %></a>
+          <a><%= link_to 'Iniciar sesión', new_user_session_path %></a>
         <% end %>
       </ul>
     </nav>
