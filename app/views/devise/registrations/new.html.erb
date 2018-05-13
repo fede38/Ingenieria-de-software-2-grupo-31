@@ -27,20 +27,20 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :password %>
+    <%= f.label :password, "Contraseña" %>
     <%= f.password_field :password, autocomplete: "off",
                                     class: "form-control"  %>
   </div>
 
   <div class="form-group">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation, "Confirmar contraseña" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off",
                                                  class: "form-control"  %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Crear", class:"btn btn-primary"  %>
+    <%= f.submit "Registrarse", class:"btn btn-primary"  %>
   </div>
 <% end %>
-
+<h1></h1>
 <%= render "devise/shared/links" %>
