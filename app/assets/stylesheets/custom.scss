@@ -48,10 +48,23 @@
 
 
 
-/*------------------Estilos de edit user-------------------*/
+/*-----------------Estilos de formularios------------------*/
 .centering {
     float: none;
     margin: 0 auto;
     width: 50%;
 }
-/*----------------Fin estilos de edit user-----------------*/
+.flotar-medio {
+    text-align: center;
+}
+.colapso {
+    background-color: red;
+    padding: 5;
+    &:hover {
+        background-color: #DD0000;
+    }
+    &:click {
+        background-color: none;
+    }
+}
+/*---------------Fin estilos de formularios----------------*/

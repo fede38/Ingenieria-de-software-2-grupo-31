@@ -16,6 +16,23 @@ class User < ApplicationRecord
   validates :nombre, :apellido, :fecha_nacimiento, presence: true
 
   validate :mayor_de_18
+  validate :tarjeta_correcta
+  validate :solo_numeros
+
+  def tarjeta_correcta
+    if self.tarjeta && self.codigo_seguridad
+      if(self.tarjeta.length != 16)||(self.codigo_seguridad.length != 3)
+        errors.add("El formato de la tarjeta de credito ", 'es incorrecto.')
+      end
+    end
+  end
+
+  def solo_numeros
+    if !self.solonumeros?(self.tarjeta) ||
+       !self.solonumeros?(self.codigo_seguridad)
+      errors.add("La tarjeta no puede ", 'contener caracteres.')
+    end
+  end
 
   def mayor_de_18
     if self.fecha_nacimiento != nil
@@ -24,4 +41,9 @@ class User < ApplicationRecord
       end
     end
   end
+
+  protected
+    def solonumeros?(string)
+      string.scan(/\D/).empty?
+    end
 end
