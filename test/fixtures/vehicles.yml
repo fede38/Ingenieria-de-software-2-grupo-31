@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  patente: MyString
+  modelo: 
+  marca: MyString
+  cantidad_asientos: 
+  color: MyString
+  tipo: MyString
+
+two:
+  patente: MyString
+  modelo: 
+  marca: MyString
+  cantidad_asientos: 
+  color: MyString
+  tipo: MyString

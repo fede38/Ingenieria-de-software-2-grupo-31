@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :trips
   resources :users, only: [:show]
 
+  resources :vehicles
 end
