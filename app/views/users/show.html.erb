@@ -1,15 +1,22 @@
 <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
 
-<%= image_tag(@user.avatar.url,:class=>"circular-image mediumm-image" )%> 
-<h3>
-  <%= @user.nombre+' '+@user.apellido %>
-</h3>
-<p>
-  <%= @user.email %>
-</p>
-<p>
-  <%= formato_fecha %>
-</p>
-<p>
-  <%= link_to 'Mis viajes', '#' %>
-</p>
+<% if @user.eliminado %>
+  <h1>Este usuario ya no existe</h1>
+<% else %>
+  <%= image_tag(@user.avatar.url,:class=>"circular-image mediumm-image" )%> 
+  <h3>
+    <%= @user.nombre+' '+@user.apellido %>
+  </h3>
+  <p>
+    <%= @user.email %>
+  </p>
+  <p>
+    <%= formato_fecha %>
+  </p>
+  <p>
+    <%= link_to 'Mis viajes', '#' %>
+  </p>
+  <p>
+    <%= link_to 'Editar cuenta', edit_user_registration_path %>
+  </p>
+<% end %>

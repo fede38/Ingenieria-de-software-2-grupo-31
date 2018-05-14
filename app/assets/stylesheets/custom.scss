@@ -65,3 +65,26 @@
 	height: 20px;
 }
 /*----------------Fin estilos del header-------------------*/
+
+
+
+/*-----------------Estilos de formularios------------------*/
+.centering {
+    float: none;
+    margin: 0 auto;
+    width: 50%;
+}
+.flotar-medio {
+    text-align: center;
+}
+.colapso {
+    background-color: red;
+    padding: 5;
+    &:hover {
+        background-color: #DD0000;
+    }
+    &:click {
+        background-color: none;
+    }
+}
+/*---------------Fin estilos de formularios----------------*/
