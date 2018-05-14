@@ -44,4 +44,24 @@
         color: #000 !important;
     }
 }
+.navbar-nav.navbar-center{
+	position: absolute;
+	left: 15%;
+	transform: translateX(-85%);
+}
+.my-button{
+	border-radius: 10%;
+}
+
+.circular-image{
+	border-radius: 50%;
+}
+.mediumm-image{
+	width:200px;
+	height:200px;
+}
+.small-image{
+	width: 20px;
+	height: 20px;
+}
 /*----------------Fin estilos del header-------------------*/
