@@ -8,9 +8,6 @@ class User < ApplicationRecord
   validates_attachment_content_type :avatar, :content_type => ["image/jpg",
                                     "image/jpeg", "image/png", "image/gif"]
 
-
-  # Falta configurar envio de mail en inscripcion
-
   validates :password, length: {maximum: 25}
   validates :nombre, :apellido, length: {maximum: 50}
   validates :nombre, :apellido, :fecha_nacimiento, presence: true
@@ -43,6 +40,18 @@ class User < ApplicationRecord
         errors.add("Debes tener mas ", 'de 18 años para usar esta página.')
       end
     end
+  end
+
+  def borrar
+    update_attribute(:eliminado, true)
+  end
+
+  def active_for_authentication?
+    super && !eliminado
+  end
+
+  def inactive_message
+    !eliminado ? super : :noexiste
   end
 
   protected
