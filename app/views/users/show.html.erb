@@ -1,63 +1,64 @@
+<% provide(:titulo, @user.nombre+' '+@user.apellido) %>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
       <% if @user.eliminado %>
         <div class="page-header">
-       <!--  "En este div se puede poner el titulo de la pagina o un titulo general" -->
-            <h1>Este usuario ya no existe</h1>
+        <!--  "En este div se puede poner el titulo de la pagina o un titulo general" -->
+          <h1>Este usuario ya no existe</h1>
         </div>
-         <% else %>
-          <div class="row">
-            <div class="col-md-1">
-              <!-- Esta columna es para separar el borde de la primer columna de contacto -->
-            </div>
-            <div class="col-md-10">
-              <!-- Columna en dodne se va a desarrollar el perfil -->
-              <div class="row">
-                <div class="col-md-2">
-                  <!-- Columna para foto de perfil y demases -->
-                  <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
-                  <%= image_tag(@user.avatar.url,:class=>"circular-image mediumm-image" )%> 
-                  <h3>
-                    <%= @user.nombre+' '+@user.apellido %>
-                  </h3>
-                  <p>
-                    <%= @user.email %>
-                  </p>
-                  <p>
-                    <%= formato_fecha %>
-                  </p>
-                  <p>
-                    <%= link_to 'Mis viajes', '#' %>
-                  </p>
-                  <p>
-                    <%= link_to 'Editar cuenta', edit_user_registration_path %>
-                  </p>
-                </div>
-                <div class="col-md-8">
-                  <div class="row">
-                    <div class="col-md-1">
-                      <!-- columna separadora -->
-                    </div>
-                    <div class="col-md-10">
-                      <h3>
-                        Aca van a ir los ultimos 3 viajes
-                      </h3>
-                      <!-- completar con estructura para poner viajes como objetos dentro -->
-                    </div>
-                  </div>
+      <% else %>
+        <div class="row">
+          <div class="col-md-1">
+          <!-- Esta columna es para separar el borde de la primer columna de contacto -->
+          </div>
+          <div class="col-md-10">
+          <!-- Columna en dodne se va a desarrollar el perfil -->
+            <div class="row">
+              <div class="col-md-2">
+              <!-- Columna para foto de perfil y demases -->
+                <%= image_tag(@user.avatar.url,:class=>"circular-image mediumm-image" )%>
+                <h3>
+                  <%= @user.nombre+' '+@user.apellido %>
+                </h3>
+                <p>
+                  <%= @user.email %>
+                </p>
+                <p>
+                  <%= formato_fecha %>
+                </p>
+                <p>
+                  <%= link_to 'Mis viajes', '#' %>
+                </p>
+                <p>
+                  <%= link_to 'Editar cuenta', edit_user_registration_path %>
+                </p>
+              </div>
+              <div class="col-md-8">
+                <div class="row">
                   <div class="col-md-1">
-                    <!-- columna separadora -->
+                  <!-- columna separadora -->
                   </div>
+                  <div class="col-md-10">
+                    <h3>
+                      Aca van a ir los ultimos 3 viajes
+                    </h3>
+                    <!-- completar con estructura para poner viajes como objetos dentro -->
+                  </div>
+                </div>
+                <div class="col-md-1">
+                <!-- columna separadora -->
                 </div>
               </div>
+            </div>
             <div class="col-md-2">
               <!-- En esta columna todavia no se me ocurre que poner -->
             </div>
           </div>
         </div>
         <div class="col-md-1">
-          <!-- columna separadora -->
+        <!-- columna separadora -->
         </div>
       <% end %>
     </div>
