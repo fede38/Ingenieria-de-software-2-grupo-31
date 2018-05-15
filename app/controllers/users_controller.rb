@@ -2,7 +2,11 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:edit, :update, :destroy]
 
   def show
-    @user = User.find(params[:id])
+    if params[:id]
+      @user = User.find(params[:id])
+    else
+      @user = current_user
+    end
   end
 
   private
