@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+Paperclip.options[:content_type_mappings] = { jpeg: 'image/jpeg', jpg: 'image/jpeg' }
+
 module IngenieriaDeSoftware2Grupo31
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
