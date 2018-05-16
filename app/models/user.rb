@@ -6,7 +6,8 @@ class User < ApplicationRecord
   has_attached_file :avatar, :styles => {:small => "100x100"},
                              :default_url => 'missing_user.png'
   validates_attachment_content_type :avatar, :content_type => ["image/jpg",
-                                    "image/jpeg", "image/png", "image/gif"]
+                                    "image/jpeg", "image/png", "image/gif",
+                                    /\Aimage/, 'application/octet-stream']
 
   validates :password, length: {maximum: 25}
   validates :nombre, :apellido, length: {maximum: 50}
