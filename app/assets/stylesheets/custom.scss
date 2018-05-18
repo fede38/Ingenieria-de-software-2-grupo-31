@@ -39,9 +39,20 @@
     background-color: #F17376;
     border-color: #F18973;
 }
-.navbar{
-    a {
+.navbar-left{
+    color: #F17376 !important;
+}
+.navbutton{
+    text-decoration: none;
+    color: #000 !important;
+    &:hover {
+        text-decoration: none;
         color: #000 !important;
+    }
+}
+.my-navbar{
+    a {
+        color: #F1F0F0 !important;
     }
 }
 .navbar-nav.navbar-center{
@@ -51,6 +62,19 @@
 }
 .my-button{
 	border-radius: 10%;
+}
+
+.my-button-color{
+    background-color: #F17376;
+    text-align: center;
+}
+.my-link-button{
+    text-decoration: none;
+    color: #F1F0F0;
+    &:hover {
+        text-decoration: none;
+        color: #F1F0F0;
+    }
 }
 
 .circular-image{

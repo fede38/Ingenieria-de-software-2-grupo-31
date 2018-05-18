@@ -6,11 +6,11 @@
       </ul>
       <% if user_signed_in? %>
         <ul class="nav navbar-nav navbar-center nav-btn">
-          <li class="my-button" style="background-color: #ece9ae "><%= link_to 'Crear Viaje'%></li>
+          <li class="my-button" style="background-color: #fafafa"><%= link_to 'Crear Viaje', '#',:class => "navbutton" %></li>
           <!-- BUG#1: el boton de crear viaje se va moviendo hacia la izquierda hasta tapar el logo cuando se va achicando la ventana -->
         </ul>
       <% end %>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right my-navbar">
         <li><%= link_to "Inicio", root_path %></li>
         <% if user_signed_in? %>
   <!--         <li class="dropdown">
