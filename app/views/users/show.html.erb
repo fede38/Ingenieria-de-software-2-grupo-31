@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-md-12">
       <% if @user.eliminado %>
+        <% provide(:titulo, 'Un aventon!') %>
         <div class="page-header">
         <!--  "En este div se puede poner el titulo de la pagina o un titulo general" -->
           <h1>Este usuario ya no existe</h1>
@@ -22,14 +23,32 @@
                   <%= @user.nombre+' '+@user.apellido %>
                 </h3>
                 <p>
+                  E-mail:
                   <%= @user.email %>
                 </p>
                 <p>
-                  <%= formato_fecha %>
+                  Fecha de Nacimiento: <%= formato_fecha %>
                 </p>
-                
+                <p>
+                  Reputacion Piloto: 
+
+                </p>
+                <p>
+                  Reputacion Copiloto:
+
+                </p>
+                <button type="button" class="btn btn-block btn-sm my-button-color"><b>
+                  <%= link_to 'Mis viajes', '#', :class => "my-link-button" %>
+                </b></button>
+                <button type="button" class="btn btn-block btn-sm my-button-color"><b>
+                  <%= link_to 'Mis vehiculos', '#',:class => "my-link-button" %>
+                </b></button>
+                <button type="button" class="btn btn-block btn-sm my-button-color"><b>
+                  <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "my-link-button" %>
+                </b>  </button>
+
               </div>
-              <div class="col-md-8">
+              <div class="col-md-10">
                 <div class="row">
                   <div class="col-md-1">
                   <!-- columna separadora -->
@@ -38,58 +57,84 @@
                     <h1 style="text-align: center;">
                       Ultimos Viajes
                     </h1>
-                    <!-- completar con estructura para poner viajes como objetos dentro -->
-                    <div class="jumbotron" style="background-color: #f2dede; text-align: center;">
-                      <h3>
-                        Mar del Plata   23/03/2018
-                      </h3>
-                      <p>
-                        Descripcion de viaje
-                      </p>              
-                      <p>
-                        Algo mas del viaje
-                      </p>
-                      <p>
-                        Botones si tiene (?
-                      </p>
-                    </div>
-                      <div class="jumbotron" style="background-color: #f2dede; text-align: center;">
-                      <h2>
-                        Titulos de Viajes
-                      </h2>
-                      <p>
-                        Descripcion de viaje
-                      </p>              
-                      <p>
-                        Algo mas del viaje
-                      </p>
-                      <p>
-                        Botones si tiene (?
-                      </p>
+                    <div class="row">
+                      <div class="col-md-1">
+                        <!-- div separador -->
+                      </div>
+                      <div class="col-md-10">
+                        <!-- completar con estructura pa ra poner viajes como objetos dentro -->
+                        <!-- <div class="jumbotron my-jumbotron">
+                          <h3 style="align-content: center;"> 
+                            Nombre de Ciudad Origen - Nombre de Ciudad Destino
+                          </h3>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <h5>
+                                Fecha: dd/mm/aaaa
+                              </h5>
+                              <h5>
+                                Hora: hh:mm
+                              </h5>
+                              <h5>
+                                Piloto: nombre_usuario
+                              </h5>
+                            </div>
+                            <div class="col-md-8">
+                              <h4>
+                                Esta es una descripcion del viaje realizado por asdasddfsrfsdasdesf sedssfsdfsed sdsdef desdsfsd....
+                              </h4>
+                               <button type="button" class="btn btn-block btn-sm my-button-color"><b>
+                                  <%= link_to 'Ver viaje', '#',:class => "my-link-button" %> 
+                              </b></button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="jumbotron my-jumbotron">
+                          <h3 style="align-content: center;"> 
+                            Nombre de Ciudad Origen - Nombre de Ciudad Destino
+                          </h3>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <h5>
+                                Fecha: dd/mm/aaaa
+                              </h5>
+                              <h5>
+                                Hora: hh:mm
+                              </h5>
+                              <h5>
+                                Piloto: nombre_usuario
+                              </h5>
+                            </div>
+                            <div class="col-md-8">
+                              <h4>
+                                Esta es una descripcion del viaje realizado por asdasddfsrfsdasdesf sedssfsdfsed sdsdef desdsfsd....
+                              </h4>
+                               <button type="button" class="btn btn-block btn-sm my-button-color"><b>
+                                  <%= link_to 'Ver viaje', '#',:class => "my-link-button" %> 
+                              </b></button>
+                            </div>
+                          </div>
+                        </div> -->
+                      </div>
+                      <div class="col-md-1">
+                        <!-- div separador -->
+                      </div>
                     </div>
                   </div>
-                </div>
                 <div class="col-md-1">
                 <!-- columna separadora -->
                 </div>
               </div>
-            <div class="col-md-2" style="text-align: center;">
-              <!-- En esta columna todavia no se me ocurre que poner -->
-                <button type="button" class="btn btn-block btn-sm my-button-color">
-                  <%= link_to 'Mis viajes', '#', :class => "my-link-button" %>
-                </button>
-                <button type="button" class="btn btn-block btn-sm my-button-color">
-                  <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "my-link-button" %>
-                </button>
-                <button type="button" class="btn btn-block btn-sm my-button-color">
-                  <%= link_to 'Mis Vehiculos', '#',:class => "my-link-button" %>
-                </button>
-            </div>
             </div>
           </div>
         </div>
         <div class="col-md-1">
-        <!-- columna separadora -->
+          <p>
+            <%= link_to 'Contato', '#' %>
+          </p>
+          <p>
+            <%= link_to 'Ayuda', '#' %>
+          </p>
         </div>
       <% end %>
     </div>
