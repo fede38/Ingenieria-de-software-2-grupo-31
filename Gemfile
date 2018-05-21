@@ -28,4 +28,12 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+#Testing gems
+gem "rspec-rails", :group => [:test, :development]
+group :test do
+  gem "factory_girl_rails"
+  gem "capybara"
+  gem "guard-rspec"
+end
+
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
