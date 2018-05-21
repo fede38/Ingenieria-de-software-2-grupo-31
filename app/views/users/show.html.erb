@@ -45,9 +45,17 @@
                 <button type="button" class="btn btn-block btn-sm my-button-color"><b>
                   <%= link_to 'Mis vehiculos', '#',:class => "my-link-button" %>
                 </b></button>
-                <button type="button" class="btn btn-block btn-sm my-button-color"><b>
-                  <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "my-link-button" %>
-                </b>  </button>
+
+
+                <!-- Codigo que checkea que un usuario sea el del perfil visitado -->
+                <% if @user == current_user %>
+                  <button type="button" class="btn btn-block btn-sm my-button-color"><b>
+                    <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "my-link-button" %>
+                  </b>  </button>
+                <% end %>
+
+                <!-- fin codigo de checkeo de perfil -->
+
 
               </div>
               <div class="col-md-10">
