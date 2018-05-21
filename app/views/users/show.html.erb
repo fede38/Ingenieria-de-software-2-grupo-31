@@ -18,12 +18,17 @@
               <!-- Columna para foto de perfil y demases -->
                 <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
                 <%= image_tag(@user.avatar.url,:class=>"circular-image mediumm-image")%>
-                <h3>
-                  <%= @user.nombre+' '+@user.apellido %>
-                </h3>
-                <h3>
+                <h3 style="text-align: center">
                   <%= username %>
                 </h3>
+                <p>
+                  Nombre:
+                  <%= @user.nombre %>
+                </p>
+                <p>
+                  Apellido: 
+                  <%= @user.apellido %>
+                </p>
                 <p>
                   E-mail:
                   <%= @user.email %>
@@ -51,7 +56,7 @@
                 <% if @user == current_user %>
                   <button type="button" class="btn btn-block btn-sm my-button-color"><b>
                     <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "my-link-button" %>
-                  </b>  </button>
+                  </b></button>
                 <% end %>
 
                 <!-- fin codigo de checkeo de perfil -->
