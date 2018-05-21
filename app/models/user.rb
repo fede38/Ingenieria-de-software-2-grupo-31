@@ -15,10 +15,6 @@ class User < ApplicationRecord
   validate :tarjeta_correcta
   validate :solo_numeros
 
-  def username
-    user.email.split('@').first
-  end
-
   def tarjeta_correcta
     if (self.tarjeta && self.codigo_seguridad) && (!self.tarjeta.empty? &&
         !self.codigo_seguridad.empty?)
