@@ -15,16 +15,14 @@
                   </div>
                   <div class="col-md-10" style="background-color: #fafafa;">
                     <div class="row">
-                    	<h1>
-                    	<center>
+                    	<h1 style="text-align: center;">
     						Viajes disponibles
-    					</center>
     					</h1>
                       <div class="col-md-1">
                       </div>
                       <div class="col-md-10">
                         <% if @trips.empty? %>
-                          <h3>No hay viajes, <%= link_to ' crea uno!', '#' %></h3>
+                          <h3 style="text-align: center;">No hay viajes, <%= link_to ' crea uno!', '#' %></h3>
                           <!-- <div class="jumbotron my-jumbotron">
                           <h3 style="align-content: center;">
                             Nombre de Ciudad Origen - Nombre de Ciudad Destino
