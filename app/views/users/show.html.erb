@@ -20,38 +20,47 @@
               <h3 style="text-align: center">
                 <%= username %>
               </h3>
-              <p>
-                Nombre:
-                <%= @user.nombre %>
-              </p>
-              <p>
-                Apellido:
-                <%= @user.apellido %>
-              </p>
-              <p>
-                E-mail:
-                <%= @user.email %>
-              </p>
-              <p>
-                Fecha de Nacimiento: <%= formato_fecha %>
-              </p>
+              <% if @user == current_user %>
+                <p>
+                  Nombre:
+                 <%= @user.nombre %>
+                </p>
+                <p>
+                  Apellido:
+                  <%= @user.apellido %>
+                </p>
+                <p>
+                  E-mail:
+                  <%= @user.email %>
+                </p>
+                <p>
+                  Fecha de Nacimiento: <%= formato_fecha %>
+                </p>
+              <% end %>
               <p>
                 Reputacion Piloto:
               </p>
               <p>
                 Reputacion Copiloto:
               </p>
-              <ul type="button" class="btn btn-block btn-sm">
-                <%= link_to 'Mis viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button" %>
-              </ul>
-              <ul type="button" class="btn btn-block btn-sm">
-                <%= link_to 'Mis vehiculos', '#',:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-              </ul>
 
               <!-- Codigo que checkea que un usuario sea el del perfil visitado -->
               <% if @user == current_user %>
+                <ul type="button" class="btn btn-block btn-sm">
+                  <%= link_to 'Mis viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                </ul>
+                <ul type="button" class="btn btn-block btn-sm">
+                  <%= link_to 'Mis vehiculos', '#',:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                </ul>
                 <ul type="button" class="btn btn-sm btn-block "  ><b>
                   <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                </ul>
+              <% else %>
+                <ul type="button" class="btn btn-block btn-sm">
+                  <%= link_to 'Viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                </ul>
+                <ul type="button" class="btn btn-block btn-sm">
+                  <%= link_to 'Vehiculos', '#',:class => "btn btn-block btn-sm my-button-color my-link-button" %>
                 </ul>
               <% end %>
               <!-- fin codigo de checkeo de perfil -->
@@ -71,8 +80,8 @@
                     </div>
                     <div class="col-md-10">
                       <!-- completar con estructura pa ra poner viajes como objetos dentro -->
-                      <!--
-                      <div class="jumbotron my-jumbotron">
+                      
+                      <!-- <div class="jumbotron my-jumbotron">
                         <h3 style="align-content: center;">
                           Nombre de Ciudad Origen - Nombre de Ciudad Destino
                         </h3>
@@ -92,13 +101,13 @@
                             <h4>
                               Esta es una descripcion del viaje realizado por asdasddfsrfsdasdesf sedssfsdfsed sdsdef desdsfsd....
                             </h4>
-                             <button type="button" class="btn btn-block btn-sm my-button-color"><b>
-                                  <%= link_to 'Ver viaje', '#',:class => "my-link-button" %>
-                              </b></button>
+                             <ul type="button" class="btn btn-block btn-sm">
+                                  <%= link_to 'Ver viaje', '#',:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                              </ul>
                           </div>
                         </div>
-                      </div>
-                      <div class="jumbotron my-jumbotron">
+                      </div> -->
+                      <!-- <div class="jumbotron my-jumbotron">
                         <h3 style="align-content: center;">
                           Nombre de Ciudad Origen - Nombre de Ciudad Destino
                         </h3>
@@ -116,15 +125,15 @@
                           </div>
                           <div class="col-md-8">
                              <h4>
-                              Esta es una descripcion del viaje realizado por asdasddfsrfsdasdesf sedssfsdfsed sdsdef desdsfsd....
-                            </h4>
-                             <button type="button" class="btn btn-block btn-sm my-button-color"><b>
-                                <%= link_to 'Ver viaje', '#',:class => "my-link-button" %>
-                              </b></button>
+                                Esta es una descripcion del viaje realizado por asdasddfsrfsdasdesf sedssfsdfsed sdsdef desdsfsd....
+                              </h4>
+                              <ul type="button" class="btn btn-block btn-sm">
+                                <%= link_to 'Ver viaje', '#',:class => "btn btn-block btn-sm my-button-colo mbtn btn-block btn-sm my-button-coloy-link-button" %>
+                              </ul>
                           </div>
                         </div>
-                      </div>
-                      -->
+                      </div> -->
+                      
                     </div>
                     <div class="col-md-1">
                       <!-- div separador -->

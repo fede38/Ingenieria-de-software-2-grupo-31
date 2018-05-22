@@ -66,13 +66,16 @@ success {
     color: #F17376 !important;
     &:hover {
         text-decoration: none;
-        font-weight: normal;
-        color: #000 !important;
+        font-weight: bold;
+        color: #249A1E !important;
     }
 }
 .my-navbar{
     a {
         color: #F1F0F0 !important;
+        &:hover {
+        color: #BFEABD !important;
+    }
     }
 }
 .navbar-nav.navbar-center{
@@ -140,7 +143,7 @@ success {
     color: #F1F0F0;
     &:hover {
         text-decoration: none;
-        color: #F1F0F0;
+        color: #BFEABD;
     }
 }
 
