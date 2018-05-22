@@ -41,18 +41,18 @@
               <p>
                 Reputacion Copiloto:
               </p>
-              <button type="button" class="btn btn-block btn-sm my-button-color"><b>
-                <%= link_to 'Mis viajes', '#', :class => "my-link-button" %>
-              </b></button>
-              <button type="button" class="btn btn-block btn-sm my-button-color"><b>
-                <%= link_to 'Mis vehiculos', '#',:class => "my-link-button" %>
-              </b></button>
+              <ul type="button" class="btn btn-block btn-sm">
+                <%= link_to 'Mis viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button" %>
+              </ul>
+              <ul type="button" class="btn btn-block btn-sm">
+                <%= link_to 'Mis vehiculos', '#',:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+              </ul>
 
               <!-- Codigo que checkea que un usuario sea el del perfil visitado -->
               <% if @user == current_user %>
-                <button type="button" class="btn btn-block btn-sm my-button-color"><b>
-                  <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "my-link-button" %>
-                </b></button>
+                <ul type="button" class="btn btn-sm btn-block "  ><b>
+                  <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                </ul>
               <% end %>
               <!-- fin codigo de checkeo de perfil -->
             </div>

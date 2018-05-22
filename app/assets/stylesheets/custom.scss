@@ -62,9 +62,11 @@ success {
 }
 .navbutton{
     text-decoration: none;
-    color: #000 !important;
+    font-weight: bold;
+    color: #F17376 !important;
     &:hover {
         text-decoration: none;
+        font-weight: normal;
         color: #000 !important;
     }
 }
@@ -134,6 +136,7 @@ success {
 /*---------------Estilos de botones y jumbotrones----------*/
 .my-link-button{
     text-decoration: none;
+    font-weight: bold;
     color: #F1F0F0;
     &:hover {
         text-decoration: none;
