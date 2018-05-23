@@ -6,6 +6,11 @@ class User < ApplicationRecord
   has_attached_file :avatar, :styles => {:small => "100x100"},
                              :default_url => 'missing_user.png'
 
+  has_and_belongs_to_many :vehicles,
+                      class_name: 'User',
+                      foreign_key: 'users_id';
+                      join_table: 'user_vehicles',
+                      association_foreign_key: 'vehicles_id'
   # Falta configurar envio de mail en inscripcion
 
   validates :password, length: {maximum: 25}

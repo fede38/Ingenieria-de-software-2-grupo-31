@@ -2,6 +2,19 @@
 <h2>Registra tu vehículo:</h2>
 
 <%= form_for @vehicle do |form| %>
+
+	<% if @vehicle.errors.any? %>
+		<div class="alert alert-danger alert-dismissable">	
+				<ul>
+				<% @vehicle.errors.each do |e| %>
+				</ul>
+				<li>
+					<%= @vehicle.errors[e][0] %>
+				</li>
+				<% end %>
+		</div>
+	<% end %>
+
 	<p> 
 		<%= form.label :patente %> <br>
 		<%= form.text_field :patente %> 
@@ -28,4 +41,6 @@
 	</p>
 
 	<%= form.submit "Guardar vehículo" %>
+
+
 <% end %>

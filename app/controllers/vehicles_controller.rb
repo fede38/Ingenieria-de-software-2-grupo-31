@@ -5,11 +5,12 @@ class VehiclesController < ApplicationController
 	end
 
 	def create
-		@vehicle = Vehicle.new(parametros)
+		#@user = User.find(params[current_user])
+		@vehicle = current_user.vehicles.new(parametros)
 		if @vehicle.save
 			redirect_to current_user
 		else
-			render "/edit"
+			render :new
 		end
 	end
 
