@@ -1,10 +1,10 @@
 
 <h2>Registra tu vehículo:</h2>
 
-<%= form_for @vehicle do |form| %>
+<%= form_for [@user, @vehicle], url: user_vehicles_path do |form| %>
 
 	<% if @vehicle.errors.any? %>
-		<div class="alert alert-danger alert-dismissable">	
+		<div class="alert alert-danger alert-dismissable">
 				<ul>
 				<% @vehicle.errors.each do |e| %>
 				</ul>
@@ -15,32 +15,31 @@
 		</div>
 	<% end %>
 
-	<p> 
+	<p>
 		<%= form.label :patente %> <br>
-		<%= form.text_field :patente %> 
+		<%= form.text_field :patente %>
 	</p>
-	<p> 
+	<p>
 		<%=	form.label :modelo %> <br>
-		<%= form.text_field :modelo %> 
+		<%= form.text_field :modelo %>
 	</p>
-	<p> 
+	<p>
 		<%=	form.label :marca %> <br>
-		<%= form.text_field :marca %> 
+		<%= form.text_field :marca %>
 	</p>
-	<p> 
+	<p>
 		<%=	form.label :cantidad_asientos, "Cantidad de asientos" %> <br>
-		<%= form.text_field :cantidad_asientos %> 
+		<%= form.text_field :cantidad_asientos %>
 	</p>
-	<p> 
+	<p>
 		<%=	form.label :color %> <br>
-		<%= form.text_field :color %> 
+		<%= form.text_field :color %>
 	</p>
-	<p> 
+	<p>
 		<%=	form.label :tipo %> <br>
-		<%= form.text_field :tipo %> 
+		<%= form.text_field :tipo %>
 	</p>
 
 	<%= form.submit "Guardar vehículo" %>
-
 
 <% end %>
