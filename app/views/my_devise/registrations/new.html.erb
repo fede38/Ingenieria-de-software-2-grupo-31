@@ -1,7 +1,7 @@
 <% provide(:titulo, "Creacion de usuario") %>
 
 <div class="centering">
-  <h2>Crear usuario nuevo</h2>
+  <h2 style="text-align: center;">Crear nuevo usuario</h2>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
@@ -40,7 +40,7 @@
     </div>
 
     <div class="actions">
-      <%= f.submit "Registrarse", class:"btn btn-primary"  %>
+      <%= f.submit "Registrarse", class:"btn my-link-button my-button-color"  %>
     </div>
   <% end %>
   <h1></h1>
