@@ -1,12 +1,13 @@
 <% provide(:titulo, 'Editar usuario') %>
 
 <div class="centering">
-  <h1>Editar perfil de <%= @user.nombre %></h1><br>
+  <h1 style="text-align: center;">Editar perfil de <%= @user.nombre %></h1><br>
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true, method: :put }) do |f| %>
     <%= devise_error_messages! %>
 
     <div class="form-group">
+      <%= f.label :Foto_de_perfil %> <br />
       <%= f.file_field :avatar %>
     </div>
 
@@ -34,9 +35,13 @@
       <%= f.text_field :telefono, class: "form-control" %>
     </div>
 
-    <a data-toggle="collapse" data-target="#escondido" default="hide", class="btn btn-primary colapso">
-      Mostrar tarjeta:
-    </a>
+    <hr class="my-hr">
+
+    <p>
+      <a data-toggle="collapse" data-target="#escondido" default="hide", class="btn btn-sm colapso my-button-with2">
+        Tarjeta:
+      </a>
+    </p>
 
     <div class="collapse" id="escondido">
       <div class="row">
@@ -51,6 +56,15 @@
       </div>
     </div>
 
+    <hr class="my-hr">
+
+    <p>
+      <a data-toggle="collapse" data-target="#escondido2" default="hide", class="btn btn-sm colapso my-button-with2">
+        Cambiar contraseña:
+      </a>
+    </p>
+
+    <div class="collapse" id="escondido2">
     <div class="form-group">
       <%= f.label :password, "Contraseña" %> <i>(dejar en blanco si no quieres cambiarla)</i><br />
       <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
@@ -60,20 +74,46 @@
       <%= f.label :password_confirmation, "Confirmar contraseña" %><br />
       <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
     </div>
+    </div>
+
+    <hr class="my-hr">
 
     <div class="form-group">
       <%= f.label :current_password, "Contraseña actual" %> <i>(necesitamos tu contraseña actual para confirmar los cambios)</i><br />
       <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
     </div>
 
-    <div class="actions">
-      <%= f.submit "Actualizar", class:"btn btn-primary"  %>
-    </div>
+    <center>
+      <div class="actions">
+        <%= f.submit "Actualizar", class:"btn  my-link-button my-button-color my-button-with"  %>
+      </div>
+    </center>
   <% end %>
 
-  <h3>Cancelar mi cuenta.</h3>
+    <div>
+      <br />
+      <br />
+    </div>
+    
+    <%= link_to "Volver", :back %>
 
-  <p>No estas contento con nuestro servicio? <%= button_to "Cancelar mi cuenta", registration_path(resource_name), data: { confirm: "Estas seguro?" }, method: :delete %></p>
+    <hr style="height:1px;border-width:0;color:gray;background-color:#BB9797">  
 
-  <%= link_to "Volver", :back %>
+  <div>
+    <h3>Cancelar mi cuenta.</h3>
+
+    <p>No estas contento con nuestro servicio? <%= button_to "Cancelar mi cuenta", registration_path(resource_name), data: { confirm: "Estas seguro?" }, method: :delete %></p>
+
+    <!-- <div>
+      <br />
+      <br />
+    </div>
+    <%= link_to "Volver", :back %>
+  </div> -->
+
+    <div>
+      <br />
+      <br />
+    </div>
+
 </div>

@@ -1,28 +1,52 @@
 <% provide(:titulo, "Iniciar sesión") %>
+<div class="centering">
+  <div>
+    <br />
+    <br />
+    <br />
+  </div>
+  <h2>Iniciar sesión</h2>
 
-<h2>Iniciar sesión</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div>
+    <br />
   </div>
 
-  <div class="field">
-    <%= f.label :password , "Contraseña" %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me , "Recuerdame" %>
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
     </div>
-  <% end -%>
 
-  <div class="actions">
-    <%= f.submit "Iniciar sesión", class:"btn btn-primary" %>
+    <div>
+      <br />
+    </div>
+
+    <div class="field">
+      <%= f.label :password , "Contraseña" %><br />
+      <%= f.password_field :password, autocomplete: "off" %>
+    </div>
+
+    <div>
+      <br />
+    </div>
+
+    <% if devise_mapping.rememberable? -%>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me , "Recuerdame" %>
+      </div>
+    <% end -%>
+
+    <div>
+      <br />
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Iniciar sesión", class:"btn  my-link-button my-button-color" %>
+    </div>
+  <% end %>
+  <div>
+    <br />
   </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+  <%= render "devise/shared/links" %>
+</div>

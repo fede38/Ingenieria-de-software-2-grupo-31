@@ -2,6 +2,18 @@
 @import 'bootstrap';
 
 
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
 /*--------------------Estilos globales---------------*/
 body {
     background-color: #f5f5f5;
@@ -88,10 +100,6 @@ success {
     background-color: #fafafa
 }
 
-.my-button-color{
-    background-color: #F17376;
-    text-align: center;
-}
 
 /*----------------Fin estilos del header-------------------*/
 
@@ -123,13 +131,24 @@ success {
     text-align: center;
 }
 .colapso {
-    background-color: red;
+    background-color: #63C55E;
+    border-color: #63C55E;
     padding: 5;
+    text-decoration: none;
+    font-weight: bold;
+    color: #fafafa !important;
     &:hover {
-        background-color: #DD0000;
+        border-color:#63C55E;
+        background-color: #63C55E;
+        text-decoration: none;
+        font-weight: bold;
+        color: #fafafa !important;
     }
     &:click {
-        background-color: none;
+        text-decoration: none;
+        font-weight: bold;
+        color: #fafafa!important;
+        background-color: #63C55E;
     }
 }
 /*---------------Fin estilos de formularios----------------*/
@@ -137,6 +156,14 @@ success {
 
 
 /*---------------Estilos de botones y jumbotrones----------*/
+.my-button-with{
+    width: 50%
+}
+
+.my-button-with2{
+    width: 20%
+}
+
 .my-link-button{
     text-decoration: none;
     font-weight: bold;
@@ -145,6 +172,18 @@ success {
         text-decoration: none;
         color: #BFEABD;
     }
+}
+
+.my-button-color{
+    background-color: #F17376;
+    text-align: center;
+}
+
+.my-hr{
+    height:1px;
+    border-width:0;
+    color:gray;
+    background-color:#BB9797;
 }
 
 .my-jumbotron{
@@ -167,3 +206,31 @@ success {
     }
 }
 /*---------------Fin estilos del footer--------------------*/
+
+.my-borders{
+    :active{
+        border: 2px solid #F17376;
+        border-color: #F17376 !important;
+    }
+    ::focus  {
+        border: 2px solid #F17376;
+        border-color: #F17376 !important;
+    }
+}
+.field{
+    input:focus, textarea:focus {
+        outline: none;
+        box-shadow: none;
+        @include box-shadow(3px, 3px, 3px, #FECDCE);
+        border: 3px solid #FDA1A3;
+    }
+}
+
+.form-group{
+   input:focus, textarea:focus {
+        outline: none !important;
+        box-shadow: none;
+        @include box-shadow(3px, 3px, 3px, #FECDCE);
+        border: 3px solid #FDA1A3 !important;
+    } 
+}
