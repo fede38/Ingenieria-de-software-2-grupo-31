@@ -73,31 +73,31 @@ success {
     color: #F17376 !important;
 }
 .navbutton{
-    text-decoration: none;
-    font-weight: bold;
     color: #F17376 !important;
+    font-weight: bold;
+    text-decoration: none;
     &:hover {
-        text-decoration: none;
-        font-weight: bold;
         color: #249A1E !important;
+        font-weight: bold;
+        text-decoration: none;
     }
 }
 .my-navbar{
     a {
         color: #F1F0F0 !important;
         &:hover {
-        color: #BFEABD !important;
-    }
+            color: #BFEABD !important;
+        }
     }
 }
 .navbar-nav.navbar-center{
-	position: absolute;
-	left: 25%;
-	transform: translateX(-75%);
+    left: 25%;
+    position: absolute;
+    transform: translateX(-75%);
 }
 .my-button{
-	border-radius: 10%;
-    background-color: #fafafa
+    background-color: #fafafa;
+    border-radius: 10%;
 }
 
 
@@ -107,15 +107,15 @@ success {
 
 /*----------------Estilos de imagenes----------------------*/
 .small-image{
-    width: 20px;
     height: 20px;
+    width: 20px;
 }
 .circular-image{
     border-radius: 50%;
 }
 .mediumm-image{
-    width:175px;
     height:175px;
+    width:175px;
 }
 /*----------------Fin estilos de imagenes------------------*/
 
@@ -165,12 +165,12 @@ success {
 }
 
 .my-link-button{
-    text-decoration: none;
-    font-weight: bold;
     color: #F1F0F0;
+    font-weight: bold;
+    text-decoration: none;
     &:hover {
-        text-decoration: none;
         color: #BFEABD;
+        text-decoration: none;
     }
 }
 
