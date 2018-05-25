@@ -15,7 +15,8 @@ class VehiclesController < ApplicationController
 	end
 
 	def index
-		@vehicle = User.find(params[:user_id]).vehicles
+		@user = User.find(params[:user_id])
+		@vehicle = @user.vehicles
 	end
 
 private
