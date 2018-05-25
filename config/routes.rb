@@ -6,14 +6,6 @@ Rails.application.routes.draw do
 	get '/users', to: 'users#show'
 
 	resources :trips
-	resources :users, only: [:show]
-
-	root 'trips#index'
- 	
-	devise_for :users
-
-
-	resources :trips
 	resources :users do
 		resources :vehicles
 	end
