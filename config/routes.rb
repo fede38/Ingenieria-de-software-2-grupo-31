@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
-  root 'trips#index'
+ 	
+ 	root 'trips#index'
+ 	
+	devise_for :users
 
-  devise_for :users
-
-  resources :trips
-  resources :users do
-    resources :vehicles
-  end
+	resources :trips
+	resources :users do
+		resources :vehicles
+	end
 end

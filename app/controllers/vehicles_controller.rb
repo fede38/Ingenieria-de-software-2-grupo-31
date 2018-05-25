@@ -5,17 +5,17 @@ class VehiclesController < ApplicationController
 	end
 
 	def create
-		@vehicles = Vehicle.new(parametros)
-		if @vehicles.save
-			current_user.vehicles << @vehicles
+		@vehicle = Vehicle.new(parametros)
+		if @vehicle.save
+			current_user.vehicles << @vehicle
 			redirect_to current_user
 		else
-			render :new
+			render 'new'
 		end
 	end
 
 	def index
-		@vehicles = User.find(params[:user_id]).vehicles
+		@vehicle = User.find(params[:user_id]).vehicles
 	end
 
 private
