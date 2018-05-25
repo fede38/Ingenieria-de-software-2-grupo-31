@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180514005211) do
+ActiveRecord::Schema.define(version: 20180525015641) do
 
   create_table "trips", force: :cascade do |t|
     t.datetime "created_at",  null: false
@@ -44,21 +44,10 @@ ActiveRecord::Schema.define(version: 20180514005211) do
     t.string   "unconfirmed_email"
     t.string   "telefono"
     t.string   "tarjeta"
-    t.string   "codigo_seguridad"
     t.boolean  "eliminado",              default: false
+    t.date     "fecha_vencimiento"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "vehicles", force: :cascade do |t|
-    t.string   "patente"
-    t.integer  "modelo"
-    t.string   "marca"
-    t.integer  "cantidad_asientos"
-    t.string   "color"
-    t.string   "tipo"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
   end
 
 end

@@ -31,6 +31,11 @@
     </div>
 
     <div class="form-group">
+      <%= f.label :fecha_nacimiento %><br/>
+      <%= f.date_field :fecha_nacimiento, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
       <%= f.label :telefono %><br/>
       <%= f.text_field :telefono, class: "form-control" %>
     </div>
@@ -45,13 +50,13 @@
 
     <div class="collapse" id="escondido">
       <div class="row">
-        <div class="form-group col-xs-9">
-          <%= f.label :tarjeta %>
+        <div class="form-group col-xs-6">
+          <%= f.label "Numero de tarjeta" %>
           <%= f.text_field :tarjeta, maxlength: 16, class: "form-control flotar-medio" %>
         </div>
-        <div class="form-group col-xs-3">
-          <%= f.label :codigo_seguridad %>
-          <%= f.text_field :codigo_seguridad, maxlength: 3, class: "form-control flotar-medio" %><br>
+        <div class="form-group col-xs-6">
+          <%= f.label :fecha_vencimiento %>
+          <%= f.date_select :fecha_vencimiento, {discard_day: true}, class: "form-control flotar-medio" %><br>
         </div>
       </div>
     </div>
@@ -94,10 +99,10 @@
       <br />
       <br />
     </div>
-    
+
     <%= link_to "Volver", :back %>
 
-    <hr style="height:1px;border-width:0;color:gray;background-color:#BB9797">  
+    <hr style="height:1px;border-width:0;color:gray;background-color:#BB9797">
 
   <div>
     <h3>Cancelar mi cuenta.</h3>

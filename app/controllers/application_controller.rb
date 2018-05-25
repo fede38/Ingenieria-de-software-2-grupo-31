@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit(:account_update) { |u|
         u.permit(:password, :password_confirmation, :current_password,
                  :nombre, :apellido, :avatar, :telefono, :tarjeta,
-                 :codigo_seguridad)
+                 :fecha_nacimiento, :fecha_vencimiento)
       }
     end
 end

@@ -16,19 +16,17 @@ class User < ApplicationRecord
   validate :solo_numeros
 
   def tarjeta_correcta
-    if (self.tarjeta && self.codigo_seguridad) && (!self.tarjeta.empty? &&
-        !self.codigo_seguridad.empty?)
-      if(self.tarjeta.length != 16)|(self.codigo_seguridad.length != 3)
+    if ((self.tarjeta) && (!self.tarjeta.empty?))
+      if(self.tarjeta.length != 16)
         errors.add("El formato de la tarjeta de credito ", 'es incorrecto.')
       end
     end
   end
 
   def solo_numeros
-    if self.tarjeta && self.codigo_seguridad
-      if !self.solonumeros?(self.tarjeta) ||
-       !self.solonumeros?(self.codigo_seguridad)
-      errors.add("La tarjeta no puede ", 'contener caracteres.')
+    if self.tarjeta
+      if !self.solonumeros?(self.tarjeta)
+        errors.add("La tarjeta no puede ", 'contener caracteres.')
       end
     end
   end
