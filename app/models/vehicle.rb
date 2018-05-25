@@ -15,15 +15,19 @@ class Vehicle < ApplicationRecord
 	
 	validates :color, format: { with: /\A[a-zA-Z]+\z/, message: "Color: Solo letras - Obligatorio"}
 	
-	validates :tipo, inclusion: { in: %w(Moto Auto Pick-up Autobus Camion),
-									message: "Tipo: Debes elegir Moto, Auto, Pick-up,
-									Autobus, o Camion - Obligatorio"}
+	validate :validacion_tipo
 
 	def existe
 		if Vehicle.exists?(:patente => self.patente)
 			errors.add("", 
 					 'La patente ya está registrada. Si compartes el vehiculo con otro usuario, 
 					 prueba la opción vehículo compartido.')
+		end
+	end
+
+	def validacion_tipo
+		if self.tipo = '--Elige el tipo--'
+			errors.add("nada", 'Debes elegir un tipo de vehículo')
 		end
 	end
 end

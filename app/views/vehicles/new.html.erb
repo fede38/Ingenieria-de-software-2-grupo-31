@@ -5,13 +5,14 @@
 
 	<% if @vehicle.errors.any? %>
 		<div class="alert alert-danger alert-dismissable">
-				<ul>
+			<button class="close" type="button" data-dismiss="alert">x</button>	
+			<ul>
 				<% @vehicle.errors.each do |e| %>
-				</ul>
-				<li>
-					<%= @vehicle.errors[e][0] %>
-				</li>
-				<% end %>
+			</ul>
+			<li>
+				<%= @vehicle.errors[e][0] %>
+			</li>
+			<% end %>
 		</div>
 	<% end %>
 
@@ -37,7 +38,7 @@
 	</p>
 	<p>
 		<%=	form.label :tipo %> <br>
-		<%= form.text_field :tipo %>
+		<%= form.select :tipo, ['--Elige el tipo--','Moto', 'Auto', 'Pick-up', 'Autobus', 'Camion'] %>
 	</p>
 
 	<%= form.submit "Guardar vehículo" %>
