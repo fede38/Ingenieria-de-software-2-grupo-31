@@ -3,9 +3,12 @@ class User < ApplicationRecord
   #  :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+
   has_attached_file :avatar, :default_url => 'missing_user.png'
   validates_attachment_content_type :avatar, :content_type => ["image/jpg",
                                     "image/jpeg", "image/png", "image/gif"]
+  has_many :owner
+  has_many :vehicles, through: :owner
 
   validates :password, length: {maximum: 25}
   validates :nombre, :apellido, length: {maximum: 50}

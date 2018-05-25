@@ -50,7 +50,7 @@
                   <%= link_to 'Mis viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button" %>
                 </ul>
                 <ul type="button" class="btn btn-block btn-sm">
-                  <%= link_to 'Mis vehiculos', '#',:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                  <%= link_to 'Mis vehiculos', user_vehicles_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
                 </ul>
                 <ul type="button" class="btn btn-sm btn-block "  ><b>
                   <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>

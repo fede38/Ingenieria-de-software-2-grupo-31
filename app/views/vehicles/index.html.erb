@@ -1,0 +1,17 @@
+<%= link_to 'Nuevo vehiculo', new_user_vehicle_path(@user) %>
+<% @vehicle.each do |ve| %>
+  <h5>Patente:</h5>
+    <%= ve.patente %>
+  <h5>Modelo:</h5>
+    <%= ve.modelo %>
+  <h5>Marca:</h5>
+    <%= ve.marca %>
+  <h5>Cantidad de asientos:</h5>
+    <%= ve.cantidad_asientos %>
+  <h5>Color:</h5>
+    <%= ve.color %>
+  <h5>Tipo:</h5>
+    <%= ve.tipo %>
+  <br>
+
+<% end %>
