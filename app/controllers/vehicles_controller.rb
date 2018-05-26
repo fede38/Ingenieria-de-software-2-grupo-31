@@ -6,11 +6,17 @@ class VehiclesController < ApplicationController
 
 	def create
 		@vehicle = Vehicle.new(parametros)
-		if @vehicle.save
-			current_user.vehicles << @vehicle
+		@user = User.find(params[:user_id])
+		if Vehicle.exists?(:patente => @vehicle.patente)
+			@user.vehicles << Vehicle.where(patente: @vehicle.patente).take
 			redirect_to current_user
 		else
-			render 'new'
+			if @vehicle.save
+				current_user.vehicles << @vehicle
+				redirect_to current_user
+			else
+				render 'new'
+			end
 		end
 	end
 
@@ -23,4 +29,4 @@ private
 	def parametros
 		params.require(:vehicle).permit(:patente, :modelo, :marca, :cantidad_asientos, :color, :tipo)
 	end
-end
+ end

@@ -6,8 +6,8 @@ class Vehicle < ApplicationRecord
   	validate :existe
 	validates :patente, format: { with: /([a-zA-Z]{3}[0-9]{3}|[a-z]{2}[0-9]{3}[a-zA-Z]{2})/, 
 									message: "Patente incorrecta"}
-	validates :modelo, format: { with: /[\sa-zA-Z0-9]/, message: "Modelo: Solo numeros y letras
-									- Obligatorio"}
+	validates :modelo, numericality: {only_integer: true, message: 'Modelo: Sólo con la fecha alcanza
+										 - Obligatorio.'}
 	validates :marca, format: { with: /\A[a-zA-Z]+\z/, message: "Marca: Solo letras - Obligatorio"}
 
 	validates :cantidad_asientos, numericality: {only_integer: true, message: 'Cantidad de 
@@ -26,7 +26,7 @@ class Vehicle < ApplicationRecord
 	end
 
 	def validacion_tipo
-		if self.tipo = '--Elige el tipo--'
+		if self.tipo == '--Elige el tipo--'
 			errors.add("nada", 'Debes elegir un tipo de vehículo')
 		end
 	end
