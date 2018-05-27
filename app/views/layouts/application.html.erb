@@ -13,11 +13,19 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <%= render 'partials/header' %>
-    <div class="container-fluid">
-      <%= render 'partials/messages' %>
-      <%= yield %>
+    <div id="contenedor">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render 'partials/header' %>
+      </div>
     </div>
-   <!--  <%= render 'partials/footer' %> -->
+    <div class="row">
+      <div class="col-md-12">
+        <%= render 'partials/messages' %>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+    <%= render 'partials/footer' %>  
   </body>
 </html>
