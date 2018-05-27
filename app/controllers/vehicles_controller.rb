@@ -1,5 +1,5 @@
 class VehiclesController < ApplicationController
-
+	before_action :correct_user, except: [:show, :index]
 	def new
 		@vehicle = Vehicle.new
 	end
@@ -31,9 +31,10 @@ class VehiclesController < ApplicationController
 	end
 
 	def update
+		@user = User.find(params[:user_id])
 		@vehicle = @user.vehicles.find(params[:id])
-		if Vehicle.update_attributes(parametros)
-			redirect_to current_user
+		if @vehicle.update_attributes(parametros)
+			redirect_to user_vehicles_url
 		else
 			render 'edit'
 		end
@@ -42,5 +43,9 @@ class VehiclesController < ApplicationController
 private
 	def parametros
 		params.require(:vehicle).permit(:patente, :modelo, :marca, :cantidad_asientos, :color, :tipo)
+	end
+
+	def correct_user
+		redirect_to current_user unless params[:user_id] == current_user
 	end
  end

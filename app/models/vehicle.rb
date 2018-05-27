@@ -3,7 +3,7 @@ class Vehicle < ApplicationRecord
   has_many :users, through: :owners
 
 
-  	validate :existe
+  	validate :existe, on: create
 	validates :patente, format: { with: /([a-zA-Z]{3}[0-9]{3}|[a-z]{2}[0-9]{3}[a-zA-Z]{2})/, 
 									message: "Patente incorrecta"}
 	validates :modelo, numericality: {only_integer: true, message: 'Modelo: Sólo con la fecha alcanza
