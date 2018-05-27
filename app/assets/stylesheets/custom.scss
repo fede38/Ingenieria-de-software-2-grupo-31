@@ -148,6 +148,13 @@ success {
 
 
 /*---------------Estilos de botones y jumbotrones----------*/
+.isDisabled {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
 .my-button-with{
     width: 50%
 }
@@ -186,7 +193,9 @@ success {
 
 
 /*---------------Estilos del footer------------------------*/
-.footer {
+
+/* footer de fede */
+/*.footer {
     border-top: 1px solid black;
     ul {
         list-style: none;
@@ -195,7 +204,23 @@ success {
             margin-right: 10px;
         }
     }
-}
+}*/
+
+/* footer de sticky */
+/*.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    ul {
+        list-style: none;
+        li {
+            float: right;
+            margin-right: 10px;
+        }
+    }
+}*/
 /*---------------Fin estilos del footer--------------------*/
 
 .my-borders{
