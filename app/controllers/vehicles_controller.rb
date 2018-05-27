@@ -1,5 +1,6 @@
 class VehiclesController < ApplicationController
 	before_action :correct_user, except: [:show, :index]
+
 	def new
 		@vehicle = Vehicle.new
 	end
@@ -41,11 +42,13 @@ class VehiclesController < ApplicationController
 	end
 
 private
+
 	def parametros
 		params.require(:vehicle).permit(:patente, :modelo, :marca, :cantidad_asientos, :color, :tipo)
 	end
 
 	def correct_user
-		redirect_to current_user unless params[:user_id] == current_user
+		@user = User.find(params[:user_id])
+		redirect_to current_user unless @user == current_user
 	end
- end
+end
