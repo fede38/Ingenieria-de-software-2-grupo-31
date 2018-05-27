@@ -25,6 +25,20 @@ class VehiclesController < ApplicationController
 		@vehicle = @user.vehicles
 	end
 
+	def edit 
+		@user = User.find(params[:user_id])
+		@vehicle = @user.vehicles.find(params[:id])
+	end
+
+	def update
+		@vehicle = @user.vehicles.find(params[:id])
+		if Vehicle.update_attributes(parametros)
+			redirect_to current_user
+		else
+			render 'edit'
+		end
+	end
+
 private
 	def parametros
 		params.require(:vehicle).permit(:patente, :modelo, :marca, :cantidad_asientos, :color, :tipo)

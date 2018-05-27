@@ -1,5 +1,4 @@
-
-<h2>Registra tu vehículo:</h2>
+<h1>Modifica el vehículo</h1>
 
 <%= form_for [@user, @vehicle], url: user_vehicles_path do |form| %>
 
@@ -16,10 +15,6 @@
 		</div>
 	<% end %>
 
-	<p>
-		<%= form.label :patente %> <br>
-		<%= form.text_field :patente %>
-	</p>
 	<p>
 		<%=	form.label :modelo %> <br>
 		<%= form.text_field :modelo %>
@@ -41,5 +36,5 @@
 		<%= form.select :tipo, ['--Elige el tipo--','Moto', 'Auto', 'Pick-up', 'Autobus', 'Camion'] %>
 	</p>
 
-	<%= form.submit "Guardar vehículo" %>
+<%= form.submit "Modificar vehiculo" %>
 <% end %>
