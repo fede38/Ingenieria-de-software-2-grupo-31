@@ -1,48 +1,48 @@
+<% provide( :titulo, "Nuevo vehiculo") %>
 
-<h2>Registra tu vehículo:</h2>
+<div class="centering">
+	<h2 style="text-align: center;">Registra tu vehículo:</h2>
+	<%= form_for [@user, @vehicle], url: user_vehicles_path do |form| %>
 
-<%= form_for [@user, @vehicle], url: user_vehicles_path do |form| %>
-
-	<% if @vehicle.errors.any? %>
-		<div class="alert alert-danger alert-dismissable">
+		<% if @vehicle.errors.any? %>
+			<div class="alert alert-danger alert-dismissable">
 				<ul>
-				<% @vehicle.errors.each do |e| %>
+					<% @vehicle.errors.each do |e| %>
 				</ul>
 				<li>
 					<%= @vehicle.errors[e][0] %>
 				</li>
-				<% end %>
-		</div>
+			</div>
+		<% end %>
 	<% end %>
-
-	<p>
+	<div class="form-group">
 		<%= form.label :patente %> <br>
-		<%= form.text_field :patente %>
-	</p>
-	<p>
+		<%= form.text_field :patente, class: "form-control" %>
+	</div>
+	<div class="form-group">
 		<%=	form.label :modelo %> <br>
-		<%= form.text_field :modelo %>
-	</p>
-	<p>
+		<%= form.text_field :modelo, class: "form-control" %>
+	</div>
+	<div class="form-group">
 		<%=	form.label :marca %> <br>
-		<%= form.text_field :marca %>
-	</p>
-	<p>
-		<%=	form.label :cantidad_asientos, "Cantidad de asientos" %> <br>
-		<%= form.text_field :cantidad_asientos %>
-	</p>
-	<p>
-		<%=	form.label :color %> <br>
-		<%= form.text_field :color %>
-	</p>
-	<p>
+		<%= form.text_field :marca, class: "form-control" %>
+	</div>
+	<div class="form-group">
 		<%=	form.label :tipo %> <br>
-		<%= form.text_field :tipo %>
-	</p>
+		<%= form.text_field :tipo, class: "form-control" %>
+	</div>
+	<div class="form-group">
+		<%=	form.label :color %> <br>
+		<%= form.text_field :color, class: "form-control" %>
+	</div>
+	<div class="form-group">
+		<%=	form.label :cantidad_asientos, "Cantidad de asientos" %> <br>
+		<%= form.text_field :cantidad_asientos, class: "form-control" %>
+	</div>
 
-	<%= form.submit "Guardar vehículo" %>
-	<div>
-		<%= link_to "Vehículo compartido", "/vehicle/compartido" %>
+	<div class=" actions">
+		<%= form.submit "Guardar vehículo", class:"btn my-link-button my-button-color" %>
 	</div>
 
 <% end %>
+</div>

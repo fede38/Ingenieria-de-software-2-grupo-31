@@ -1,17 +1,141 @@
-<%= link_to 'Nuevo vehiculo', new_user_vehicle_path(@user) %>
-<% @vehicle.each do |ve| %>
-  <h5>Patente:</h5>
-    <%= ve.patente %>
-  <h5>Modelo:</h5>
-    <%= ve.modelo %>
-  <h5>Marca:</h5>
-    <%= ve.marca %>
-  <h5>Cantidad de asientos:</h5>
-    <%= ve.cantidad_asientos %>
-  <h5>Color:</h5>
-    <%= ve.color %>
-  <h5>Tipo:</h5>
-    <%= ve.tipo %>
-  <br>
 
-<% end %>
+<% provide(:titulo, "Vehiculos") %>
+<div class="row">
+  <div class="col-md-12">
+    <% if @user.eliminado %>
+      <div class="page-header">
+      <!--  "En este div se puede poner el titulo de la pagina o un titulo general" -->
+        <h1>Este usuario ya no existe</h1>
+      </div>
+    <% else %>
+      <div class="row">
+        <div class="col-md-1">
+        <!-- Esta columna es para separar el borde de la primer columna de contacto -->
+        </div>
+        <div class="col-md-10">
+        <!-- Columna en dodne se va a desarrollar el perfil -->
+          <div class="row">
+            <div class="col-md-2">
+              <!-- Columna para foto de perfil y demases -->
+              <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
+              <%= image_tag(@user.avatar.url,:class=>"circular-image mediumm-image")%>
+              <h3 style="text-align: center">
+                <%= username %>
+              </h3>
+              <% if @user == current_user %>
+                <p>
+                  Nombre:
+                 <%= @user.nombre %>
+                </p>
+                <p>
+                  Apellido:
+                  <%= @user.apellido %>
+                </p>
+                <p>
+                  E-mail:
+                  <%= @user.email %>
+                </p>
+                <p>
+                  Fecha de Nacimiento: <%= formato_fecha %>
+                </p>
+              <% end %>
+              <p class="isDisabled">
+                Reputacion Piloto:
+              </p>
+              <p class="isDisabled">
+                Reputacion Copiloto:
+              </p>
+
+              <!-- Codigo que checkea que un usuario sea el del perfil visitado -->
+              <% if @user == current_user %>
+                <ul type="button" class="btn btn-block btn-sm">
+                  <%= link_to 'Nuevo Vehiculo', new_user_vehicle_path(@user),:class => "btn btn-block btn-sm colapso my-link-button" %>
+                </ul>
+                <ul type="button" class="btn btn-block btn-sm disabled">
+                  <%= link_to 'Mis viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
+                </ul>
+                <ul type="button" class="btn btn-sm btn-block "  ><b>
+                  <%= link_to 'Mi Perfil',:back,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                </ul>
+              <% else %>
+                <ul type="button" class="btn btn-block btn-sm disabled">
+                  <%= link_to 'Viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
+                </ul>
+                <ul type="button" class="btn btn-block btn-sm">
+                  <%= link_to 'Perfil', '#',:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                </ul>
+              <% end %>
+              <!-- fin codigo de checkeo de perfil -->
+            </div>
+            <div class="col-md-10">
+              <div class="row">
+                <div class="col-md-1">
+                <!-- columna separadora -->
+                </div>
+                <div class="col-md-10" style="background-color: #fafafa">
+                  <h1 style="text-align: center;">
+                    Vehiculos
+                  </h1>
+                  <div class="row">
+                    <div class="col-md-1">
+                      <!-- div separador -->
+                    </div>
+                    <div class="col-md-10">
+                      <% if @user.vehicles.all.empty? %>
+                        <h3 style="text-align: center;">
+                          <% if @user == current_user %>
+                            No posee vehiculos, <%= link_to ' agrega uno!', new_user_vehicle_path(@user) %>
+                          <% else %>
+                            No posee vehiculos
+                          <% end %>
+                        </h3>
+                      <% else %>
+                        <% @vehicle.each do |ve| %>
+                          <div class="jumbotron my-jumbotron">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <h5>
+                                  Patente: <%= ve.patente %>
+                                </h5>
+                                <h5>
+                                  Tipo: <%= ve.tipo %>
+                                </h5>
+                              </div>
+                              <div class="col-md-4">
+                                <h5>
+                                  Modelo:  <%= ve.modelo %>
+                                </h5>
+                                <h5>
+                                  Color: <%= ve.color %>
+                                </h5>
+                              </div>
+                              <div class="col-md-4">
+                                <h5>
+                                  Marca: <%= ve.marca %>
+                                </h5>
+                                <h5>
+                                  Asientos: <%= ve.cantidad_asientos %>
+                                </h5>
+                              </div>
+                            </div>
+                          <div class="row">
+                            <button type="button" class="btn btn-block btn-sm my-button-color">
+                              <%= link_to 'Modificar', '#',:class => "my-link-button isDisabled" %>
+                            </button>
+                          </div>
+                        <% end %>
+                      <% end %>
+                    </div>
+                    <div class="col-md-1">
+                      <!-- div separador -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
