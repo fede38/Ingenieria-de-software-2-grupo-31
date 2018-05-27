@@ -15,3 +15,7 @@ module IngenieriaDeSoftware2Grupo31
     # -- all .rb files in that directory are automatically loaded.
   end
 end
+
+I18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
+I18n.available_locales = [:en, :es]
+I18n.default_locale = :es

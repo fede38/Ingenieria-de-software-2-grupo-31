@@ -14,18 +14,23 @@
   </head>
   <body>
     <div id="contenedor">
-    <div class="row">
-      <div class="col-md-12">
-        <%= render 'partials/header' %>
+      <div class="row">
+        <div class="col-md-12">
+          <%= render 'partials/header' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <%= render 'partials/messages' %>
+          <%= yield %>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <%= render 'partials/messages' %>
-        <%= yield %>
+        <%= render 'partials/footer' %>
       </div>
     </div>
   </div>
-  <%= render 'partials/footer' %>  
   </body>
 </html>
