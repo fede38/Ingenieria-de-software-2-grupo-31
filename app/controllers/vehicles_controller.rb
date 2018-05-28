@@ -41,6 +41,12 @@ class VehiclesController < ApplicationController
 		end
 	end
 
+	def destroy
+		@user = User.find(params[:user_id])
+		@vehicle = @user.vehicles.find(params[:id])
+		@vehicle.update_attribute(:eliminado,true)
+	end
+
 private
 
 	def parametros
