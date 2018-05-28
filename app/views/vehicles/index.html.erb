@@ -38,10 +38,23 @@
                 <p>
                   Fecha de Nacimiento: <%= formato_fecha %>
                 </p>
+              <% else %>
+                <div>
+                  <br />
+                  <br />
+                </div>
               <% end %>
+
               <p class="isDisabled">
                 Reputacion Piloto:
               </p>
+
+              <% if @user != current_user %>
+                <div>
+                  <br />
+                </div>
+              <% end %>
+
               <p class="isDisabled">
                 Reputacion Copiloto:
               </p>
@@ -54,15 +67,19 @@
                 <ul type="button" class="btn btn-block btn-sm disabled">
                   <%= link_to 'Mis viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
                 </ul>
-                <ul type="button" class="btn btn-sm btn-block "  ><b>
-                  <%= link_to 'Mi Perfil',:back,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                <ul type="button" class="btn btn-sm btn-block "  >
+                  <%= link_to 'Mi Perfil',users_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
                 </ul>
               <% else %>
+                <div>
+                  <br />
+                  <br />
+                </div>
                 <ul type="button" class="btn btn-block btn-sm disabled">
                   <%= link_to 'Viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
                 </ul>
                 <ul type="button" class="btn btn-block btn-sm">
-                  <%= link_to 'Perfil', '#',:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                  <%= link_to 'Perfil', user_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
                 </ul>
               <% end %>
               <!-- fin codigo de checkeo de perfil -->
@@ -75,6 +92,7 @@
                 <div class="col-md-10" style="background-color: #fafafa">
                   <h1 style="text-align: center;">
                     Vehiculos
+                    <br />
                   </h1>
                   <div class="row">
                     <div class="col-md-1">
@@ -91,37 +109,66 @@
                         </h3>
                       <% else %>
                         <% @vehicle.each do |ve| %>
-                          <div class="jumbotron my-jumbotron">
-                            <div class="row">
-                              <div class="col-md-4">
-                                <h5>
-                                  Patente: <%= ve.patente %>
-                                </h5>
-                                <h5>
-                                  Tipo: <%= ve.tipo %>
-                                </h5>
+                          <div class="well my-jumbotron" >
+                            <h3 style="text-align: center;">
+                              Patente: <%= ve.patente.upcase %>
+                            </h3>
+                            <br/>
+                            <div class="row " style="margin-left: 10px; margin-right: 10px ">
+                              <div class="col-md-4" >
+                                <div >
+                                  <h5 style="font-weight: bold;">
+                                    Marca: <%= ve.marca.upcase %>
+                                  </h5>
+                                </div>
+                                <div >
+                                  <h5 style="font-weight: bold;">
+                                    Color:
+                                      <%= ve.color.upcase %> 
+                                  </h5>
+                                </div>
                               </div>
                               <div class="col-md-4">
-                                <h5>
-                                  Modelo:  <%= ve.modelo %>
-                                </h5>
-                                <h5>
-                                  Color: <%= ve.color %>
-                                </h5>
+                                <div >
+                                  <h5 style="font-weight: bold;">
+                                    Modelo:
+                                      <%= ve.modelo %>
+                                  </h5>
+                                </div>
+                                <div >
+                                  <h5 style="font-weight: bold;">
+                                    Asientos:
+                                      <%= ve.cantidad_asientos %> 
+                                  </h5>
+                                </div>
                               </div>
                               <div class="col-md-4">
-                                <h5>
-                                  Marca: <%= ve.marca %>
-                                </h5>
-                                <h5>
-                                  Asientos: <%= ve.cantidad_asientos %>
-                                </h5>
+                                <div >
+                                  <h5 style="font-weight: bold;">
+                                    Tipo:
+                                      <%= ve.tipo.upcase %>
+                                  </h5>
+                                </div>
+                                <div>
+                                  <h5>
+                                    <br />
+                                  </h5>
+                                </div> 
+                                <br />
                               </div>
+                              <% if @user == current_user %>
+                                <button type="button" class="btn btn-block btn-sm my-button-color">
+                                  <%= link_to 'Modificar', '#',:class => "my-link-button" %>
+                                </button>
+                                <button type="button" class="btn btn-block btn-sm my-button-color">
+                                  <%= link_to 'Eliminar', '#',:class => "my-link-button" %>
+                                </button>
+                              <% end %>
                             </div>
-                          <div class="row">
-                            <button type="button" class="btn btn-block btn-sm my-button-color">
-                              <%= link_to 'Modificar', '#',:class => "my-link-button isDisabled" %>
-                            </button>
+                            <div>
+                              <br />
+                              <br />
+                            </div>
                           </div>
                         <% end %>
                       <% end %>
@@ -134,7 +181,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>  
       </div>
     <% end %>
   </div>

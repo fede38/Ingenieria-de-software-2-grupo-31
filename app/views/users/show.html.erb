@@ -36,10 +36,21 @@
                 <p>
                   Fecha de Nacimiento: <%= formato_fecha %>
                 </p>
+              <% else %>
+                <div>
+                  <br />
+                  <br />
+                </div>
               <% end %>
+
               <p class="isDisabled">
                 Reputacion Piloto:
               </p>
+              <% if @user != current_user %>
+                <div>
+                  <br />
+                </div>
+              <% end %>
               <p class="isDisabled">
                 Reputacion Copiloto:
               </p>
@@ -56,11 +67,15 @@
                   <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
                 </ul>
               <% else %>
+                <div>
+                  <br />
+                  <br />
+                </div>
                 <ul type="button" class="btn btn-block btn-sm disabled">
                   <%= link_to 'Viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
                 </ul>
                 <ul type="button" class="btn btn-block btn-sm">
-                  <%= link_to 'Vehiculos', '#',:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                  <%= link_to 'Vehiculos', user_vehicles_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
                 </ul>
               <% end %>
               <!-- fin codigo de checkeo de perfil -->
