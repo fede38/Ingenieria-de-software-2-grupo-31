@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180525015641) do
+ActiveRecord::Schema.define(version: 20180528224843) do
 
   create_table "owners", force: :cascade do |t|
     t.integer  "user_id"
@@ -66,8 +66,10 @@ ActiveRecord::Schema.define(version: 20180525015641) do
     t.integer  "cantidad_asientos"
     t.string   "color"
     t.string   "tipo"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "eliminado",         default: false
+    t.string   "subMarca"
   end
 
 end

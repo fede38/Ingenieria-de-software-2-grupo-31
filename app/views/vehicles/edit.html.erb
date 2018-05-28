@@ -1,8 +1,7 @@
-<% provide( :titulo, "Nuevo vehiculo") %>
-
 <div class="centering">
-	<h2 style="text-align: center;">Registra tu vehículo:</h2>
-	<%= form_for [@user, @vehicle], url: user_vehicles_path do |form| %>
+	<h2 style="text-align: center;">Modifica el vehículo</h2>
+
+	<%= form_for ([@user, @vehicle]) do |form| %>
 
 		<% if @vehicle.errors.any? %>
 			<div class="alert alert-danger alert-dismissable">
@@ -10,16 +9,15 @@
 				<ul>
 					<% @vehicle.errors.each do |e| %>
 				</ul>
-					<li>
-						<%= @vehicle.errors[e][0] %>
-					</li>
-					<% end %>
+				<li>
+					<%= @vehicle.errors[e][0] %>
+				</li>
+				<% end %>
 			</div>
 		<% end %>
-
 		<div class="form-group">
 			<%= form.label :patente %> <br>
-			<%= form.text_field :patente, class: "form-control" %>
+			<%= form.text_field :patente, readonly: true, class: "form-control" %>
 		</div>
 		<div class="form-group">
 			<%=	form.label :marca %> <br>
@@ -35,20 +33,18 @@
 		</div>
 		<div class="form-group">
 			<%=	form.label :tipo %> <br>
-		<!--	<%= form.text_field :tipo, class: "form-control" %> -->
-			<%= form.select :tipo, ['--Elige el tipo--','Moto', 'Auto', 'Pick-up', 'Autobus', 'Camion'], class: "form-group form-control" %>
-		</div>
-		<div class="form-group">
-			<%=	form.label :color %> <br>
-			<%= form.text_field :color, class: "form-control" %>
+			<%= form.select :tipo, ['--Elige el tipo--','Moto', 'Auto', 'Pick-up', 'Autobus', 'Camion'], class: "form-control" %>
 		</div>
 		<div class="form-group">
 			<%=	form.label :cantidad_asientos, "Cantidad de asientos" %> <br>
 			<%= form.text_field :cantidad_asientos, class: "form-control" %>
 		</div>
-
+		<div class="form-group">
+			<%=	form.label :color %> <br>
+			<%= form.text_field :color, class: "form-control" %>
+		</div>
 		<div class=" actions">
-			<%= form.submit "Guardar vehículo", class:"btn my-link-button my-button-color" %>
+			<%= form.submit "Modificar", class:"btn my-link-button my-button-color" %>
 		</div>
 	<% end %>
 </div>
