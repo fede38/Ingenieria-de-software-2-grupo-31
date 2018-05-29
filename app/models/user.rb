@@ -44,7 +44,7 @@ class User < ApplicationRecord
 
   def menor_de_117
     if self.fecha_nacimiento
-      if self.fecha_nacimiento < 117.years.since.to_date
+      if self.fecha_nacimiento < 117.years.ago.to_date
         errors.add("Estas muy viejo ", 'para usar esta app.')
       end
     end
