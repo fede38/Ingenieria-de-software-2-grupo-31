@@ -14,7 +14,7 @@ class Vehicle < ApplicationRecord
 													asientos: Solo numeros - Obligatorio.'}
 	
 	validates :color, format: { with: /\A[a-zA-Z]+\z/, message: "Color: Solo letras - Obligatorio"}
-	validates :subMarca, format: { with: /\A[a-zA-Z]+\z/, message: "Modelo: Solo letras - Obligatorio"}
+	validates :sub_marca, :presence => true
 	
 	validate :validacion_tipo
 
