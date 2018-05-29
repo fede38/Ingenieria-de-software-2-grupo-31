@@ -8,13 +8,13 @@ class Vehicle < ApplicationRecord
 									message: "Patente incorrecta"}
 	validates :modelo, numericality: {only_integer: true, message: 'Año: Sólo numeros
 										 - Obligatorio.'}
-	validates :marca, format: { with: /\A[a-zA-Z]+\z/, message: "Marca: Solo letras - Obligatorio"}
+	validates :marca, format: { with: /\A[\sa-zA-Z]+\z/, message: "Marca: Solo letras - Obligatorio"}
 
 	validates :cantidad_asientos, numericality: {only_integer: true, message: 'Cantidad de 
 													asientos: Solo numeros - Obligatorio.'}
 	
 	validates :color, format: { with: /\A[a-zA-Z]+\z/, message: "Color: Solo letras - Obligatorio"}
-	validates :sub_marca, :presence => true
+	validates :sub_marca, format: { with: /\A[\sa-zA-Z0-9]+\z/, message: "Modelo: Solo letras y numeros - Obligatorio"}
 	
 	validate :validacion_tipo
 

@@ -58,7 +58,7 @@ class VehiclesController < ApplicationController
 private
 
 	def parametros
-		params.require(:vehicle).permit(:patente, :modelo, :marca, :cantidad_asientos, :color, :tipo)
+		params.require(:vehicle).permit(:patente, :modelo, :marca, :cantidad_asientos, :color, :tipo, :sub_marca)
 	end
 
 	def correct_user
