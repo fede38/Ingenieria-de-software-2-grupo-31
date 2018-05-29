@@ -10,7 +10,6 @@ class User < ApplicationRecord
   has_many :owner
   has_many :vehicles, through: :owner
 
-  validates :password, length: {maximum: 25}
   validates :nombre, :apellido, length: {maximum: 50}
   validates :nombre, :apellido, :fecha_nacimiento, presence: true
 
