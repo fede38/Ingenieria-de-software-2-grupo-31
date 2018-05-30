@@ -5,6 +5,8 @@
       <!--  "En este div se puede poner el titulo de la pagina o un titulo general" -->
         <h1>Este usuario ya no existe</h1>
       </div>
+    <% elsif !@user.confirmed_at %>
+      <h1>Este usuario todavia no confirmo su mail</h1>
     <% else %>
       <div class="row">
         <div class="col-md-1">

@@ -14,6 +14,8 @@ es:
       timeout: "Tu sesión ha expirado. Inicia sesión nuevamente."
       unauthenticated: "Tienes que registrarte o iniciar sesión antes de continuar."
       unconfirmed: "Tienes que confirmar tu cuenta antes de continuar."
+      user:
+        noexiste: "El usuario ha sido eliminado."
     mailer:
       confirmation_instructions:
         subject: "Instrucciones de confirmación"

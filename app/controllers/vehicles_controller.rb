@@ -33,7 +33,7 @@ class VehiclesController < ApplicationController
 		@vehicle = @user.vehicles
 	end
 
-	def edit 
+	def edit
 		@user = User.find(params[:user_id])
 		@vehicle = @user.vehicles.find(params[:id])
 	end
