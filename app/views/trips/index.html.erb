@@ -23,9 +23,15 @@
                 </div>
                 <div class="col-md-10">
                   <% if @trips.empty? %>
-                    <h3 style="text-align: center;">
-                      No hay viajes, <%= link_to ' crea uno!', '#', :class=>"isDisabled" %>
-                    </h3>
+                    <% if user_signed_in? %>
+                      <h3 style="text-align: center;">
+                        No hay viajes,  <%= link_to ' crea uno!', '#', :class=>"isDisabled" %> 
+                      </h3>
+                    <% else %>
+                      <h3 style="text-align: center;">
+                        No hay viajes,  <%= link_to ' inicia sesion', new_user_session_path %> para crear uno!
+                      </h3>
+                    <% end %>
                     <!--
                     <div class="jumbotron my-jumbotron">
                       <h3 style="align-content: center;">
