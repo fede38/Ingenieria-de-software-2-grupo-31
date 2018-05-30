@@ -1,6 +1,38 @@
 ---
 es:
   activerecord:
+    attributes:
+      user:
+        encrypted_password: "Contraseña encriptada"
+        reset_password_token: "El formulario de reestablecimiento de contraseña"
+        reset_password_sent_at: "Fecha de reestablecimiento de contraseña"
+        remember_created_at: "Fecha de creacion"
+        sign_in_count: "Contador de inicio de sesion"
+        current_sign_in_at: "Momento de inicio de sesion actual"
+        last_sign_in_at: "Ultimo inicio de sesion"
+        current_sign_in_ip: "Ip de la sesion actual"
+        last_sign_in_ip: "Ip del ultimo inicio de sesion"
+        created_at: "Fecha de creacion"
+        updated_at: "Fecha de actualizacion"
+        fecha_nacimiento: "Fecha de nacimiento"
+        avatar_file_name: "Nombre del avatar"
+        avatar_content_type: "Tipo de contenido del avatar"
+        avatar_file_size: "Tamaño de archivo del avatar"
+        avatar_updated_at: "Fecha de actualizacion del avatar"
+        confirmation_token: "Formulario de confirmacion"
+        confirmed_at: " Fecha de confirmacion"
+        confirmation_sent_at: "Fecha de envio de confirmacion"
+        unconfirmed_email: "Email no confirmado"
+        fecha_vencimiento: "Fecha de vencimiento"
+        password: "Contraseña"
+        password_confirmation: "Confirmar contraseña"
+        current_password: "Contraseña actual"
+      vehicles:
+        modelo: "Año"
+        sub_marca: "Modelo"
+        created_at: "Fecha de creacion"
+        updated_at: "Fecha de actualizacion"
+        cantidad_asientos: "Cantidad de asientos"
     errors:
       messages:
         record_invalid: "La validación falló: %{errors}"
