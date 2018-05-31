@@ -8,10 +8,10 @@
 			<div class="alert alert-danger alert-dismissable">
 				<button class="close" type="button" data-dismiss="alert">x</button>	
 				<ul>
-					<% @vehicle.errors.each do |e| %>
+					<% @vehicle.errors.full_messages.each do |e| %>
 				</ul>
 					<li>
-						<%= @vehicle.errors[e][0] %>
+						<%= e %>
 					</li>
 					<% end %>
 			</div>

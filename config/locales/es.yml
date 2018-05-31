@@ -27,7 +27,7 @@ es:
         password: "Contraseña"
         password_confirmation: "Confirmar contraseña"
         current_password: "Contraseña actual"
-      vehicles:
+      vehicle:
         modelo: "Año"
         sub_marca: "Modelo"
         created_at: "Fecha de creacion"

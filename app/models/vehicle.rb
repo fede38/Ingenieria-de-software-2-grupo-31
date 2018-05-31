@@ -3,19 +3,19 @@ class Vehicle < ApplicationRecord
   has_many :users, through: :owners
 
 
-  	validate :existe, on: create
-	validates :patente, format: { with: /([a-zA-Z]{3}[0-9]{3}|[a-z]{2}[0-9]{3}[a-zA-Z]{2})/, 
-									message: "Patente incorrecta"}
-	validates :modelo, numericality: {only_integer: true, message: 'Año: Sólo numeros
-										 - Obligatorio.'}
-	validates :marca, format: { with: /\A[\sa-zA-Z]+\z/, message: "Marca: Solo letras - Obligatorio"}
+	validate :existe, on: create
+	validates :patente, format: { with: /[a-zA-Z0-9]+/}, length: { maximum: 25}, presence: true
+	validates :modelo, numericality: {only_integer: true}, presence: true
+	validates :marca, format: { with: /\A[\sa-zA-Z]+\z/}, presence: true
 
-	validates :cantidad_asientos, numericality: {only_integer: true, message: 'Cantidad de 
-													asientos: Solo numeros - Obligatorio.'}
+	validates :cantidad_asientos, numericality: {only_integer: true, message: 'Solo numeros, 
+													sin espacios - Obligatorio.'}, presence: true
 	
-	validates :color, format: { with: /\A[a-zA-Z]+\z/, message: "Color: Solo letras - Obligatorio"}
-	validates :sub_marca, format: { with: /\A[\sa-zA-Z0-9]+\z/, message: "Modelo: Solo letras y numeros - Obligatorio"}
-	
+	validates :color, format: { with: /\A[a-zA-Z]+\z/, message: "Color: Solo letras
+								 - Obligatorio"}, presence: true
+	validates :sub_marca, format: { with: /\A[\sa-zA-Z0-9]+\z/, message: "Solo letras y 
+									numeros, sin espacios - Obligatorio"}, presence: true
+
 	validate :validacion_tipo
 
 	def existe
@@ -28,7 +28,7 @@ class Vehicle < ApplicationRecord
 
 	def validacion_tipo
 		if self.tipo == '--Elige el tipo--'
-			errors.add("nada", 'Debes elegir un tipo de vehículo')
+			errors.add("Tipo ", 'debes elegir un tipo de vehículo')
 		end
 	end
 end

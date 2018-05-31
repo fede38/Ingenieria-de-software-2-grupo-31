@@ -1,5 +1,5 @@
 class VehiclesController < ApplicationController
-	before_action :correct_user, except: [:show, :index]
+    before_action :correct_user, except: [:show, :index]
 
 	def new
 		@vehicle = Vehicle.new
@@ -8,16 +8,15 @@ class VehiclesController < ApplicationController
 	def create
 		@vehicle = Vehicle.new(parametros)
 		@user = User.find(params[:user_id])
-		if Vehicle.exists?(:patente => @vehicle.patente)
-			if  Vehicle.find_by(patente: @vehicle.patente).eliminado
-				Vehicle.find_by(patente: @vehicle.patente).update_attribute(:eliminado,false)
-				redirect_to user_vehicles_url
-			else
-				if !@user.vehicles.exists?(:patente => @vehicle.patente)
-					@user.vehicles << Vehicle.where(patente: @vehicle.patente).take
+		if Vehicle.exists?(:patente => parametros[:patente])
+			# if  Vehicle.find_by(patente: @vehicle.patente).eliminado
+			# 	Vehicle.find_by(patente: @vehicle.patente).update_attribute(:eliminado,false)
+			# else
+				if !@user.vehicles.exists?(:patente => parametros[:patente])
+					@user.vehicles << Vehicle.find_by(patente: parametros[:patente])
 				end
-				redirect_to user_vehicles_url
-			end
+			#end
+			redirect_to user_vehicles_url
 		else
 			if @vehicle.save
 				current_user.vehicles << @vehicle
@@ -33,7 +32,7 @@ class VehiclesController < ApplicationController
 		@vehicle = @user.vehicles
 	end
 
-	def edit
+	def edit 
 		@user = User.find(params[:user_id])
 		@vehicle = @user.vehicles.find(params[:id])
 	end
@@ -50,8 +49,9 @@ class VehiclesController < ApplicationController
 
 	def destroy
 		@user = User.find(params[:user_id])
-		@vehicle = @user.vehicles.find(params[:id])
-		@vehicle.update_attribute(:eliminado,true)
+		@user.vehicles.delete(params[:id])
+		# @vehicle = @user.vehicles.find(params[:id])
+		# @vehicle.update_attribute(:eliminado,true)
 		redirect_to user_vehicles_url
 	end
 
