@@ -1,4 +1,4 @@
-<% provide(:titulo, "Vehiculos") %>
+<% provide(:titulo, "Vehiculos de "+@user.nombre+" "+@user.apellido) %>
 <div class="row">
   <div class="col-md-12">
     <% if @user.eliminado %>
@@ -16,7 +16,6 @@
           <div class="row">
             <div class="col-md-2">
               <!-- Columna para foto de perfil y demases -->
-              <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
               <%= image_tag(@user.avatar.url,:class=>"circular-image mediumm-image")%>
               <h3 style="text-align: center">
                 <%= username %>
@@ -127,7 +126,7 @@
                                         <%= ve.tipo.upcase %>
                                     </h5>
                                   </div>
-                                  
+
                                 </div>
                                 <div class="col-md-4">
                                   <div >
@@ -139,10 +138,10 @@
                                   <div >
                                     <h5 style="font-weight: bold;">
                                       Color:
-                                        <%= ve.color.upcase %> 
+                                        <%= ve.color.upcase %>
                                     </h5>
                                   </div>
-                                  
+
                                 </div>
                                 <div class="col-md-4">
                                   <div>
@@ -150,12 +149,12 @@
                                       Año:
                                         <%= ve.modelo %>
                                     </h5>
-                                  </div> 
+                                  </div>
 
                                   <div >
                                     <h5 style="font-weight: bold;">
                                       Asientos:
-                                        <%= ve.cantidad_asientos %> 
+                                        <%= ve.cantidad_asientos %>
                                     </h5>
                                   </div>
                                   <br />
@@ -186,7 +185,7 @@
               </div>
             </div>
           </div>
-        </div>  
+        </div>
       </div>
     <% end %>
   </div>

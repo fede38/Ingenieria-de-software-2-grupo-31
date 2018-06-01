@@ -9,14 +9,13 @@ class VehiclesController < ApplicationController
 		@vehicle = Vehicle.new(parametros)
 		@user = User.find(params[:user_id])
 		if Vehicle.exists?(:patente => parametros[:patente])
-			# if  Vehicle.find_by(patente: @vehicle.patente).eliminado
-			# 	Vehicle.find_by(patente: @vehicle.patente).update_attribute(:eliminado,false)
-			# else
-				if !@user.vehicles.exists?(:patente => parametros[:patente])
-					@user.vehicles << Vehicle.find_by(patente: parametros[:patente])
-				end
-			#end
-			redirect_to user_vehicles_url
+			if @user.vehicles.exists?(:patente => parametros[:patente])
+				@vehicle.errors.add("El vehiculo ", 'ya esta agregado.')
+				render 'new'
+			else
+				@user.vehicles << Vehicle.find_by(patente: parametros[:patente])
+				redirect_to user_vehicles_url
+			end
 		else
 			if @vehicle.save
 				current_user.vehicles << @vehicle
@@ -32,7 +31,7 @@ class VehiclesController < ApplicationController
 		@vehicle = @user.vehicles
 	end
 
-	def edit 
+	def edit
 		@user = User.find(params[:user_id])
 		@vehicle = @user.vehicles.find(params[:id])
 	end
