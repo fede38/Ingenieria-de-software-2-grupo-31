@@ -49,8 +49,6 @@ class VehiclesController < ApplicationController
 	def destroy
 		@user = User.find(params[:user_id])
 		@user.vehicles.delete(params[:id])
-		# @vehicle = @user.vehicles.find(params[:id])
-		# @vehicle.update_attribute(:eliminado,true)
 		redirect_to user_vehicles_url
 	end
 

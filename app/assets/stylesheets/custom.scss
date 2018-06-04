@@ -121,6 +121,10 @@ success {
     height:175px;
     width:175px;
 }
+.logitos {
+    position: relative;
+    top: -2px;
+}
 /*----------------Fin estilos de imagenes------------------*/
 
 
@@ -153,6 +157,33 @@ success {
         font-weight: bold;
         color: #fafafa!important;
         background-color: #63C55E;
+    }
+}
+.my-borders{
+    :active{
+        border: 2px solid #F17376;
+        border-color: #F17376 !important;
+    }
+    ::focus  {
+        border: 2px solid #F17376;
+        border-color: #F17376 !important;
+    }
+}
+.field{
+    input:focus, textarea:focus {
+        outline: none;
+        box-shadow: none;
+        @include box-shadow(3px, 3px, 3px, #FECDCE);
+        border: 3px solid #FDA1A3;
+    }
+}
+
+.form-group{
+   input:focus, textarea:focus {
+        outline: none !important;
+        box-shadow: none;
+        @include box-shadow(3px, 3px, 3px, #FECDCE);
+        border: 3px solid #FDA1A3 !important;
     }
 }
 /*---------------Fin estilos de formularios----------------*/
@@ -223,31 +254,3 @@ success {
     }
 }
 /*---------------Fin estilos del footer--------------------*/
-
-.my-borders{
-    :active{
-        border: 2px solid #F17376;
-        border-color: #F17376 !important;
-    }
-    ::focus  {
-        border: 2px solid #F17376;
-        border-color: #F17376 !important;
-    }
-}
-.field{
-    input:focus, textarea:focus {
-        outline: none;
-        box-shadow: none;
-        @include box-shadow(3px, 3px, 3px, #FECDCE);
-        border: 3px solid #FDA1A3;
-    }
-}
-
-.form-group{
-   input:focus, textarea:focus {
-        outline: none !important;
-        box-shadow: none;
-        @include box-shadow(3px, 3px, 3px, #FECDCE);
-        border: 3px solid #FDA1A3 !important;
-    }
-}
