@@ -1,4 +1,5 @@
 class Trip < ApplicationRecord
-  has_one :user, class_name: 'Piloto'
-  has_many :users, through: :users_trips
+  has_one :piloto, class_name: 'User', foreign_key: 'viaje_id'
+  has_many :embarkment
+  has_many :users, through: :embarkment
 end

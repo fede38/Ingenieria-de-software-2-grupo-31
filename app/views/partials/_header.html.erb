@@ -6,14 +6,14 @@
       </ul>
       <% if user_signed_in? %>
         <ul class="nav navbar-nav navbar-center nav-btn">
-          <li class="my-button disabled"><%= link_to 'Crear Viaje', '#',:class => "navbutton isDisabled" %></li>
+          <li class="my-button disabled"><%= link_to 'Crear Viaje', new_user_trip_path(@user), class: "navbutton isDisabled" %></li>
         </ul>
       <% end %>
       <ul class="nav navbar-nav navbar-right my-navbar">
         <li><%= link_to "Inicio", root_path %></li>
         <% if user_signed_in? %>
-                <li> <%= link_to '   Perfil', current_user %></li>
-                <li><%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %></li>
+          <li> <%= link_to '   Perfil', current_user %></li>
+          <li><%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %></li>
         <% else %>
           <li><%= link_to 'Crear cuenta', new_user_registration_path %></li>
           <li><%= link_to 'Iniciar sesión', new_user_session_path %></li>

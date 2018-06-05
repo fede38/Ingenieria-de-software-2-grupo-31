@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180604232544) do
+ActiveRecord::Schema.define(version: 20180605010741) do
+
+  create_table "embarkments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "trip_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trip_id"], name: "index_embarkments_on_trip_id"
+    t.index ["user_id"], name: "index_embarkments_on_user_id"
+  end
 
   create_table "owners", force: :cascade do |t|
     t.integer  "user_id"
@@ -22,11 +31,13 @@ ActiveRecord::Schema.define(version: 20180604232544) do
   end
 
   create_table "trips", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.text     "descripcion"
-    t.integer  "user_id"
-    t.index ["user_id"], name: "index_trips_on_user_id"
+    t.date     "fecha_inicio"
+    t.time     "hora_inicio"
+    t.float    "costo"
+    t.string   "destino"
   end
 
   create_table "users", force: :cascade do |t|
@@ -57,19 +68,12 @@ ActiveRecord::Schema.define(version: 20180604232544) do
     t.string   "tarjeta"
     t.boolean  "eliminado",              default: false
     t.date     "fecha_vencimiento"
+    t.integer  "viaje_id"
     t.integer  "calificacionPiloto",     default: 0
     t.integer  "calificacionCopiloto",   default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "users_trips", force: :cascade do |t|
-    t.integer  "users_id"
-    t.integer  "trips_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["trips_id"], name: "index_users_trips_on_trips_id"
-    t.index ["users_id"], name: "index_users_trips_on_users_id"
+    t.index ["viaje_id"], name: "index_users_on_viaje_id"
   end
 
   create_table "vehicles", force: :cascade do |t|

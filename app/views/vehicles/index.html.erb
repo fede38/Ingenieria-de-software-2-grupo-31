@@ -33,24 +33,18 @@
                   Fecha de Nacimiento: <%= formato_fecha %>
                 </p>
               <% else %>
-                <div>
-                  <br />
-                  <br />
-                </div>
+                <br><br>
               <% end %>
 
-              <p class="isDisabled">
-                Reputacion Piloto:
+              <h5>Reputacion piloto:</h5>
+              <p>
+                <%= image_tag('autis.png', size: '23x23', class: 'logitos') %>
+                <%= @user.calificacionPiloto %>
               </p>
-
-              <% if @user != current_user %>
-                <div>
-                  <br />
-                </div>
-              <% end %>
-
-              <p class="isDisabled">
-                Reputacion Copiloto:
+              <h5>Reputacion Copiloto:</h5>
+              <p>
+                 <%= image_tag('pasajeris.png', size: '23x23', class: 'logitos') %>
+                 <%= @user.calificacionCopiloto %>
               </p>
 
               <% if @user == current_user %>

@@ -10,9 +10,9 @@ class User < ApplicationRecord
   has_many :owner
   has_many :vehicles, through: :owner
 
-  belongs_to :trips
-  has_many :users_trips
-  has_many :trips, through: :users_trips
+  belongs_to :trip, optional: true, foreign_key: 'viaje_id'
+  has_many :embarkment
+  has_many :trips, through: :embarkment
 
   validates :nombre, :apellido, length: {maximum: 50}
   validates :nombre, :apellido, :fecha_nacimiento, presence: true
