@@ -66,6 +66,11 @@ class User < ApplicationRecord
     !eliminado ? super : :noexiste
   end
 
+  #def self.proceso
+  #  nueva = User.first.calificacionPiloto + 1
+  #  User.first.update_attribute(:calificacionPiloto, nueva)
+  #end
+
   protected
     def solonumeros?(string)
       string.scan(/\D/).empty?
