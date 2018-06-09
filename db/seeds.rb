@@ -53,18 +53,6 @@ end
   auto.save!
 end
 
-15.times do |v|
-  viaje = Trip.new(
-    descripcion: "Esta es la descripcion numero: "+ v.to_s + ".",
-    fecha_inicio: "2018-"+rand(7..12).to_s+"-"+rand(1..31).to_s,
-    hora_inicio: rand(00..23).to_s+":"+rand(00..59).to_s,
-    costo: rand(1000.0...5000.0),
-    destino: destinos[v],
-    activo: rand(0..1) == 1 ? true : false,
-  )
-  viaje.save!
-end
-
 User.all.each do |user|
   10.times do |valor|
     if rand(1..10) < 3
@@ -76,16 +64,28 @@ User.all.each do |user|
   end
 end
 
-#15.times do |i|
-#  viaje = Trip.find(i+1)
-#  posicion = $usuariosConVehiculo.sample
-#  viaje.piloto = User.find(posicion)
-#  viaje.auto = User.find(posicion).vehicles.all.sample
-#  User.all.each do |usuario|
-#    if viaje.piloto != usuario
-#      if rand(1..10) == 1
-#        viaje.pasajeros << usuario
-#      end
-#    end
-#  end
-#end
+15.times do |v|
+  begin
+    $user = User.find(rand(1..10))
+  end until !$user.vehicles.empty?
+  viaje = Trip.new(
+    descripcion: "Esta es la descripcion numero: "+ v.to_s + ".",
+    fecha_inicio: "2018-"+rand(7..12).to_s+"-"+rand(1..31).to_s,
+    hora_inicio: rand(00..23).to_s+":"+rand(00..59).to_s,
+    costo: rand(1000.0...5000.0),
+    destino: destinos[v],
+    activo: rand(0..1) == 1 ? true : false,
+    user_id: $user.id,
+    vehicle_id: $user.vehicles.all.sample.id,
+  )
+  viaje.save!
+end
+
+15.times do |i|
+  viaje = Trip.find(i+1)
+  User.all.each do |usuario|
+    if rand(1..10) == 1 && viaje.piloto != usuario.id
+      viaje.pasajeros << usuario
+    end
+  end
+end

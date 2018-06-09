@@ -39,6 +39,10 @@ ActiveRecord::Schema.define(version: 20180608215703) do
     t.float    "costo"
     t.string   "destino"
     t.boolean  "activo"
+    t.integer  "user_id"
+    t.integer  "vehicle_id"
+    t.index ["user_id"], name: "index_trips_on_user_id"
+    t.index ["vehicle_id"], name: "index_trips_on_vehicle_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -69,12 +73,10 @@ ActiveRecord::Schema.define(version: 20180608215703) do
     t.string   "tarjeta"
     t.boolean  "eliminado",              default: false
     t.date     "fecha_vencimiento"
-    t.integer  "viaje_id"
     t.integer  "calificacionPiloto",     default: 0
     t.integer  "calificacionCopiloto",   default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["viaje_id"], name: "index_users_on_viaje_id"
   end
 
   create_table "vehicles", force: :cascade do |t|
@@ -87,8 +89,6 @@ ActiveRecord::Schema.define(version: 20180608215703) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.string   "sub_marca"
-    t.integer  "viaje_id"
-    t.index ["viaje_id"], name: "index_vehicles_on_viaje_id"
   end
 
 end

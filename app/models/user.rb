@@ -9,10 +9,9 @@ class User < ApplicationRecord
                                     "image/jpeg", "image/png", "image/gif"]
   has_many :owner
   has_many :vehicles, through: :owner
-
-  belongs_to :trip, optional: true, foreign_key: 'viaje_id'
   has_many :embarkment
-  has_many :trips, through: :embarkment
+  has_many :viajesPostulado, source: 'trip', foreign_key: 'trip_id', through: :embarkment
+  has_many :viajesPiloto, class_name: 'Trip', foreign_key: 'user_id'
 
   validates :nombre, :apellido, length: {maximum: 50}
   validates :nombre, :apellido, :fecha_nacimiento, presence: true
@@ -67,8 +66,7 @@ class User < ApplicationRecord
   end
 
   #def self.proceso
-  #  nueva = User.first.calificacionPiloto + 1
-  #  User.first.update_attribute(:calificacionPiloto, nueva)
+  #  User.first.increment!(:calificacionPiloto)
   #end
 
   protected

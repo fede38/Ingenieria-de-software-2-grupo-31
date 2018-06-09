@@ -1,7 +1,7 @@
 class Vehicle < ApplicationRecord
   has_many :owners
   has_many :users, through: :owners
-  belongs_to :trip, optional: true, foreign_key: 'viaje_id'
+  has_many :trips
 
 	validates :patente, format: { with: /[a-zA-Z0-9]+/, message: 'no es válida'},
 																length: { maximum: 25}, presence: true
