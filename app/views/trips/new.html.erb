@@ -35,14 +35,14 @@
 		</div>
 		<div class="form-group">
 			<%=	form.label :descripcion, "Descripción" %> <br>
-			<%= form.text_field :descripcion, class: "form-control" %>
+			<%= form.text_area :descripcion, class: "form-control" %>
 		</div>
 		<div class="form-group">
 			<%=	form.label :vehicle_id %> <br>
 			<%= form.number_field :vehicle_id, class: "form-control" %>
 		</div>
 		<div class=" actions">
-			<%= form.submit "Crear viaje", class:"btn my-link-button my-button-color" %>
+			<%= form.submit "Crear viaje", class:"btn my-link-button my-button-color", data: {confirm: "Se le descontará el 5% del costo de su viaje, está seguro que desea continuar?" } %>
 		</div>
 	<% end %>
 </div>

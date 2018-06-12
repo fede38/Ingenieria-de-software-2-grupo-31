@@ -3,5 +3,7 @@ class Trip < ApplicationRecord
   belongs_to :vehicle
 
   has_many :embarkment
-  has_many :pasajeros, source: :user, through: :embarkment, class_name: 'User', foreign_key: 'user_id'
+  has_many :pasajeros, source: :user, through: :embarkment, class_name: 'User',
+  			 foreign_key: 'user_id'
+
 end
