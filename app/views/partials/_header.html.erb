@@ -6,7 +6,7 @@
       </ul>
       <% if user_signed_in? %>
         <ul class="nav navbar-nav navbar-center nav-btn">
-          <li class="my-button"><%= link_to 'Crear Viaje', new_user_trip_path(@user), class: "navbutton" %></li>
+          <li class="my-button"><%= link_to 'Crear Viaje', new_user_trip_path(current_user), class: "navbutton" %></li>
 
         </ul>
       <% end %>

@@ -54,26 +54,13 @@
               </p>
 
               <% if @user == current_user %>
-                <ul type="button" class="btn btn-block btn-sm disabled">
-                  <%= link_to 'Mis viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
-                </ul>
-                <ul type="button" class="btn btn-block btn-sm">
-                  <%= link_to 'Mis vehiculos', user_vehicles_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-                </ul>
-                <ul type="button" class="btn btn-sm btn-block "  ><b>
-                  <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-                </ul>
+                <%= link_to 'Mis viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
+                <%= link_to 'Mis vehiculos', user_vehicles_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
               <% else %>
-                <div>
-                  <br />
-                  <br />
-                </div>
-                <ul type="button" class="btn btn-block btn-sm disabled">
-                  <%= link_to 'Viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
-                </ul>
-                <ul type="button" class="btn btn-block btn-sm">
-                  <%= link_to 'Vehiculos', user_vehicles_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-                </ul>
+                <br><br>
+                <%= link_to 'Viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
+                <%= link_to 'Vehiculos', user_vehicles_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
               <% end %>
               <!-- fin codigo de checkeo de perfil -->
             </div>
@@ -97,7 +84,7 @@
                       </h3>
                       <p>
                         <ul>
-                          <%= link_to 'Crea un viaje', '#',:class => "isDisabled" %>
+                          <%= link_to 'Crea un viaje', new_user_trip_path(current_user) %>
                         </ul>
                         <ul>
                           <%= link_to 'Mira los viajes disponibles', root_path %>

@@ -45,7 +45,7 @@
 					<% vehiculos_propios << ve.patente %> 
 				<% end %> 
 				<%= form.select :vehicle_id, vehiculos_propios , class: "form-group form-control" %> -->
-				<%= form.select(:vehicle_id, Vehicle.all.map{|v| [v.patente, v.id]}, {prompt: 'Selecciona uno'}, { class: 'form-control' } ) %>
+				<%= form.select(:vehicle_id, Vehicle.all.map{|v| [v.patente, v.id]}, {class: 'form-control'}) %>
 			<% else %>	
 				No posee vehículos, <%= link_to ' agrega uno!', new_user_vehicle_path(@user) %>
 			<!--- <%= form.number_field :vehicle_id, class: "form-control" %> --->
