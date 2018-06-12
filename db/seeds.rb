@@ -84,8 +84,8 @@ end
 15.times do |i|
   viaje = Trip.find(i+1)
   User.all.each do |usuario|
-    if rand(1..10) == 1 && viaje.piloto != usuario.id
-      viaje.pasajeros << usuario
+    if rand(1..10) <3 && viaje.piloto != usuario.id
+      viaje.postulantes << usuario
     end
   end
 end

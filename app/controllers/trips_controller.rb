@@ -2,22 +2,21 @@ class TripsController < ApplicationController
 	skip_before_action :authenticate_user!, only: [:index, :show]
 
 	def index
-	if user_signed_in?
-		@user = current_user
-	end
-	@trips = Trip.all
-
+		if user_signed_in?
+			@user = current_user
+		end
+		@trips = Trip.all
 
 	def new
 		@trip = Trip.new
 		@user= User.find(params[:user_id])
 	end
-	
+
 	def show
 		@user= User.find(params[:user_id])
 		@trip = Trip.find(params[:id])
 
-	end	
+	end
 
 	def create
 		@trip = Trip.new(parametros_viaje)
@@ -37,7 +36,7 @@ private
 	def parametros_viaje
 		params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:destino,
 									:descripcion,:vehicle_id,:user_id)
-		
+
 	end
 
 

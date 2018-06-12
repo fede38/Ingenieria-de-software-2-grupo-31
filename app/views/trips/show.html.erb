@@ -1,17 +1,46 @@
+<% provide(:titulo, "Viaje a "+@trip.destino.downcase) %>
+
 <h1>Viaje</h1>
 
-
-Piloto: <%= usernameOf(User.find(@trip.user_id)) %> <br>
-Fecha de salida: <%= @trip.fecha_inicio %> <br>
-Hora de salida: <%= @trip.hora_inicio %> <br>
+<b>Piloto:</b>
+  <%= usernameOf(User.find(@trip.user_id)) %> <br>
+<b>Fecha de salida:</b>
+  <%= @trip.fecha_inicio %> <br>
+<b>Hora de salida:</b>
+  <%= @trip.hora_inicio %> <br>
+<b>Destino:</b>
+  <%= @trip.destino %> <br>
 
 <% v = Vehicle.find(@trip.vehicle_id) %>
-<strong>Vehiculo: </strong> <br>
-	Marca: <%= v.marca %> <br>
-	Modelo: <%= v.sub_marca %> <br>
-	Año: <%= v.modelo %> <br>
-	Patente: <%= v.patente %> <br>
-	Cantidad de asientos: <%= v.cantidad_asientos %> <br>
-Costo total: $<%= @trip.costo %> (el costo por persona será calculado cuando el viaje sea realizado, un estimativo es: $<%= @trip.costo/v.cantidad_asientos %> por persona) <br> 
-Personas aceptadas: <STRONG> NOT IMPLEMENTED YET </STRONG>
+<h3>Vehiculo:</h3>
+	<b>Marca:</b> <%= v.marca %> <br>
+	<b>Modelo:</b> <%= v.sub_marca %> <br>
+	<b>Año:</b> <%= v.modelo %> <br>
+	<b>Patente:</b> <%= v.patente %> <br>
+	<b>Cantidad de asientos:</b> <%= v.cantidad_asientos %> <br>
+  <b>Costo total:</b> $<%= (@trip.costo).round(2) %> (el costo por persona será calculado cuando el viaje sea realizado, un estimativo es: $<%= (@trip.costo/v.cantidad_asientos).round(2) %> por persona) <br>
 
+<h3>Aceptados:</h3>
+  <% Embarkment.where(estado: 'a', trip_id: @trip).all.each do |ace| %>
+    <% usr = User.find(ace.user_id) %>
+    <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
+    <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
+    <button type="button" class="btn btn-danger">
+      Eliminar
+    </button>
+    <br><br>
+  <% end %>
+
+<h3>Postulantes:</h3>
+  <% Embarkment.where(estado: 'p', trip_id: @trip).all.each do |emb| %>
+    <% usr = User.find(emb.user_id) %>
+    <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
+    <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
+    <button type="button" class="btn btn-success">
+      Aceptar
+    </button>
+    <button type="button" class="btn btn-danger">
+      Rechazar
+    </button>
+    <br><br>
+  <% end %>
