@@ -3,23 +3,24 @@
 <h1>Viaje</h1>
 
 <b>Piloto:</b>
-  <%= usernameOf(User.find(@trip.user_id)) %> <br>
+	<%= usernameOf(User.find(@trip.user_id)) %> <br>
 <b>Fecha de salida:</b>
-  <%= @trip.fecha_inicio %> <br>
+	<%= @trip.fecha_inicio %> <br>
 <b>Hora de salida:</b>
-  <%= @trip.hora_inicio.strftime('%H:%M') %> <br>
+	<%= @trip.hora_inicio.strftime('%H:%M') %> <br>
 <b>Destino:</b>
-  <%= @trip.destino %> <br>
+	<%= @trip.destino %> <br>
 
 <% v = Vehicle.find(@trip.vehicle_id) %>
+
 <h3>Vehiculo:</h3>
 	<b>Marca:</b> <%= v.marca %> <br>
 	<b>Modelo:</b> <%= v.sub_marca %> <br>
 	<b>Año:</b> <%= v.modelo %> <br>
 	<b>Patente:</b> <%= v.patente %> <br>
 	<b>Cantidad de asientos ocupados:</b>
-  <%= @trip.cantidad_asientos_ocupados %>/<%= v.cantidad_asientos %><br>
-  <b>Costo total:</b> $<%= (@trip.costo).round(2) %> (el costo por persona será calculado cuando el viaje sea realizado, un estimativo es: $<%= (@trip.costo/v.cantidad_asientos).round(2) %> por persona) <br>
+	<%= @trip.cantidad_asientos_ocupados %>/<%= v.cantidad_asientos %><br>
+	<b>Costo total:</b> $<%= (@trip.costo).round(2) %> (el costo por persona será calculado cuando el viaje sea realizado, un estimativo es: $<%= (@trip.costo/v.cantidad_asientos).round(2) %> por persona) <br>
 
 <h3>Aceptados:</h3>
   <% Embarkment.where(estado: 'a', trip_id: @trip).all.each do |ace| %>

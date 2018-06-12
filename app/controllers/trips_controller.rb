@@ -21,14 +21,17 @@ class TripsController < ApplicationController
 	def create
 		@trip = Trip.new(parametros_viaje)
 		@user= User.find(params[:user_id])
+		#@trip.vehicle_id= Vehicle.find_by(:patente => parametros_viaje[:vehicle_id])
 		@trip.user_id = @user.id
 		if @trip.save
-			current_user.trips << @trip
-			redirect_to index
+			#cobrar el 5% del valor del viaje
+			current_user.viajesPiloto << @trip
+			redirect_to root_path
 		else
 			render 'new'
 		end
 	end
+
 
 	def aceptar
 	end
@@ -36,12 +39,12 @@ class TripsController < ApplicationController
 	def rechazar
 	end
 
-	private
+private
 
-		def parametros_viaje
-			params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:destino,
-										:descripcion,:vehicle_id,:user_id)
-		end
+	def parametros_viaje
+		params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:destino,
+									:descripcion,:vehicle_id,:user_id)
+	end
 
 end
 

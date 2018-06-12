@@ -35,13 +35,13 @@ ActiveRecord::Schema.define(version: 20180612211355) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.text     "descripcion"
+    t.integer  "user_id"
     t.date     "fecha_inicio"
     t.time     "hora_inicio"
     t.float    "costo"
     t.string   "destino"
-    t.boolean  "activo"
-    t.integer  "user_id"
     t.integer  "vehicle_id"
+    t.boolean  "activo"
     t.integer  "cantidad_asientos_ocupados", default: 0
     t.index ["user_id"], name: "index_trips_on_user_id"
     t.index ["vehicle_id"], name: "index_trips_on_vehicle_id"
