@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180608215703) do
+ActiveRecord::Schema.define(version: 20180612211355) do
 
   create_table "embarkments", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "trip_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "estado",     default: "p"
     t.index ["trip_id"], name: "index_embarkments_on_trip_id"
     t.index ["user_id"], name: "index_embarkments_on_user_id"
   end
@@ -31,8 +32,8 @@ ActiveRecord::Schema.define(version: 20180608215703) do
   end
 
   create_table "trips", force: :cascade do |t|
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.text     "descripcion"
     t.integer  "user_id"
     t.date     "fecha_inicio"
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 20180608215703) do
     t.string   "destino"
     t.integer  "vehicle_id"
     t.boolean  "activo"
+    t.integer  "cantidad_asientos_ocupados", default: 0
     t.index ["user_id"], name: "index_trips_on_user_id"
     t.index ["vehicle_id"], name: "index_trips_on_vehicle_id"
   end
@@ -86,9 +88,8 @@ ActiveRecord::Schema.define(version: 20180608215703) do
     t.integer  "cantidad_asientos"
     t.string   "color"
     t.string   "tipo"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.boolean  "eliminado",         default: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "sub_marca"
   end
 
