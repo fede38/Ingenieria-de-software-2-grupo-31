@@ -213,9 +213,11 @@
                           <h4>
                             <%= t.descripcion %>
                           </h4>
-                          <button type="button" class="btn btn-block btn-sm my-button-color"><b>
-                            <%= link_to 'Ver viaje', user_trip_path(t.piloto, t),:class => "my-link-button" %>
-                          </b></button>
+                          <div>
+                            <b>
+                            <%= link_to 'Ver viaje', user_trip_path(t.piloto, t),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                            </b>
+                          </div>
                         </div>
                       </div>
                     </div>

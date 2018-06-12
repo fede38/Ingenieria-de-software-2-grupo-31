@@ -6,6 +6,7 @@ class TripsController < ApplicationController
 			@user = current_user
 		end
 		@trips = Trip.all
+	end
 
 	def new
 		@trip = Trip.new
@@ -15,7 +16,6 @@ class TripsController < ApplicationController
 	def show
 		@user= User.find(params[:user_id])
 		@trip = Trip.find(params[:id])
-
 	end
 
 	def create
@@ -29,16 +29,19 @@ class TripsController < ApplicationController
 			render 'new'
 		end
 	end
-end
 
-private
-
-	def parametros_viaje
-		params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:destino,
-									:descripcion,:vehicle_id,:user_id)
-
+	def aceptar
 	end
 
+	def rechazar
+	end
+
+	private
+
+		def parametros_viaje
+			params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:destino,
+										:descripcion,:vehicle_id,:user_id)
+		end
 
 end
 
