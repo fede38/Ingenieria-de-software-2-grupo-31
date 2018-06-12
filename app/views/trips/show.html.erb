@@ -7,7 +7,7 @@
 <b>Fecha de salida:</b>
   <%= @trip.fecha_inicio %> <br>
 <b>Hora de salida:</b>
-  <%= @trip.hora_inicio %> <br>
+  <%= @trip.hora_inicio.strftime('%H:%M') %> <br>
 <b>Destino:</b>
   <%= @trip.destino %> <br>
 
@@ -17,7 +17,8 @@
 	<b>Modelo:</b> <%= v.sub_marca %> <br>
 	<b>Año:</b> <%= v.modelo %> <br>
 	<b>Patente:</b> <%= v.patente %> <br>
-	<b>Cantidad de asientos:</b> <%= v.cantidad_asientos %> <br>
+	<b>Cantidad de asientos ocupados:</b>
+  <%= @trip.cantidad_asientos_ocupados %>/<%= v.cantidad_asientos %><br>
   <b>Costo total:</b> $<%= (@trip.costo).round(2) %> (el costo por persona será calculado cuando el viaje sea realizado, un estimativo es: $<%= (@trip.costo/v.cantidad_asientos).round(2) %> por persona) <br>
 
 <h3>Aceptados:</h3>
