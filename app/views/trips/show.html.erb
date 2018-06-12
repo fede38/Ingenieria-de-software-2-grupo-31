@@ -1,1 +1,17 @@
 <h1>Viaje</h1>
+
+
+Piloto: <%= usernameOf(User.find(@trip.user_id)) %> <br>
+Fecha de salida: <%= @trip.fecha_inicio %> <br>
+Hora de salida: <%= @trip.hora_inicio %> <br>
+
+<% v = Vehicle.find(@trip.vehicle_id) %>
+<strong>Vehiculo: </strong> <br>
+	Marca: <%= v.marca %> <br>
+	Modelo: <%= v.sub_marca %> <br>
+	Año: <%= v.modelo %> <br>
+	Patente: <%= v.patente %> <br>
+	Cantidad de asientos: <%= v.cantidad_asientos %> <br>
+Costo total: $<%= @trip.costo %> (el costo por persona será calculado cuando el viaje sea realizado, un estimativo es: $<%= @trip.costo/v.cantidad_asientos %> por persona) <br> 
+Personas aceptadas: <STRONG> NOT IMPLEMENTED YET </STRONG>
+

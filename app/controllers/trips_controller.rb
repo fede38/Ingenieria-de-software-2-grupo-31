@@ -15,6 +15,7 @@ class TripsController < ApplicationController
 	
 	def show
 		@user= User.find(params[:user_id])
+		@trip = Trip.find(params[:id])
 
 	end	
 

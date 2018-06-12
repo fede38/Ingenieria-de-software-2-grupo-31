@@ -206,7 +206,7 @@
                             Hora: <%= t.hora_inicio %>
                           </h5>
                           <h5>
-                            Piloto: <%= username2(User.find(t.user_id)) %>
+                            Piloto: <%= usernameOf(User.find(t.user_id)) %>
                           </h5>
                         </div>
                         <div class="col-md-8">
@@ -214,7 +214,7 @@
                             <%= t.descripcion %>
                           </h4>
                           <button type="button" class="btn btn-block btn-sm my-button-color"><b>
-                            <%= link_to 'Ver viaje', '#',:class => "my-link-button" %>
+                            <%= link_to 'Ver viaje', user_trip_path(@user,t),:class => "my-link-button" %>
                           </b></button>
                         </div>
                       </div>
