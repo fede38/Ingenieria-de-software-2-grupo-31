@@ -1,0 +1,52 @@
+<% provide( :titulo, "Nuevo viaje") %>
+
+<div class="centering">
+	<h2 style="text-align: center;">Crea tu viaje:</h2>
+	<%= form_for [@user, @trip] do |form| %>
+
+		<% if @trip.errors.any? %>
+			<div class="alert alert-danger alert-dismissable">
+				<button class="close" type="button" data-dismiss="alert">x</button>	
+				<ul>
+					<% @trip.errors.full_messages.each do |e| %>
+				</ul>
+					<li>
+						<%= e %>
+					</li>
+					<% end %>
+			</div>
+		<% end %>
+
+		<div class="form-group">
+			<%= form.label :fecha_inicio, "Fecha de inicio" %> <br>
+			<%= form.date_field :fecha_inicio, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%=	form.label :hora_inicio, "Hora de inicio" %> <br>
+			<%= form.time_field :hora_inicio, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%=	form.label :costo %> <br>
+			<%= form.number_field :costo, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%=	form.label :destino %> <br>
+			<%= form.text_field :destino, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%=	form.label :descripcion, "Descripción" %> <br>
+			<%= form.text_field :descripcion, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%=	form.label :vehicle_id %> <br>
+			<%= form.number_field :vehicle_id, class: "form-control" %>
+		</div>
+		<div class=" actions">
+			<%= form.submit "Crear viaje", class:"btn my-link-button my-button-color" %>
+		</div>
+	<% end %>
+</div>
+
+<br />
+<br />
+<br />

@@ -193,6 +193,32 @@
                   <% else %>
                     <% @trips.each do |t| %>
                       <!-- Aca va el codigo de mostrar viaje -->
+                    <div class="jumbotron my-jumbotron">
+                      <h3 style="align-content: center;">
+                        <%= t.destino %>
+                      </h3>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <h5>
+                            Fecha: <%= t.fecha_inicio %>
+                          </h5>
+                          <h5>
+                            Hora: <%= t.hora_inicio %>
+                          </h5>
+                          <h5>
+                            Piloto: <%= username2(User.find(t.user_id)) %>
+                          </h5>
+                        </div>
+                        <div class="col-md-8">
+                          <h4>
+                            <%= t.descripcion %>
+                          </h4>
+                          <button type="button" class="btn btn-block btn-sm my-button-color"><b>
+                            <%= link_to 'Ver viaje', '#',:class => "my-link-button" %>
+                          </b></button>
+                        </div>
+                      </div>
+                    </div>
                     <% end %>
                   <% end %>
                 </div>

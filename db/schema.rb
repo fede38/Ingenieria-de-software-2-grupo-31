@@ -34,13 +34,13 @@ ActiveRecord::Schema.define(version: 20180608215703) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.text     "descripcion"
+    t.integer  "user_id"
     t.date     "fecha_inicio"
     t.time     "hora_inicio"
     t.float    "costo"
     t.string   "destino"
-    t.boolean  "activo"
-    t.integer  "user_id"
     t.integer  "vehicle_id"
+    t.boolean  "activo"
     t.index ["user_id"], name: "index_trips_on_user_id"
     t.index ["vehicle_id"], name: "index_trips_on_vehicle_id"
   end
@@ -86,8 +86,9 @@ ActiveRecord::Schema.define(version: 20180608215703) do
     t.integer  "cantidad_asientos"
     t.string   "color"
     t.string   "tipo"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "eliminado",         default: false
     t.string   "sub_marca"
   end
 
