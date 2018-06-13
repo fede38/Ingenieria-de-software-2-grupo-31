@@ -23,55 +23,65 @@
 	<b>Costo total:</b> $<%= (@trip.costo).round(2) %> (el costo por persona será calculado cuando el viaje sea realizado, un estimativo es: $<%= (@trip.costo/v.cantidad_asientos).round(2) %> por persona) <br>
 
 <h3>Aceptados:</h3>
-  <% Embarkment.where(estado: 'a', trip_id: @trip).all.each do |ace| %>
-    <% usr = User.find(ace.user_id) %>
-    <div style="height: 50px;">
-      <div style="float: left;">
-        <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
-        <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
+  <% aceptados = Embarkment.where(estado: 'a', trip_id: @trip).all %>
+  <% if aceptados.empty? %>
+    Todavía no se ha aceptado a nadie en este viaje.
+  <% else %>
+    <% aceptados.each do |ace| %>
+      <% usr = User.find(ace.user_id) %>
+      <div style="height: 50px;">
+        <div style="float: left;">
+          <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
+          <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
+        </div>
+        <% if current_user == @trip.piloto %>
+          <div class="boton-ace-rec">
+            <%= button_to "Eliminar", {controller: :trips,
+                                     action: 'eliminar',
+                                     idU: usr.id,
+                                     idT: @trip.id},
+                                     {class: 'btn btn-danger',
+                                     method: :put} %>
+          </div>
+          <div style="clear:both;">
+          </div>
+        <% end %>
       </div>
-      <% if current_user == @trip.piloto %>
-        <div class="boton-ace-rec">
-          <%= button_to "Aceptar", {controller: :trips,
-                                   action: 'eliminar',
-                                   idU: usr.id,
-                                   idT: @trip.id},
-                                   {class: 'btn btn-danger',
-                                   method: :put} %>
-        </div>
-        <div style="clear:both;">
-        </div>
-      <% end %>
-    </div>
+    <% end %>
   <% end %>
 
 <h3>Postulantes:</h3>
-  <% Embarkment.where(estado: 'p', trip_id: @trip).all.each do |emb| %>
-    <% usr = User.find(emb.user_id) %>
-    <div style="height: 50px;">
-      <div style="float: left;">
-        <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
-        <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
+  <% pendientes = Embarkment.where(estado: 'p', trip_id: @trip).all %>
+  <% if pendientes.empty? %>
+    Todavía no hay postulantes para este viaje!
+  <% else %>
+    <% pendientes.each do |emb| %>
+      <% usr = User.find(emb.user_id) %>
+      <div style="height: 50px;">
+        <div style="float: left;">
+          <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
+          <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
+        </div>
+        <% if current_user == @trip.piloto %>
+          <div class="boton-ace-rec">
+            <%= button_to "Aceptar", {controller: :trips,
+                                     action: 'aceptar',
+                                     idU: usr.id,
+                                     idT: @trip.id},
+                                     {class: 'btn btn-success',
+                                     method: :put} %>
+          </div>
+          <div class="boton-ace-rec">
+            <%= button_to "Rechazar", {controller: :trips,
+                                      action: 'rechazar',
+                                      idU: usr.id,
+                                      idT: @trip.id},
+                                      {class: 'btn btn-danger',
+                                      method: :put} %>
+          </div>
+          <div style="clear:both;">
+          </div>
+        <% end %>
       </div>
-      <% if current_user == @trip.piloto %>
-        <div class="boton-ace-rec">
-          <%= button_to "Aceptar", {controller: :trips,
-                                   action: 'aceptar',
-                                   idU: usr.id,
-                                   idT: @trip.id},
-                                   {class: 'btn btn-success',
-                                   method: :put} %>
-        </div>
-        <div class="boton-ace-rec">
-          <%= button_to "Rechazar", {controller: :trips,
-                                    action: 'rechazar',
-                                    idU: usr.id,
-                                    idT: @trip.id},
-                                    {class: 'btn btn-danger',
-                                    method: :put} %>
-        </div>
-        <div style="clear:both;">
-        </div>
-      <% end %>
-    </div>
+    <% end %>
   <% end %>

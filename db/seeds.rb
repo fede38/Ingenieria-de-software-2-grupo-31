@@ -27,6 +27,11 @@ destinos = [
   'Rio cuarto', 'Puerto madryn'
 ]
 
+dir = 'imagenesSeed'
+archivos = Dir.foreach(dir) \
+.map { |x| File.expand_path("#{dir}/#{x}") } \
+.select { |x| File.file?(x) }
+
 10.times do |u|
   user = User.new(
     nombre: nombres[u],
@@ -34,7 +39,8 @@ destinos = [
     email: apellidos[u].downcase+'@hotmail.com',
     fecha_nacimiento: "199"+u.to_s+"-01-01",
     password: '123456',
-    password_confirmation: '123456'
+    password_confirmation: '123456',
+    avatar: File.new(archivos[u], 'r')
   )
   user.skip_confirmation!
   user.save!
