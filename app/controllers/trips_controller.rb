@@ -32,11 +32,25 @@ class TripsController < ApplicationController
 		end
 	end
 
-
 	def aceptar
+		usuario = User.find(params[:idU])
+		viaje = Trip.find(params[:idT])
+		rel = Embarkment.find_by(user_id: usuario.id,
+				  									 trip_id: viaje.id)
+		if viaje.cantidad_asientos_ocupados < viaje.vehicle.cantidad_asientos
+			rel.update_attribute(:estado, 'a')
+			viaje.increment!(:cantidad_asientos_ocupados, 1)
+		else
+			flash[:danger] = "Todos los asientos estan ocupados."
+		end
+		redirect_to :back
 	end
 
 	def rechazar
+		redirect_to user_path(params[:id])
+	end
+
+	def eliminar
 	end
 
 private

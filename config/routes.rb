@@ -7,9 +7,10 @@ Rails.application.routes.draw do
 
 	resources :users do
 		resources :trips do
-      collection do
+      member do
         put :aceptar
         put :rechazar
+        put :eliminar
       end
     end
 		resources :vehicles

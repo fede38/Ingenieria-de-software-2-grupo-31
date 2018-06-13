@@ -25,40 +25,53 @@
 <h3>Aceptados:</h3>
   <% Embarkment.where(estado: 'a', trip_id: @trip).all.each do |ace| %>
     <% usr = User.find(ace.user_id) %>
-    <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
-    <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
-    <% if current_user == @trip.piloto %>
-      <button type="button" class="btn btn-danger">
-        Eliminar
-      </button>
-    <% end %>
-    <br><br>
+    <div style="height: 50px;">
+      <div style="float: left;">
+        <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
+        <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
+      </div>
+      <% if current_user == @trip.piloto %>
+        <div class="boton-ace-rec">
+          <%= button_to "Aceptar", {controller: :trips,
+                                   action: 'eliminar',
+                                   idU: usr.id,
+                                   idT: @trip.id},
+                                   {class: 'btn btn-danger',
+                                   method: :put} %>
+        </div>
+        <div style="clear:both;">
+        </div>
+      <% end %>
+    </div>
   <% end %>
 
 <h3>Postulantes:</h3>
   <% Embarkment.where(estado: 'p', trip_id: @trip).all.each do |emb| %>
     <% usr = User.find(emb.user_id) %>
-    <div style="float: left;">
-      <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
-      <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
+    <div style="height: 50px;">
+      <div style="float: left;">
+        <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
+        <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
+      </div>
+      <% if current_user == @trip.piloto %>
+        <div class="boton-ace-rec">
+          <%= button_to "Aceptar", {controller: :trips,
+                                   action: 'aceptar',
+                                   idU: usr.id,
+                                   idT: @trip.id},
+                                   {class: 'btn btn-success',
+                                   method: :put} %>
+        </div>
+        <div class="boton-ace-rec">
+          <%= button_to "Rechazar", {controller: :trips,
+                                    action: 'rechazar',
+                                    idU: usr.id,
+                                    idT: @trip.id},
+                                    {class: 'btn btn-danger',
+                                    method: :put} %>
+        </div>
+        <div style="clear:both;">
+        </div>
+      <% end %>
     </div>
-    <% if current_user == @trip.piloto %>
-      <div class="boton-ace-rec">
-        <%= button_to "Aceptar",  {:controller => :trips,
-                                    :action => 'aceptar',
-                                    :id => usr.id,
-                                    :method => :post},
-                                    {:class => 'btn btn-success'} %>
-      </div>
-      <div class="boton-ace-rec">
-        <%= button_to "Rechazar", {:controller => :trips,
-                                    :action => 'rechazar',
-                                    :id => usr.id,
-                                    :method => :post},
-                                    {:class => 'btn btn-danger'} %>
-      </div>
-      <div style="clear:both;">
-      </div>
-    <% end %>
-    <br>
   <% end %>
