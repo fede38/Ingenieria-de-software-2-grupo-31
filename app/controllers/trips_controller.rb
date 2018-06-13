@@ -47,7 +47,12 @@ class TripsController < ApplicationController
 	end
 
 	def rechazar
-		redirect_to user_path(params[:id])
+		usuario = User.find(params[:idU])
+		viaje = Trip.find(params[:idT])
+		rel = Embarkment.find_by(user_id: usuario.id,
+				  									 trip_id: viaje.id)
+		rel.update_attribute(:estado, 'r')
+		redirect_to :back
 	end
 
 	def eliminar

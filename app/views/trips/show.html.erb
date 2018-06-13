@@ -25,7 +25,7 @@
 <h3>Aceptados:</h3>
   <% aceptados = Embarkment.where(estado: 'a', trip_id: @trip).all %>
   <% if aceptados.empty? %>
-    Todavía no se ha aceptado a nadie en este viaje.
+    No se ha aceptado a nadie en este viaje.
   <% else %>
     <% aceptados.each do |ace| %>
       <% usr = User.find(ace.user_id) %>
@@ -53,7 +53,7 @@
 <h3>Postulantes:</h3>
   <% pendientes = Embarkment.where(estado: 'p', trip_id: @trip).all %>
   <% if pendientes.empty? %>
-    Todavía no hay postulantes para este viaje!
+    No hay postulantes para este viaje!
   <% else %>
     <% pendientes.each do |emb| %>
       <% usr = User.find(emb.user_id) %>
