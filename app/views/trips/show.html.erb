@@ -1,0 +1,64 @@
+<% provide(:titulo, "Viaje a "+@trip.destino.downcase) %>
+
+<h1>Viaje</h1>
+
+<b>Piloto:</b>
+	<%= usernameOf(User.find(@trip.user_id)) %> <br>
+<b>Fecha de salida:</b>
+	<%= @trip.fecha_inicio %> <br>
+<b>Hora de salida:</b>
+	<%= @trip.hora_inicio.strftime('%H:%M') %> <br>
+<b>Destino:</b>
+	<%= @trip.destino %> <br>
+
+<% v = Vehicle.find(@trip.vehicle_id) %>
+
+<h3>Vehiculo:</h3>
+	<b>Marca:</b> <%= v.marca %> <br>
+	<b>Modelo:</b> <%= v.sub_marca %> <br>
+	<b>Año:</b> <%= v.modelo %> <br>
+	<b>Patente:</b> <%= v.patente %> <br>
+	<b>Cantidad de asientos ocupados:</b>
+	<%= @trip.cantidad_asientos_ocupados %>/<%= v.cantidad_asientos %><br>
+	<b>Costo total:</b> $<%= (@trip.costo).round(2) %> (el costo por persona será calculado cuando el viaje sea realizado, un estimativo es: $<%= (@trip.costo/v.cantidad_asientos).round(2) %> por persona) <br>
+
+<h3>Aceptados:</h3>
+  <% Embarkment.where(estado: 'a', trip_id: @trip).all.each do |ace| %>
+    <% usr = User.find(ace.user_id) %>
+    <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
+    <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
+    <% if current_user == @trip.piloto %>
+      <button type="button" class="btn btn-danger">
+        Eliminar
+      </button>
+    <% end %>
+    <br><br>
+  <% end %>
+
+<h3>Postulantes:</h3>
+  <% Embarkment.where(estado: 'p', trip_id: @trip).all.each do |emb| %>
+    <% usr = User.find(emb.user_id) %>
+    <div style="float: left;">
+      <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
+      <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
+    </div>
+    <% if current_user == @trip.piloto %>
+      <div class="boton-ace-rec">
+        <%= button_to "Aceptar",  {:controller => :trips,
+                                    :action => 'aceptar',
+                                    :id => usr.id,
+                                    :method => :post},
+                                    {:class => 'btn btn-success'} %>
+      </div>
+      <div class="boton-ace-rec">
+        <%= button_to "Rechazar", {:controller => :trips,
+                                    :action => 'rechazar',
+                                    :id => usr.id,
+                                    :method => :post},
+                                    {:class => 'btn btn-danger'} %>
+      </div>
+      <div style="clear:both;">
+      </div>
+    <% end %>
+    <br>
+  <% end %>

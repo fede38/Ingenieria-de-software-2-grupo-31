@@ -25,7 +25,7 @@
                   <% if @trips.empty? %>
                     <% if user_signed_in? %>
                       <h3 style="text-align: center;">
-                        No hay viajes,  <%= link_to ' crea uno!', '#', :class=>"isDisabled" %> 
+                        No hay viajes,  <%= link_to ' crea uno!', new_user_trip_path(@user) %>
                       </h3>
                     <% else %>
                       <h3 style="text-align: center;">
@@ -193,6 +193,34 @@
                   <% else %>
                     <% @trips.each do |t| %>
                       <!-- Aca va el codigo de mostrar viaje -->
+                    <div class="jumbotron my-jumbotron">
+                      <h3 style="align-content: center;">
+                        <%= t.destino %>
+                      </h3>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <h5>
+                            Fecha: <%= t.fecha_inicio %>
+                          </h5>
+                          <h5>
+                            Hora: <%= t.hora_inicio %>
+                          </h5>
+                          <h5>
+                            Piloto: <%= usernameOf(t.piloto) %>
+                          </h5>
+                        </div>
+                        <div class="col-md-8">
+                          <h4>
+                            <%= t.descripcion %>
+                          </h4>
+                          <div>
+                            <b>
+                            <%= link_to 'Ver viaje', user_trip_path(t.piloto, t),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                            </b>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <% end %>
                   <% end %>
                 </div>
@@ -210,8 +238,4 @@
     </div>
   </div>
 </div>
-<div>
-  <br />
-  <br />
-  <br />
-</div>
+<br><br><br>
