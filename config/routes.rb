@@ -6,7 +6,14 @@ Rails.application.routes.draw do
 	get '/users', to: 'users#show'
 
 	resources :users do
-    resources :trips
-  	resources :vehicles
+		resources :trips do
+      member do
+        put :aceptar
+        put :rechazar
+        put :eliminar
+      end
+    end
+		resources :vehicles
 	end
+
 end

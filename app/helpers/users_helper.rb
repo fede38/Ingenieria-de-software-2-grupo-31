@@ -9,4 +9,7 @@ module UsersHelper
     @user.email.split('@').first
   end
 
+  def usernameOf(usuario)
+    usuario.email.split('@').first	
+  end
 end

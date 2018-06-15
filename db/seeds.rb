@@ -27,6 +27,11 @@ destinos = [
   'Rio cuarto', 'Puerto madryn'
 ]
 
+dir = 'imagenesSeed'
+archivos = Dir.foreach(dir) \
+.map { |x| File.expand_path("#{dir}/#{x}") } \
+.select { |x| File.file?(x) }
+
 10.times do |u|
   user = User.new(
     nombre: nombres[u],
@@ -34,7 +39,8 @@ destinos = [
     email: apellidos[u].downcase+'@hotmail.com',
     fecha_nacimiento: "199"+u.to_s+"-01-01",
     password: '123456',
-    password_confirmation: '123456'
+    password_confirmation: '123456',
+    avatar: File.new(archivos[u], 'r')
   )
   user.skip_confirmation!
   user.save!
@@ -84,8 +90,8 @@ end
 15.times do |i|
   viaje = Trip.find(i+1)
   User.all.each do |usuario|
-    if rand(1..10) == 1 && viaje.piloto != usuario.id
-      viaje.pasajeros << usuario
+    if rand(1..10) <3 && viaje.piloto != usuario
+      viaje.postulantes << usuario
     end
   end
 end
