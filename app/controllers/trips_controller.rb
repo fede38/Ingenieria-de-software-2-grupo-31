@@ -38,9 +38,9 @@ class TripsController < ApplicationController
 		rel = Embarkment.find_by(user_id: usuario.id,
 				  									 trip_id: viaje.id)
 		if viaje.cantidad_asientos_ocupados < viaje.vehicle.cantidad_asientos
+			TripMailer.sendMail(viaje, 'a', usuario).deliver
 			rel.update_attribute(:estado, 'a')
 			viaje.increment!(:cantidad_asientos_ocupados, 1)
-			TripMailer.sendMail('a', usuario).deliver
 		else
 			flash[:danger] = "No hay asientos disponibles en el auto, no se pueden aceptar mas postulantes."
 		end
@@ -53,7 +53,7 @@ class TripsController < ApplicationController
 		rel = Embarkment.find_by(user_id: usuario.id,
 				  									 trip_id: viaje.id)
 		rel.update_attribute(:estado, 'r')
-		TripMailer.sendMail('r', usuario).deliver
+		TripMailer.sendMail(viaje, 'r', usuario).deliver
 		redirect_to :back
 	end
 
