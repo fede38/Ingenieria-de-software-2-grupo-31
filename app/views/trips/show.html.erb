@@ -29,24 +29,41 @@
   <% else %>
     <% aceptados.each do |ace| %>
       <% usr = User.find(ace.user_id) %>
-      <div style="height: 50px;">
-        <div style="float: left;">
-          <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
-          <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
-        </div>
-        <% if current_user == @trip.piloto %>
+      <% if current_user == @trip.piloto %>
+        <div class="cajita-165px">
+          <div style="float: left; font-size: 24px;">
+            <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Avatar', size: '50x50')%>
+            <%= link_to usernameOf(usr), user_path(usr) %>
+          </div><br><br><br>
+          <b>Nombre:</b>
+          <%= usr.nombre + ' ' + usr.apellido %><br>
+          <b>Telefono:</b>
+          <% if usr.telefono %>
+            <%= usr.telefono %>
+          <% else %>
+            El usuario no tiene numero de telefono.
+          <% end %><br>
+          <b>Email:</b>
+          <%= usr.email %><br>
           <div class="boton-ace-rec">
             <%= button_to "Eliminar", {controller: :trips,
-                                     action: 'eliminar',
-                                     idU: usr.id,
-                                     idT: @trip.id},
-                                     {class: 'btn btn-danger',
-                                     method: :put} %>
+                                         action: 'eliminar',
+                                         idU: usr.id,
+                                         idT: @trip.id},
+                                         {class: 'btn btn-danger',
+                                         method: :put} %>
           </div>
           <div style="clear:both;">
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% else %>
+        <div class="cajita-50px">
+          <div style="float: left; font-size: 24px;">
+            <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Avatar', size: '50x50')%>
+            <%= link_to usernameOf(usr), user_path(usr) %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 
@@ -59,8 +76,8 @@
       <% usr = User.find(emb.user_id) %>
       <div style="height: 50px;">
         <div style="float: left;">
-          <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Imagen user', size: '50x50')%>
-          <%= link_to usr.nombre+' '+usr.apellido, user_path(usr) %>
+          <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Avatar', size: '50x50')%>
+          <%= link_to usernameOf(usr), user_path(usr) %>
         </div>
         <% if current_user == @trip.piloto %>
           <div class="boton-ace-rec">
