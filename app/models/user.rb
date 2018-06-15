@@ -9,6 +9,9 @@ class User < ApplicationRecord
                                     "image/jpeg", "image/png", "image/gif"]
   has_many :owner
   has_many :vehicles, through: :owner
+  has_many :embarkment
+  has_many :viajesPostulado, source: 'trip', foreign_key: 'trip_id', through: :embarkment
+  has_many :viajesPiloto, class_name: 'Trip', foreign_key: 'user_id'
 
   validates :nombre, :apellido, length: {maximum: 50}
   validates :nombre, :apellido, :fecha_nacimiento, presence: true
@@ -61,6 +64,10 @@ class User < ApplicationRecord
   def inactive_message
     !eliminado ? super : :noexiste
   end
+
+  #def self.proceso
+  #  User.first.increment!(:calificacionPiloto)
+  #end
 
   protected
     def solonumeros?(string)

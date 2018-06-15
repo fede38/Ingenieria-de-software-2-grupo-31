@@ -4,9 +4,9 @@ Rails.application.routes.draw do
 	devise_for :users, :controllers => {:registrations => "my_devise/registrations"}
 
 	get '/users', to: 'users#show'
-	
-	resources :trips
+
 	resources :users do
-		resources :vehicles
+    resources :trips
+  	resources :vehicles
 	end
 end

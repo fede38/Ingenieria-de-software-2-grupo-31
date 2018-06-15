@@ -1,22 +1,17 @@
-<% provide(:titulo, "Vehiculos") %>
+<% provide(:titulo, "Vehiculos de "+@user.nombre+" "+@user.apellido) %>
 <div class="row">
   <div class="col-md-12">
     <% if @user.eliminado %>
       <div class="page-header">
-      <!--  "En este div se puede poner el titulo de la pagina o un titulo general" -->
         <h1>Este usuario ya no existe</h1>
       </div>
     <% else %>
       <div class="row">
         <div class="col-md-1">
-        <!-- Esta columna es para separar el borde de la primer columna de contacto -->
         </div>
         <div class="col-md-10">
-        <!-- Columna en dodne se va a desarrollar el perfil -->
           <div class="row">
             <div class="col-md-2">
-              <!-- Columna para foto de perfil y demases -->
-              <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
               <%= image_tag(@user.avatar.url,:class=>"circular-image mediumm-image")%>
               <h3 style="text-align: center">
                 <%= username %>
@@ -38,27 +33,20 @@
                   Fecha de Nacimiento: <%= formato_fecha %>
                 </p>
               <% else %>
-                <div>
-                  <br />
-                  <br />
-                </div>
+                <br><br>
               <% end %>
 
-              <p class="isDisabled">
-                Reputacion Piloto:
+              <h5>Reputacion piloto:</h5>
+              <p>
+                <%= image_tag('autis.png', size: '23x23', class: 'logitos') %>
+                <%= @user.calificacionPiloto %>
+              </p>
+              <h5>Reputacion Copiloto:</h5>
+              <p>
+                 <%= image_tag('pasajeris.png', size: '23x23', class: 'logitos') %>
+                 <%= @user.calificacionCopiloto %>
               </p>
 
-              <% if @user != current_user %>
-                <div>
-                  <br />
-                </div>
-              <% end %>
-
-              <p class="isDisabled">
-                Reputacion Copiloto:
-              </p>
-
-              <!-- Codigo que checkea que un usuario sea el del perfil visitado -->
               <% if @user == current_user %>
                 <ul type="button" class="btn btn-block btn-sm">
                   <%= link_to 'Nuevo Vehiculo', new_user_vehicle_path(@user),:class => "btn btn-block btn-sm colapso my-link-button" %>
@@ -81,12 +69,10 @@
                   <%= link_to 'Perfil', user_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
                 </ul>
               <% end %>
-              <!-- fin codigo de checkeo de perfil -->
             </div>
             <div class="col-md-10">
               <div class="row">
                 <div class="col-md-1">
-                <!-- columna separadora -->
                 </div>
                 <div class="col-md-10" style="background-color: #fafafa">
                   <h1 style="text-align: center;">
@@ -95,7 +81,6 @@
                   </h1>
                   <div class="row">
                     <div class="col-md-1">
-                      <!-- div separador -->
                     </div>
                     <div class="col-md-10">
                       <% if @user.vehicles.all.empty? %>
@@ -108,91 +93,79 @@
                         </h3>
                       <% else %>
                         <% @vehicle.each do |ve| %>
-                          <% if !ve.eliminado %>
-                            <div class="well my-jumbotron" >
-                              <h3 style="text-align: center;">
-                                Patente: <%= ve.patente.upcase %>
-                              </h3>
-                              <br/>
-                              <div class="row " style="margin-left: 10px; margin-right: 10px ">
-                                <div class="col-md-4" >
-                                  <div >
-                                    <h5 style="font-weight: bold;">
-                                      Marca: <%= ve.marca.upcase %>
-                                    </h5>
-                                  </div>
-                                  <div >
-                                    <h5 style="font-weight: bold;">
-                                      Tipo:
-                                        <%= ve.tipo.upcase %>
-                                    </h5>
-                                  </div>
-                                  
+                          <div class="well my-jumbotron" >
+                            <h3 style="text-align: center;">
+                              Patente: <%= ve.patente.upcase %>
+                            </h3>
+                            <br/>
+                            <div class="row " style="margin-left: 10px; margin-right: 10px ">
+                              <div class="col-md-4" >
+                                <div >
+                                  <h5 style="font-weight: bold;">
+                                    Marca: <%= ve.marca.upcase %>
+                                  </h5>
                                 </div>
-                                <div class="col-md-4">
-                                  <div >
-                                    <h5 style="font-weight: bold;">
-                                      Modelo:
-                                        <%= ve.sub_marca.upcase %>
-                                    </h5>
-                                  </div>
-                                  <div >
-                                    <h5 style="font-weight: bold;">
-                                      Color:
-                                        <%= ve.color.upcase %> 
-                                    </h5>
-                                  </div>
-                                  
+                                <div >
+                                  <h5 style="font-weight: bold;">
+                                    Tipo:
+                                      <%= ve.tipo.upcase %>
+                                  </h5>
                                 </div>
-                                <div class="col-md-4">
-                                  <div>
-                                    <h5 style="font-weight: bold;">
-                                      Año:
-                                        <%= ve.modelo %>
-                                    </h5>
-                                  </div> 
-
-                                  <div >
-                                    <h5 style="font-weight: bold;">
-                                      Asientos:
-                                        <%= ve.cantidad_asientos %> 
-                                    </h5>
-                                  </div>
-                                  <br />
-                                </div>
-                                <% if @user == current_user %>
-                                  <button type="button" class="btn btn-block btn-sm my-button-color2">
-                                    <%= link_to 'Modificar', edit_user_vehicle_path(@user,ve.id),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-                                  </button>
-                                  <button type="button" class="btn btn-block btn-sm my-button-color2">
-                                    <%= link_to 'Eliminar', user_vehicle_path(@user,ve), method: :delete,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-                                  </button>
-                                <% end %>
                               </div>
-                              <div>
-                                <br />
-                                <br />
+                              <div class="col-md-4">
+                                <div>
+                                  <h5 style="font-weight: bold;">
+                                    Modelo:
+                                      <%= ve.sub_marca.upcase %>
+                                  </h5>
+                                </div>
+                                <div>
+                                  <h5 style="font-weight: bold;">
+                                    Color:
+                                      <%= ve.color.upcase %>
+                                  </h5>
+                                </div>
                               </div>
+                              <div class="col-md-4">
+                                <div>
+                                  <h5 style="font-weight: bold;">
+                                    Año:
+                                      <%= ve.modelo %>
+                                  </h5>
+                                </div>
+                                <div>
+                                  <h5 style="font-weight: bold;">
+                                    Asientos:
+                                      <%= ve.cantidad_asientos %>
+                                  </h5>
+                                </div>
+                                <br>
+                              </div>
+                              <% if @user == current_user %>
+                                <button type="button" class="btn btn-block btn-sm my-button-color2">
+                                  <%= link_to 'Modificar', edit_user_vehicle_path(@user,ve.id),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                                </button>
+                                <button type="button" class="btn btn-block btn-sm my-button-color2">
+                                  <%= link_to 'Eliminar', user_vehicle_path(@user,ve), method: :delete,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                                </button>
+                              <% end %>
                             </div>
-                          <% end %>
+                            <br>
+                            <br>
+                          </div>
                         <% end %>
                       <% end %>
                     </div>
                     <div class="col-md-1">
-                      <!-- div separador -->
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>  
+        </div>
       </div>
     <% end %>
   </div>
 </div>
-<div>
-  <br />
-  <br />
-  <br />
-</div>
+<br><br><br>
