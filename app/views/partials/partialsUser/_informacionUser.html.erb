@@ -1,0 +1,30 @@
+<%= image_tag(@user.avatar.url,:class=>"circular-image mediumm-image")%>
+<h3 style="text-align: center">
+  <%= username %>
+</h3>
+<% if @user == current_user %>
+  <p>
+    Nombre: <%= @user.nombre %>
+  </p>
+  <p>
+    Apellido: <%= @user.apellido %>
+  </p>
+  <p>
+    E-mail: <%= @user.email %>
+  </p>
+  <p>
+    Fecha de Nacimiento: <%= formato_fecha %>
+  </p>
+<% else %>
+  <br><br>
+<% end %>
+<h5>Reputacion piloto:</h5>
+<p>
+  <%= image_tag('autis.png', size: '23x23', class: 'logitos') %>
+  <%= @user.calificacionPiloto %>
+</p>
+<h5>Reputacion Copiloto:</h5>
+<p>
+  <%= image_tag('pasajeris.png', size: '23x23', class: 'logitos') %>
+  <%= @user.calificacionCopiloto %>
+</p>

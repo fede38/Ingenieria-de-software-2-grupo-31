@@ -2,163 +2,25 @@
   <div class="col-md-12">
     <% if @user.eliminado %>
       <div class="page-header">
-      <!--  "En este div se puede poner el titulo de la pagina o un titulo general" -->
         <h1>Este usuario ya no existe</h1>
       </div>
     <% elsif !@user.confirmed_at %>
       <h1>Este usuario todavia no confirmo su mail</h1>
     <% else %>
       <div class="row">
-        <div class="col-md-1">
-        <!-- Esta columna es para separar el borde de la primer columna de contacto -->
-        </div>
+        <div class="col-md-1"></div>
         <div class="col-md-10">
-        <!-- Columna en dodne se va a desarrollar el perfil -->
           <div class="row">
             <div class="col-md-2">
-              <!-- Columna para foto de perfil y demases -->
               <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
-              <%= image_tag(@user.avatar.url,:class=>"circular-image mediumm-image")%>
-              <h3 style="text-align: center">
-                <%= username %>
-              </h3>
-              <% if @user == current_user %>
-                <p>
-                  Nombre:
-                 <%= @user.nombre %>
-                </p>
-                <p>
-                  Apellido:
-                  <%= @user.apellido %>
-                </p>
-                <p>
-                  E-mail:
-                  <%= @user.email %>
-                </p>
-                <p>
-                  Fecha de Nacimiento: <%= formato_fecha %>
-                </p>
-              <% else %>
-                <br><br>
-              <% end %>
-
-              <h5>Reputacion piloto:</h5>
-              <p>
-                <%= image_tag('autis.png', size: '23x23', class: 'logitos') %>
-                <%= @user.calificacionPiloto %>
-              </p>
-              <h5>Reputacion Copiloto:</h5>
-              <p>
-                 <%= image_tag('pasajeris.png', size: '23x23', class: 'logitos') %>
-                 <%= @user.calificacionCopiloto %>
-              </p>
-
-              <% if @user == current_user %>
-                <%= link_to 'Mis viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
-                <%= link_to 'Mis vehiculos', user_vehicles_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-                <%= link_to 'Editar cuenta', edit_user_registration_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-              <% else %>
-                <br><br>
-                <%= link_to 'Viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
-                <%= link_to 'Vehiculos', user_vehicles_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-              <% end %>
-              <!-- fin codigo de checkeo de perfil -->
+              <%= render 'partials/partialsUser/informacionUser' %>
+              <%= render 'partials/partialsUser/botonesPerfil' %>
             </div>
-            <div class="col-md-10">
-              <div class="row">
-                <div class="col-md-1">
-                <!-- columna separadora -->
-                </div>
-                <div class="col-md-10" style="background-color: #fafafa">
-                  <h1 style="text-align: center;">
-                    Ultimos Viajes
-                  </h1>
-                  <div class="row">
-                    <div class="col-md-1">
-                      <!-- div separador -->
-                    </div>
-                    <div class="col-md-10">
-                      <!-- completar con estructura pa ra poner viajes como objetos dentro -->
-                      <h3>
-                        No has realizado viajes todavia :(
-                      </h3>
-                      <p>
-                        <ul>
-                          <%= link_to 'Crea un viaje', new_user_trip_path(current_user) %>
-                        </ul>
-                        <ul>
-                          <%= link_to 'Mira los viajes disponibles', root_path %>
-                        </ul>
-                      </p>
-                      <!-- <div class="jumbotron my-jumbotron">
-                        <h3 style="align-content: center;">
-                          Nombre de Ciudad Origen - Nombre de Ciudad Destino
-                        </h3>
-                        <div class="row">
-                          <div class="col-md-4">
-                            <h5>
-                              Fecha: dd/mm/aaaa
-                            </h5>
-                            <h5>
-                              Hora: hh:mm
-                            </h5>
-                            <h5>
-                              Piloto: nombre_usuario
-                            </h5>
-                          </div>
-                          <div class="col-md-8">
-                            <h4>
-                              Esta es una descripcion del viaje realizado por asdasddfsrfsdasdesf sedssfsdfsed sdsdef desdsfsd....
-                            </h4>
-                             <ul type="button" class="btn btn-block btn-sm">
-                                  <%= link_to 'Ver viaje', '#',:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-                              </ul>
-                          </div>
-                        </div>
-                      </div> -->
-                      <!-- <div class="jumbotron my-jumbotron">
-                        <h3 style="align-content: center;">
-                          Nombre de Ciudad Origen - Nombre de Ciudad Destino
-                        </h3>
-                        <div class="row">
-                          <div class="col-md-4">
-                            <h5>
-                              Fecha: dd/mm/aaaa
-                            </h5>
-                            <h5>
-                              Hora: hh:mm
-                            </h5>
-                            <h5>
-                              Piloto: nombre_usuario
-                            </h5>
-                          </div>
-                          <div class="col-md-8">
-                             <h4>
-                                Esta es una descripcion del viaje realizado por asdasddfsrfsdasdesf sedssfsdfsed sdsdef desdsfsd....
-                              </h4>
-                              <ul type="button" class="btn btn-block btn-sm">
-                                <%= link_to 'Ver viaje', '#',:class => "btn btn-block btn-sm my-button-colo mbtn btn-block btn-sm my-button-coloy-link-button" %>
-                              </ul>
-                          </div>
-                        </div>
-                      </div> -->
-
-                    </div>
-                    <div class="col-md-1">
-                      <!-- div separador -->
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <%= render 'partials/partialsUser/mostrarViajes' %>
           </div>
         </div>
       </div>
     <% end %>
   </div>
 </div>
-  <div>
-    <br />
-    <br />
-    <br />
-  </div>
+<br><br><br>

@@ -80,7 +80,7 @@ end
     hora_inicio: rand(00..23).to_s+":"+rand(00..59).to_s,
     costo: rand(1000.0...5000.0),
     destino: destinos[v],
-    activo: rand(0..1) == 1 ? true : false,
+    activo: true,
     user_id: $user.id,
     vehicle_id: $user.vehicles.all.sample.id,
   )

@@ -1,0 +1,9 @@
+<% if @user == current_user %>
+  <%= link_to 'Nuevo Vehiculo', new_user_vehicle_path(@user),:class => "btn btn-block btn-sm colapso my-link-button" %>
+  <%= link_to 'Mis viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
+  <%= link_to 'Mi Perfil',users_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+<% else %>
+  <br><br>
+  <%= link_to 'Viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
+  <%= link_to 'Perfil', user_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+<% end %>

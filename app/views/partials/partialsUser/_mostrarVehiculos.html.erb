@@ -1,0 +1,90 @@
+<div class="col-md-10">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" style="background-color: #fafafa">
+      <h1 style="text-align: center;">
+        Vehiculos<br>
+      </h1>
+      <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-10">
+          <% if @user.vehicles.all.empty? %>
+          <h3 style="text-align: center;">
+            <% if @user == current_user %>
+            No posee vehiculos, <%= link_to ' agrega uno!', new_user_vehicle_path(@user) %>
+            <% else %>
+            No posee vehiculos
+            <% end %>
+          </h3>
+          <% else %>
+          <% @vehicle.each do |ve| %>
+          <div class="well my-jumbotron" >
+            <h3 style="text-align: center;">
+              Patente: <%= ve.patente.upcase %>
+            </h3>
+            <br/>
+            <div class="row " style="margin-left: 10px; margin-right: 10px ">
+              <div class="col-md-4" >
+                <div >
+                  <h5 style="font-weight: bold;">
+                    Marca: <%= ve.marca.upcase %>
+                  </h5>
+                </div>
+                <div >
+                  <h5 style="font-weight: bold;">
+                    Tipo:
+                    <%= ve.tipo.upcase %>
+                  </h5>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div>
+                  <h5 style="font-weight: bold;">
+                    Modelo:
+                    <%= ve.sub_marca.upcase %>
+                  </h5>
+                </div>
+                <div>
+                  <h5 style="font-weight: bold;">
+                    Color:
+                    <%= ve.color.upcase %>
+                  </h5>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div>
+                  <h5 style="font-weight: bold;">
+                    Año:
+                    <%= ve.modelo %>
+                  </h5>
+                </div>
+                <div>
+                  <h5 style="font-weight: bold;">
+                    Asientos:
+                    <%= ve.cantidad_asientos %>
+                  </h5>
+                </div>
+                <br>
+              </div>
+              <% if @user == current_user %>
+              <button type="button" class="btn btn-block btn-sm my-button-color2">
+                <%= link_to 'Modificar', edit_user_vehicle_path(@user,ve.id),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+              </button>
+              <button type="button" class="btn btn-block btn-sm my-button-color2">
+                <%= link_to 'Eliminar', user_vehicle_path(@user,ve), method: :delete,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+              </button>
+              <% end %>
+            </div>
+            <br>
+            <br>
+          </div>
+          <% end %>
+          <% end %>
+        </div>
+        <div class="col-md-1">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
