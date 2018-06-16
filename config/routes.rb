@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 	devise_for :users, :controllers => {:registrations => "my_devise/registrations"}
 
 	get '/users', to: 'users#show'
+  get '/users/:id/postulaciones', to: 'users#postulaciones'
 
 	resources :users do
 		resources :trips do

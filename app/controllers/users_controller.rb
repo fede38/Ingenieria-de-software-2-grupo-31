@@ -9,6 +9,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def postulaciones
+    @user = current_user
+    @postulaciones = Embarkment.where('user_id = ?', @user.id).order(updated_at: :desc)
+  end
+
   private
     def correct_user
       redirect_to root_path unless params[:id] == current_user.id

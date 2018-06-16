@@ -1,0 +1,39 @@
+<div class="col-md-10">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10" style="background-color: #fafafa">
+      <h1 style="text-align: center;">
+        Postulaciones en viajes activos:<br>
+      </h1>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <% if @postulaciones.empty? %>
+            <h3 style="text-align: center;">
+              No hay postulaciones a viajes activos.
+            </h3>
+          <% else %>
+            <% @postulaciones.all.each do |pos| %>
+              <% if pos.trip.activo %>
+                <% if pos.estado == 'a' %>
+                  <div class="cajaAceptado">
+                    <%= render 'partials/partialsUser/mostrarPostulacionesJumbo', {emb: pos, mensaje: 'Te han aceptado en el viaje '} %>
+                  </div>
+                <% elsif pos.estado == 'p' %>
+                  <div class="cajaPendiente">
+                    <%= render 'partials/partialsUser/mostrarPostulacionesJumbo', {emb: pos, mensaje: 'Esperando ser aceptado o rechazado. '} %>
+                  </div>
+                <% else %>
+                  <div class="cajaRechazo">
+                    <%= render 'partials/partialsUser/mostrarPostulacionesJumbo', {emb: pos, mensaje: 'Te han rechazado en el viaje '} %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+    </div>
+  </div>
+</div>

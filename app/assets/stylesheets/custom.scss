@@ -1,6 +1,14 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
+@mixin cajita($color, $altura, $margen-top, $margen-pot, $ancho) {
+    background-color: $color;
+    border: 1px solid black;
+    height: $altura;
+    margin-top: $margen-top;
+    margin-bottom: $margen-pot;
+    width: $ancho;
+}
 
 @mixin box-shadow($top, $left, $blur, $color, $inset: false) {
   @if $inset {
@@ -260,18 +268,8 @@ success {
 }
 /*---------------Fin estilos del footer--------------------*/
 
-.cajita-165px {
-    background-color: #d1d1d1;
-    border: 1px solid black;
-    height: 165px;
-    margin-bottom: 2px;
-    width: 50%;
-}
-
-.cajita-50px {
-    background-color: #d1d1d1;
-    border: 1px solid black;
-    height: 50px;
-    margin-bottom: 2px;
-    width: 50%;
-}
+.cajita-165px { @include cajita(#d1d1d1, 165px, 0, 2px, 50%); }
+.cajita-50px { @include cajita(#d1d1d1, 50px, 0, 2px, 50%); }
+.cajaRechazo { @include cajita(#dc3545, 33px, 3px, 3px, 1); }
+.cajaPendiente { @include cajita(#f1f1f1, 33px, 3px, 3px, 1); }
+.cajaAceptado { @include cajita(#28a745, 33px, 3px, 3px, 1); }
