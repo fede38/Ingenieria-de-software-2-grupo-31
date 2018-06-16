@@ -3,6 +3,26 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  def calificarPositivamente(user, tipo)
+    if tipo == 'piloto'
+      user.increment!(:calificacionPiloto, 1)
+    else
+      user.increment!(:calificacionCopiloto, 1)
+    end
+  end
+
+  def calificarNegativamente(user, tipo)
+    if tipo == 'piloto'
+      unless user.calificacionPiloto == 0
+        user.decrement!(:calificacionPiloto, 1)
+      end
+    else
+      unless user.calificacionCopiloto == 0
+        user.decrement!(:calificacionCopiloto, 1)
+      end
+    end
+  end
+
   protected
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up) { |u|
