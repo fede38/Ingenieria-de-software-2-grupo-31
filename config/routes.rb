@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       member do
         put :aceptar
         put :rechazar
-        put :eliminar
+        delete :eliminar
       end
     end
 		resources :vehicles

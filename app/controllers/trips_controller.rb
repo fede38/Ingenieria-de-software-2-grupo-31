@@ -60,6 +60,13 @@ class TripsController < ApplicationController
 	end
 
 	def eliminar
+		usuario = User.find(params[:idU])
+		viaje = Trip.find(params[:idT])
+		viaje.postulantes.delete(usuario)
+		viaje.decrement!(:cantidad_asientos_ocupados, 1)
+		calificarNegativamente(viaje.piloto, 'piloto')
+		TripMailer.sendMail(viaje, 'e', usuario).deliver
+		redirect_to :back
 	end
 
 private

@@ -36,7 +36,7 @@ archivos = Dir.foreach(dir) \
   user = User.new(
     nombre: nombres[u],
     apellido: apellidos[u],
-    email: apellidos[u].downcase+'@hotmail.com',
+    email: apellidos[u].downcase+'@fakemail.com',
     fecha_nacimiento: "199"+u.to_s+"-01-01",
     password: '123456',
     password_confirmation: '123456',
