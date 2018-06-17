@@ -3,7 +3,7 @@
 <h1>Viaje</h1>
 
 <b>Piloto:</b>
-	<%= usernameOf(User.find(@trip.user_id)) %> <br>
+	<%= link_to usernameOf(@trip.piloto), user_path(@trip.piloto) %> <br>
 <b>Fecha de salida:</b>
 	<%= @trip.fecha_inicio %> <br>
 <b>Hora de salida:</b>

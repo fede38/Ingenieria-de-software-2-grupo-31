@@ -1,4 +1,6 @@
 class Trip < ApplicationRecord
+  default_scope { order(destino: :asc) }
+
   belongs_to :piloto, class_name: 'User', foreign_key: 'user_id'
   belongs_to :vehicle
 
@@ -9,7 +11,6 @@ class Trip < ApplicationRecord
 
   validate :fecha_mayor_a_hoy
   validate :hora_mayor_a_ahora
-
 
   def fecha_mayor_a_hoy
   	if self.fecha_inicio and self.fecha_inicio.past?

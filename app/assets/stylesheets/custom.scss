@@ -273,3 +273,26 @@ success {
 .cajaRechazo { @include cajita(#dc3545, 33px, 3px, 3px, 1); }
 .cajaPendiente { @include cajita(#f1f1f1, 33px, 3px, 3px, 1); }
 .cajaAceptado { @include cajita(#28a745, 33px, 3px, 3px, 1); }
+
+.pagination-wrapper {
+  height: 50px;
+  text-align: center;
+  width: 100%;
+}
+.pagination li a {
+  color: black;
+}
+.pagination li a:hover {
+  background-color: #f2dede;
+  color: black;
+}
+.pagination>li.active>a {
+  background-color: #F17376;
+  border-color: #F17376;
+  color: black;
+}
+.pagination>li.active>a:hover {
+  background-color: #F17376;
+  border-color: #F17376;
+  color: black;
+}
