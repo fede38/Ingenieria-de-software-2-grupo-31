@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180617023528) do
+ActiveRecord::Schema.define(version: 20180617215417) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.float    "deuda",      default: 0.0
+    t.float    "saldo",      default: 0.0
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
 
   create_table "embarkments", force: :cascade do |t|
     t.integer  "user_id"
@@ -77,8 +86,6 @@ ActiveRecord::Schema.define(version: 20180617023528) do
     t.date     "fecha_vencimiento"
     t.integer  "calificacionPiloto",     default: 0
     t.integer  "calificacionCopiloto",   default: 0
-    t.integer  "saldo",                  default: 0
-    t.integer  "deuda",                  default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :embarkment
   has_many :viajesPostulado, source: 'trip', foreign_key: 'trip_id', through: :embarkment
   has_many :viajesPiloto, class_name: 'Trip', foreign_key: 'user_id'
+  has_one :account
 
   validates :nombre, :apellido, length: {maximum: 50}
   validates :nombre, :apellido, :fecha_nacimiento, presence: true

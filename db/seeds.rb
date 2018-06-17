@@ -44,6 +44,7 @@ archivos = Dir.foreach(dir) \
   )
   user.skip_confirmation!
   user.save!
+  user.account = Account.create
 end
 
 10.times do |a|
