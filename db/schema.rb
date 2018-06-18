@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180617221929) do
+ActiveRecord::Schema.define(version: 20180618184701) do
 
   create_table "accounts", force: :cascade do |t|
     t.float    "deuda",      default: 0.0
@@ -65,7 +65,7 @@ ActiveRecord::Schema.define(version: 20180617221929) do
     t.string   "destino"
     t.integer  "vehicle_id"
     t.boolean  "activo"
-    t.integer  "cantidad_asientos_ocupados", default: 0
+    t.integer  "cantidad_asientos_ocupados", default: 1
     t.index ["user_id"], name: "index_trips_on_user_id"
     t.index ["vehicle_id"], name: "index_trips_on_vehicle_id"
   end
