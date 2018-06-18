@@ -1,14 +1,12 @@
 Correcciones y Bugs:
 
 Correcciones de los ayudantes:
-	-Cambiar lenguaje de errores de rails (change languaje rails errors) 
-	-Cambiar lenguaje de errores de devise (devise yml (yaml))
-	-Agregar grid-system en application (columnas de Bootstrap) (hecho, creo)
-	-Cambiar el formato del footer a footer de bootstrap (footer navbar) (footer arreglado?)
-	-Deshabilitar o quitar botones que no funcionan (ver viajes, crear viaje) (hecho)
-	-Recordar: un usuario puede tener una sola vez el mismo auto.
-
-
+	<del>-Cambiar lenguaje de errores de rails (change languaje rails errors)</del>
+	<del>-Cambiar lenguaje de errores de devise (devise yml (yaml))</del>
+	<del>-Agregar grid-system en application (columnas de Bootstrap)</del>
+	<del>-Cambiar el formato del footer a footer de bootstrap (footer navbar)</del>
+	<del>-Deshabilitar o quitar botones que no funcionan (ver viajes, crear viaje)</del>
+	<del>-Recordar: un usuario puede tener una sola vez el mismo auto.</del>
 
 Bugs:
-
+  - Las calificaciones se guardan en la timezone de UTC, si no se puede arreglar va a haber que restarle tres horas siempre manualmente.

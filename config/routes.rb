@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       member do
         put :aceptar
         put :rechazar
+        delete :cancelarPostulacion
         delete :eliminar
       end
     end

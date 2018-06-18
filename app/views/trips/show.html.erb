@@ -56,6 +56,25 @@
           <div style="clear:both;">
           </div>
         </div>
+      <% elsif usr == current_user %>
+        <div class="cajita-50px">
+          <div style="float: left; font-size: 24px;">
+            <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Avatar', size: '50x50')%>
+            <%= link_to usernameOf(usr), user_path(usr) %>
+          </div>
+          <div class="boton-ace-rec">
+            <%= button_to "Cancelar postulacion", {controller: :trips,
+                                     action: 'cancelarPostulacion',
+                                     idU: current_user,
+                                     idT: @trip.id,},
+                                     {class: 'btn btn-danger',
+                                     method: :delete,
+                                     data: {confirm: '¿Estas seguro que queres cancelar la postulacion? Se te restara un punto de calificacion como acompañante.'}}
+                                      %>
+          </div>
+          <div style="clear:both;">
+          </div>
+        </div>
       <% else %>
         <div class="cajita-50px">
           <div style="float: left; font-size: 24px;">
@@ -95,6 +114,17 @@
                                       idT: @trip.id},
                                       {class: 'btn btn-danger',
                                       method: :put} %>
+          </div>
+          <div style="clear:both;">
+          </div>
+        <% elsif current_user == usr %>
+          <div class="boton-ace-rec">
+            <%= button_to "Cancelar postulacion", {controller: :trips,
+                                                  action: 'cancelarPostulacion',
+                                                  idU: current_user.id,
+                                                  idT: @trip.id},
+                                                  {class: 'btn btn-danger',
+                                                  method: :delete} %>
           </div>
           <div style="clear:both;">
           </div>
