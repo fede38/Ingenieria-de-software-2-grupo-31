@@ -56,9 +56,6 @@ class TripsController < ApplicationController
 	end
 
 	def rechazar
-<<<<<<< HEAD
-
-=======
 		usuario = User.find(params[:idU])
 		viaje = Trip.find(params[:idT])
 		rel = Embarkment.find_by(user_id: usuario.id,
@@ -84,7 +81,6 @@ private
 	def parametros_viaje
 		params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:origen,:destino,
 									:descripcion,:vehicle_id,:user_id)
->>>>>>> calificaciones
 	end
 
 end
