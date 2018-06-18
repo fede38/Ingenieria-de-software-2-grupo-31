@@ -73,7 +73,7 @@ class TripsController < ApplicationController
 private
 
 	def parametros_viaje
-		params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:destino,
+		params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:origen,:destino,
 									:descripcion,:vehicle_id,:user_id)
 	end
 

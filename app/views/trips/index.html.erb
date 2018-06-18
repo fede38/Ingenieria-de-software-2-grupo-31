@@ -9,65 +9,7 @@
           <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-10", style="background-color: #fafafa;">
-              <div class="row">
-                <h1 style="text-align: center;">
-    						  Viajes disponibles
-    					  </h1>
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
-                  <% if @trips.empty? %>
-                    <% if user_signed_in? %>
-                      <h3 style="text-align: center;">
-                        No hay viajes,  <%= link_to ' crea uno!', new_user_trip_path(@user) %>
-                      </h3>
-                    <% else %>
-                      <h3 style="text-align: center;">
-                        No hay viajes,  <%= link_to ' inicia sesion', new_user_session_path %> para crear uno!
-                      </h3>
-                    <% end %>
-                  <% else %>
-                    <div class="centering", style="margin-bottom: 5px; background-color: #d1d1d1; text-align: center;">
-                      <b>Ordenar por:</b>
-                      <%= sort_link(@q, :destino) %>
-                      <%= sort_link(@q, :fecha_inicio, ['fecha_inicio', 'hora_inicio'], 'Fecha') %>
-                    </div>
-                    <% @trips.each do |t| %>
-                      <div style="align-content: center;">
-                        <div class="row my-jumbotron", style="margin-bottom: 5px; padding: 20px;">
-                          <h3 style="text-align: center;">
-                            <%= 'Viaje a: '+t.destino %>
-                          </h3>
-                          <h5>
-                            <b>Fecha:</b> <%= formato_fecha(t.fecha_inicio) %>
-                          </h5>
-                          <h5>
-                            <b>Hora:</b> <%= t.hora_inicio.strftime('%H:%M') %>
-                          </h5>
-                          <h5>
-                            <b>Piloto:</b> <%= link_to usernameOf(t.piloto), user_path(t.piloto) %>
-                          </h5>
-                          <div style="background-color: white; width: 100%;">
-                            <h4>
-                              <%= t.descripcion %>
-                            </h4>
-                          </div>
-                          <div>
-                            <b>
-                              <%= link_to 'Ver viaje', user_trip_path(t.piloto, t),:class => "btn btn-block btn-sm my-button-color my-link-button", style: "font-size: 18px;" %>
-                            </b>
-                          </div>
-                        </div>
-                      </div>
-                    <% end %>
-                  <% end %>
-                  <div class="pagination-wrapper">
-                    <div class="pagination">
-                      <%= will_paginate @trips, previous_label: 'Página anterior', next_label: 'Página siguiente' %>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-1"></div>
-              </div>
+             <%= render 'partials/partialsTrips/allTrips' %>
             </div>
             <div class="col-md-1"></div>
           </div>

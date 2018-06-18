@@ -8,6 +8,12 @@
 	<%= @trip.fecha_inicio %> <br>
 <b>Hora de salida:</b>
 	<%= @trip.hora_inicio.strftime('%H:%M') %> <br>
+<b>Origen: </b>
+    <% if @trip.origen != nil %>
+        <%= @trip.origen %> <br>
+    <% else %>
+        - <br>
+    <% end %>
 <b>Destino:</b>
 	<%= @trip.destino %> <br>
 
