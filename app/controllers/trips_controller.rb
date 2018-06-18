@@ -68,7 +68,7 @@ class TripsController < ApplicationController
 		cal = Score.create(calificado: viaje.piloto, realizada: true,
 			                 tipo_calificacion: 'p', calificacion: -1,
 			                 descripcion: 'Elimino a un usuario ya aceptado.',
-			                 fechayhora: Time.now.localtime)
+			                 fechayhora: Time.zone.now)
 		calificar(viaje.piloto, cal)
 		TripMailer.sendMail(viaje, 'e', usuario).deliver
 		redirect_to :back
@@ -83,7 +83,7 @@ class TripsController < ApplicationController
 			cal = Score.create(calificado: usuario, realizada: true,
 			                 tipo_calificacion: 'c', calificacion: -1,
 			                 descripcion: 'Cancelo la postulación a un viaje en el que ya habia sido aceptado.',
-			                 fechayhora: Time.now.localtime)
+			                 fechayhora: Time.zone.now)
 			calificar(usuario, cal)
 			viaje.decrement!(:cantidad_asientos_ocupados, 1)
 		end

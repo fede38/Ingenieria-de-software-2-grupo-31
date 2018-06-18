@@ -43,7 +43,8 @@ ActiveRecord::Schema.define(version: 20180618184701) do
   create_table "scores", force: :cascade do |t|
     t.integer  "calificacion"
     t.text     "descripcion"
-    t.datetime "fechayhora"
+    t.date     "fecha"
+    t.time     "hora"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "calificado_id"
