@@ -11,9 +11,12 @@ class TripMailer < ActionMailer::Base
     elsif decision == 'r'
       mail(to: "#{@client.email}", subject: "Has sido rechazado en un viaje.",
            template_path: "trip_mailer/sendMail", template_name: "rechazado.html.erb")
-    else
+    elsif decision == 'e'
       mail(to: "#{@client.email}", subject: "Has sido eliminado de un viaje.",
            template_path: "trip_mailer/sendMail", template_name: "eliminado.html.erb")
+    else
+      mail(to: "#{@client.email}", subject: "Un copiloto se ha dado de baja.",
+           template_path: "trip_mailer/sendMail", template_name: "cancelar.html.erb")
     end
   end
 end

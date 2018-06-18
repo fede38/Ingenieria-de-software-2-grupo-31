@@ -4,7 +4,7 @@ class TripsController < ApplicationController
 	def index
 		if user_signed_in?
 			@user = current_user
-		end 
+		end
     @q = Trip.ransack(params[:q])
     @trips = @q.result.paginate(page: params[:page], per_page: 5)
   end
@@ -65,8 +65,33 @@ class TripsController < ApplicationController
 		viaje = Trip.find(params[:idT])
 		viaje.postulantes.delete(usuario)
 		viaje.decrement!(:cantidad_asientos_ocupados, 1)
-		calificarNegativamente(viaje.piloto, 'piloto')
+		fecha = Time.now.year.to_s+'-'+Time.now.month.to_s+'-'+Time.now.day.to_s
+		hora = Time.now.hour.to_s+':'+Time.now.min.to_s
+		cal = Score.create(calificado: viaje.piloto, realizada: true,
+			                 tipo_calificacion: 'p', calificacion: -1,
+			                 descripcion: 'Elimino a un usuario ya aceptado.',
+			                 fecha: fecha, hora: hora)
+		calificar(viaje.piloto, cal)
 		TripMailer.sendMail(viaje, 'e', usuario).deliver
+		redirect_to :back
+	end
+
+	def cancelarPostulacion
+		usuario = User.find(params[:idU])
+		viaje = Trip.find(params[:idT])
+		if Embarkment.find_by(user_id: usuario.id, trip_id: viaje.id).estado == 'a'
+			TripMailer.sendMail(viaje, 'c', viaje.piloto).deliver
+			fecha = Time.now.year+'-'+Time.now.month+'-'+Time.now.day
+			hora = Time.now.hour+':'+Time.now.minutes
+			cal = Score.create(calificado: usuario, realizada: true,
+			                 tipo_calificacion: 'c', calificacion: -1,
+			                 descripcion: 'Cancelo la postulación a un viaje en el que ya habia sido aceptado.',
+			                 fecha: fecha, hora: hora)
+			calificar(usuario, cal)
+			viaje.decrement!(:cantidad_asientos_ocupados, 1)
+		end
+		flash[:success] = 'Te has dado de baja del viaje correctamente'
+		viaje.postulantes.delete(usuario)
 		redirect_to :back
 	end
 
