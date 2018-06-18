@@ -19,12 +19,19 @@ colores = [
   'Verde', 'Naranja', 'Violeta',
   'Blanco', 'Negro', 'Gris'
 ]
+origenes = [
+  'Capital Federal', 'Mar del Plata', 
+  'Monte Hermoso', 'Villa Elisa (Entre Rios)',
+  'Santa Rosa', 'Viedma', 'General Roca',
+  'General Madariaga', 'Villa Regina', 'Allen','Cipolletti',
+  'General Conesa','Larroque','Las Grutas','Cañuelas'
+]
 destinos = [
-  'La plata', 'Buenos aires', 'Olavarria',
+  'La Plata', 'Buenos Aires', 'Olavarria',
   'Azul', 'Pinamar', 'Rosario', 'Salta',
   'Bariloche', 'Resistencia', 'Trelew',
-  'Posadas', 'Bahia blanca', 'Las flores',
-  'Rio cuarto', 'Puerto madryn'
+  'Posadas', 'Bahia Blanca', 'Las Flores',
+  'Rio Cuarto', 'Puerto Madryn'
 ]
 
 dir = 'imagenesSeed'
@@ -80,6 +87,7 @@ end
     fecha_inicio: "2018-"+rand(7..12).to_s+"-"+rand(1..31).to_s,
     hora_inicio: rand(00..23).to_s+":"+rand(00..59).to_s,
     costo: rand(1000.0...5000.0),
+    origen: origenes[v],
     destino: destinos[v],
     activo: true,
     user_id: $user.id,
