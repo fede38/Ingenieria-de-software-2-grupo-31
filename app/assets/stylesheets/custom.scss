@@ -1,6 +1,14 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
+@mixin cajita($color, $altura, $margen-top, $margen-pot, $ancho) {
+    background-color: $color;
+    border: 1px solid black;
+    height: $altura;
+    margin-top: $margen-top;
+    margin-bottom: $margen-pot;
+    width: $ancho;
+}
 
 @mixin box-shadow($top, $left, $blur, $color, $inset: false) {
   @if $inset {
@@ -235,6 +243,8 @@ success {
 
 .my-jumbotron{
     background-color: #f2dede;
+    margin-bottom: 5px;
+    padding: 20px;
 }
 .boton-ace-rec {
     float: left;
@@ -259,3 +269,32 @@ success {
     }
 }
 /*---------------Fin estilos del footer--------------------*/
+
+.cajita-165px { @include cajita(#d1d1d1, 165px, 0, 2px, 50%); }
+.cajita-50px { @include cajita(#d1d1d1, 50px, 0, 2px, 50%); }
+.cajaRechazo { @include cajita(#dc3545, 33px, 3px, 3px, 1); }
+.cajaPendiente { @include cajita(#f1f1f1, 33px, 3px, 3px, 1); }
+.cajaAceptado { @include cajita(#28a745, 33px, 3px, 3px, 1); }
+
+.pagination-wrapper {
+  height: 50px;
+  text-align: center;
+  width: 100%;
+}
+.pagination li a {
+  color: black;
+}
+.pagination li a:hover {
+  background-color: #f2dede;
+  color: black;
+}
+.pagination>li.active>a {
+  background-color: #F17376;
+  border-color: #F17376;
+  color: black;
+}
+.pagination>li.active>a:hover {
+  background-color: #F17376;
+  border-color: #F17376;
+  color: black;
+}

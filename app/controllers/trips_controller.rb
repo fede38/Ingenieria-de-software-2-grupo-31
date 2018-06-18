@@ -4,9 +4,16 @@ class TripsController < ApplicationController
 	def index
 		if user_signed_in?
 			@user = current_user
+<<<<<<< HEAD
 		end
 		@trips = Trip.all
 	end
+=======
+		end 
+    @q = Trip.ransack(params[:q])
+    @trips = @q.result.paginate(page: params[:page], per_page: 5)
+  end
+>>>>>>> calificaciones
 
 	def new
 		@trip = Trip.new
@@ -32,20 +39,52 @@ class TripsController < ApplicationController
 		end
 	end
 
-
 	def aceptar
+		usuario = User.find(params[:idU])
+		viaje = Trip.find(params[:idT])
+		rel = Embarkment.find_by(user_id: usuario.id,
+				  									 trip_id: viaje.id)
+		if viaje.cantidad_asientos_ocupados < viaje.vehicle.cantidad_asientos
+			TripMailer.sendMail(viaje, 'a', usuario).deliver
+			rel.update_attribute(:estado, 'a')
+			viaje.increment!(:cantidad_asientos_ocupados, 1)
+			rel.touch
+		else
+			flash[:danger] = "No hay asientos disponibles en el auto, no se pueden aceptar mas postulantes."
+		end
+		redirect_to :back
 	end
 
 	def rechazar
+<<<<<<< HEAD
 
+=======
+		usuario = User.find(params[:idU])
+		viaje = Trip.find(params[:idT])
+		rel = Embarkment.find_by(user_id: usuario.id,
+				  									 trip_id: viaje.id)
+		rel.update_attribute(:estado, 'r')
+		rel.touch
+		TripMailer.sendMail(viaje, 'r', usuario).deliver
+		redirect_to :back
 	end
 
-	private
+	def eliminar
+		usuario = User.find(params[:idU])
+		viaje = Trip.find(params[:idT])
+		viaje.postulantes.delete(usuario)
+		viaje.decrement!(:cantidad_asientos_ocupados, 1)
+		calificarNegativamente(viaje.piloto, 'piloto')
+		TripMailer.sendMail(viaje, 'e', usuario).deliver
+		redirect_to :back
+	end
 
-		def parametros_viaje
-			params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:destino,
-										:descripcion,:vehicle_id,:user_id)
-		end
+private
+
+	def parametros_viaje
+		params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:origen,:destino,
+									:descripcion,:vehicle_id,:user_id)
+>>>>>>> calificaciones
+	end
 
 end
-

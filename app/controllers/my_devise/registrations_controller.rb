@@ -1,4 +1,10 @@
 class MyDevise::RegistrationsController < Devise::RegistrationsController
+  def create
+    super do
+      resource.account = Account.create
+    end
+  end
+
   def destroy
     resource.borrar
     Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
