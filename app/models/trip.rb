@@ -11,11 +11,11 @@ class Trip < ApplicationRecord
 
   validate :fecha_mayor_a_hoy
   validate :hora_mayor_a_ahora
-  validate :saldo_en_contra
+  validate :vehiculo_no_en_viaje
   validate :viajePostulado_a_la_misma_hora
   validate :viajePiloto_a_la_misma_hora
-  validate :vehiculo_no_en_viaje
-
+  validate :saldo_en_contra
+  validate :calificaciones_pendientes
 
   def fecha_mayor_a_hoy
   	if self.fecha_inicio and self.fecha_inicio < Date.today
@@ -56,5 +56,12 @@ class Trip < ApplicationRecord
   					' tiene un viaje asignado a la misma hora, el mismo día')
   	end
   end
+
+  def calificaciones_pendientes
+  	if self.piloto.calif_creadas.detect{ |c| !c.realizada }
+  		errors.add("No puedes crear un viaje, ", 'si tienes calificaciones pendientes')
+  	end
+  end
+
 
 end

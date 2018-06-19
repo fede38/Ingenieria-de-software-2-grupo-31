@@ -25,11 +25,11 @@ class TripsController < ApplicationController
 		#@trip.vehicle_id= Vehicle.find_by(:patente => parametros_viaje[:vehicle_id])
 		@trip.user_id = @user.id
 		if @trip.save
-			#cobrar el 5% del valor del viaje
 			@user.account.update_attribute(:deuda, 
-				(@user.account.deuda + @trip.costo* 0.05))
+				(@user.account.deuda + @trip.costo* 0.05)) #cobra el 5% del valor del viaje
 			current_user.viajesPiloto << @trip
 			redirect_to root_path
+			flash[:success] = 'Viaje creado existosamente!'
 		else
 			render 'new'
 		end
