@@ -112,9 +112,8 @@ ActiveRecord::Schema.define(version: 20180618134940) do
     t.integer  "cantidad_asientos"
     t.string   "color"
     t.string   "tipo"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.boolean  "eliminado",         default: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "sub_marca"
   end
 

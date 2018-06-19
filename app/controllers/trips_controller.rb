@@ -4,16 +4,10 @@ class TripsController < ApplicationController
 	def index
 		if user_signed_in?
 			@user = current_user
-<<<<<<< HEAD
-		end
-		@trips = Trip.all
-	end
-=======
 		end 
-    @q = Trip.ransack(params[:q])
-    @trips = @q.result.paginate(page: params[:page], per_page: 5)
-  end
->>>>>>> calificaciones
+    	@q = Trip.ransack(params[:q])
+    	@trips = @q.result.paginate(page: params[:page], per_page: 5)
+  	end
 
 	def new
 		@trip = Trip.new
