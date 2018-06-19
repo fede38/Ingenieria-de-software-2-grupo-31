@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def viajesPendientes?(user)
+    !Embarkment.joins(:trip).where(estado: 'a', user_id: user, "trips.activo": true).empty? ||
+    !Trip.where(activo: true, piloto: user).empty?
+  end
+
   protected
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up) { |u|
