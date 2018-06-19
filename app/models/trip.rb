@@ -11,9 +11,11 @@ class Trip < ApplicationRecord
 
   validate :fecha_mayor_a_hoy
   validate :hora_mayor_a_ahora
-  #validate :saldo_en_contra
+  validate :saldo_en_contra
   validate :viajePostulado_a_la_misma_hora
   validate :viajePiloto_a_la_misma_hora
+  validate :vehiculo_no_en_viaje
+
 
   def fecha_mayor_a_hoy
   	if self.fecha_inicio and self.fecha_inicio < Date.today
@@ -22,28 +24,37 @@ class Trip < ApplicationRecord
   end
 
   def hora_mayor_a_ahora
-  	if (self.fecha_inicio <=> Date.today) and (self.hora_inicio < Time.now - (3600)*3) 
+  	if (self.fecha_inicio == Date.today) and (self.hora_inicio < Time.now - (3600)*3) 
   			errors.add("La fecha y hora deben ser ", 'posteriores a ahora.')
   	end
   end
 
   def viajePostulado_a_la_misma_hora
-  	if self.piloto.viajesPostulado.all?{ |v| v.fecha_inicio == self.fecha_inicio and
-  											 v.hora_inicio == self.hora_inicio }
-  		errors.add("Estas postulado a un viaje,", ' a la misma hora que éste.')
+  	if self.piloto.viajesPostulado.detect{ |t| t.fecha_inicio == self.fecha_inicio and 
+  											t.hora_inicio == self.hora_inicio }
+  		errors.add("Estas postulado a un viaje,", ' a la misma hora, el mismo día que éste.')
   	end
   end
   
   def viajePiloto_a_la_misma_hora
-  	if self.piloto.viajesPiloto.all?{ |v| v.fecha_inicio == self.fecha_inicio and 
-  											v.hora_inicio == self.hora_inicio }
-  		errors.add("Tienes un viaje pendiente,", ' a la misma hora que éste.')
+  	if self.piloto.viajesPiloto.detect{ |t| t.fecha_inicio == self.fecha_inicio and 
+  											t.hora_inicio == self.hora_inicio }
+  		errors.add("Tienes un viaje pendiente,", ' a la misma hora, el mismo día que éste.')
   	end
   end
-  #def saldo_en_contra
-  #	if @user.account.deuda
-  #		errors.add("No puedes crear un viaje ", 'si tienes deuda pendiete')
-  #	end
-  #end
+
+  def saldo_en_contra
+  	if self.piloto.account.deuda? or self.piloto.account.saldo != 0
+  		errors.add("No puedes crear un viaje ", 'si tienes deuda pendiete')
+  	end
+  end
+
+  def vehiculo_no_en_viaje
+  	if Trip.where(:vehicle_id => self.vehicle_id).detect{ |t| 
+  				t.fecha_inicio == self.fecha_inicio and t.hora_inicio == self.hora_inicio }
+  		errors.add("El vehículo elegido", 
+  					' tiene un viaje asignado a la misma hora, el mismo día')
+  	end
+  end
 
 end

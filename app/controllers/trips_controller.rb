@@ -26,6 +26,8 @@ class TripsController < ApplicationController
 		@trip.user_id = @user.id
 		if @trip.save
 			#cobrar el 5% del valor del viaje
+			@user.account.update_attribute(:deuda, 
+				(@user.account.deuda + @trip.costo* 0.05))
 			current_user.viajesPiloto << @trip
 			redirect_to root_path
 		else
@@ -73,8 +75,8 @@ class TripsController < ApplicationController
 private
 
 	def parametros_viaje
-		params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:origen,:destino,
-									:descripcion,:vehicle_id,:user_id)
+		params.require(:trip).permit(:fecha_inicio, :hora_inicio, :costo, :origen, 
+										:destino, :descripcion, :vehicle_id, :user_id)
 	end
 
 end
