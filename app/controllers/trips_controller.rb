@@ -22,7 +22,6 @@ class TripsController < ApplicationController
 	def create
 		@trip = Trip.new(parametros_viaje)
 		@user= User.find(params[:user_id])
-		#@trip.vehicle_id= Vehicle.find_by(:patente => parametros_viaje[:vehicle_id])
 		@trip.user_id = @user.id
 		if @trip.save
 			@user.account.update_attribute(:deuda, 
