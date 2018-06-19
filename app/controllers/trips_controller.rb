@@ -34,6 +34,22 @@ class TripsController < ApplicationController
 		end
 	end
 
+	def destroy
+		@user = User.find(params[:user_id])
+		@trip = Trip.find(params[:idT])
+		if @user.calificacionPiloto > Embarkment.where(:trip_id => @trip.id).select{|e|
+														e.estado == 'a'}.size
+			@user.update_attribute(:calificacionPiloto, @user.calificacionPiloto - 
+				Embarkment.where(:trip_id => @trip.id).select{|e| e.estado == 'a'}.size)
+		else
+			@user.update_attribute(:calificacionPiloto, 0)
+		end
+		Embarkment.where(:trip_id => @trip.id).each do{ |e| (TripMailer.sendMail(@trip, 
+										'x', e.user_id).deliver) unless e.estado != 'a' }
+		super
+	end
+
+
 	def aceptar
 		usuario = User.find(params[:idU])
 		viaje = Trip.find(params[:idT])
