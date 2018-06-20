@@ -33,6 +33,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       flash[:danger] << 'para eliminar tu cuenta.'
       redirect_to :back
     else
+      Embarkment.joins(:trip).where(estado: 'p', user_id: resource, "trips.activo": true).each do |e|
+        User.find(resource).viajesPostulado.delete(e.trip)
+      end
       resource.borrar
       Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
       set_flash_message :notice, :destroyed
