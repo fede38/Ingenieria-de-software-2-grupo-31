@@ -78,11 +78,10 @@
 
                 <div class="center" style="width: 100%; margin-top: 5px">
                 <b>
-                  <%= link_to 'Eliminar', user_vehicle_path(@user,ve), method: :delete,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-                      
+                  <%= link_to 'Eliminar', user_vehicle_path(@user,ve), method: :delete,:class => "btn btn-block btn-sm my-button-color my-link-button", data: {confirm: '¿Estas seguro que quieres eliminar el vehiculo?'} %>
                   </b>
                 </div>
-              
+
               <% end %>
             </div>
             </div>
@@ -92,7 +91,7 @@
           <% end %>
         </div>
         <div class="col-md-1">
-        </div>
+      </div>
       </div>
     </div>
   </div>
