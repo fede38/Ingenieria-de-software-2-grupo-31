@@ -2,7 +2,9 @@
   <div class="well my-jumbotron-blue">
     <% pendientes = Embarkment.where(estado: 'p', trip_id: @trip).all %>
     <% if pendientes.empty? %>
-      No hay postulantes para este viaje!
+      <div style="text-align: center; font-size: 18px">
+        <b>No hay postulantes para este viaje!</b>
+      </div>
     <% else %>
       <% pendientes.each do |emb| %>
         <% usr = User.find(emb.user_id) %>

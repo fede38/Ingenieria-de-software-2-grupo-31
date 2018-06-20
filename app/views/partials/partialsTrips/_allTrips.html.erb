@@ -15,10 +15,10 @@
           </h3>
         <% end %>
       <% else %>
-        <div class="centering", style="margin-bottom: 5px; background-color: #BDEDBA; text-align: center; font-size:16px">
+        <div class="centering", style="margin-bottom: 10px; margin-top: 5px; background-color: #BDEDBA; text-align: center; font-size:16px">
           <b>Ordenar por: </b>
+          <%= sort_link(@q, :origen, ['origen', 'destino'], 'Origen y destino') %> |
           <%= sort_link(@q, :destino)%> |
-          <%= sort_link(@q, :origen, ['origen', 'destino'], 'Origen y destino') %>
           <%= sort_link(@q, :fecha_inicio, ['fecha_inicio', 'hora_inicio'], 'Fecha') %>
         </div>
         <% @trips.each do |t| %>

@@ -2,7 +2,9 @@
   <div class="well my-jumbotron-green">
     <% aceptados = Embarkment.where(estado: 'a', trip_id: @trip).all %>
     <% if aceptados.empty? %>
-      No se ha aceptado a nadie en este viaje.
+      <div style="text-align: center; font-size: 18px">
+      <b>No se ha aceptado a nadie en este viaje.</b>
+      </div>
     <% else %>
       <% aceptados.each do |ace| %>
         <% usr = User.find(ace.user_id) %>
