@@ -66,12 +66,8 @@ ActiveRecord::Schema.define(version: 20180618184701) do
     t.string   "destino"
     t.integer  "vehicle_id"
     t.boolean  "activo"
-<<<<<<< HEAD
-    t.integer  "cantidad_asientos_ocupados", default: 0
-    t.string   "origen"
-=======
     t.integer  "cantidad_asientos_ocupados", default: 1
->>>>>>> Postulaciones
+    t.string   "origen"
     t.index ["user_id"], name: "index_trips_on_user_id"
     t.index ["vehicle_id"], name: "index_trips_on_vehicle_id"
   end
@@ -117,9 +113,8 @@ ActiveRecord::Schema.define(version: 20180618184701) do
     t.integer  "cantidad_asientos"
     t.string   "color"
     t.string   "tipo"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.boolean  "eliminado",         default: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "sub_marca"
   end
 
