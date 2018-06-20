@@ -1,9 +1,7 @@
 <% if @user == current_user %>
-  <%= link_to 'Mis viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
-  <%= link_to 'Mis vehiculos', user_vehicles_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+  <%= link_to 'Mis Viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
+  <%= link_to 'Mis Vehiculos', user_vehicles_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+  <%= link_to 'Mis Calificaciones', '#', :class => "btn btn-block btn-sm my-button-color my-link-button" %>
+  <%= link_to 'Calificaciones Pendientes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button" %>
   <%= link_to 'Mi Perfil',users_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-<% else %>
-  <br><br>
-  <%= link_to 'Viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
-  <%= link_to 'Vehiculos', user_vehicles_path(@user), :class => "btn btn-block btn-sm my-button-color my-link-button" %>
 <% end %>

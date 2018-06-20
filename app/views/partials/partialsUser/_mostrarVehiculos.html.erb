@@ -24,7 +24,7 @@
               Patente: <%= ve.patente.upcase %>
             </h3>
             <br/>
-            <div class="row " style="margin-left: 10px; margin-right: 10px ">
+            <div class="row ">
               <div class="col-md-4" >
                 <div >
                   <h5 style="font-weight: bold;">
@@ -67,18 +67,27 @@
                 </div>
                 <br>
               </div>
+            </div>
+              <div class="row">
               <% if @user == current_user %>
-              <button type="button" class="btn btn-block btn-sm my-button-color2">
-                <%= link_to 'Modificar', edit_user_vehicle_path(@user,ve.id),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-              </button>
-              <button type="button" class="btn btn-block btn-sm my-button-color2">
-                <%= link_to 'Eliminar', user_vehicle_path(@user,ve), method: :delete,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-              </button>
+                <div class="center" style="width: 100%; margin-bottom: 5px">
+                <b>
+                  <%= link_to 'Modificar', edit_user_vehicle_path(@user,ve.id),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                </b>
+                </div>
+
+                <div class="center" style="width: 100%; margin-top: 5px">
+                <b>
+                  <%= link_to 'Eliminar', user_vehicle_path(@user,ve), method: :delete,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                      
+                  </b>
+                </div>
+              
               <% end %>
             </div>
-            <br>
-            <br>
+            </div>
           </div>
+          <br>
           <% end %>
           <% end %>
         </div>

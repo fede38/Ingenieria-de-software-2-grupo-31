@@ -6,7 +6,7 @@ class TripsController < ApplicationController
 			@user = current_user
 		end
     @q = Trip.ransack(params[:q])
-    @trips = @q.result.paginate(page: params[:page], per_page: 5)
+    @trips = @q.result.where(activo: true).paginate(page: params[:page], per_page: 5)
   end
 
 	def new
@@ -98,7 +98,7 @@ class TripsController < ApplicationController
 private
 
 	def parametros_viaje
-		params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:destino,
+		params.require(:trip).permit(:fecha_inicio,:hora_inicio,:costo,:origen,:destino,
 									:descripcion,:vehicle_id,:user_id)
 	end
 

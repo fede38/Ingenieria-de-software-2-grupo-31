@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20180618184701) do
     t.integer  "vehicle_id"
     t.boolean  "activo"
     t.integer  "cantidad_asientos_ocupados", default: 1
+    t.string   "origen"
     t.index ["user_id"], name: "index_trips_on_user_id"
     t.index ["vehicle_id"], name: "index_trips_on_vehicle_id"
   end
