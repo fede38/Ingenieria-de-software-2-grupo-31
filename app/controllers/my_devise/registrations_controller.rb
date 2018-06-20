@@ -6,14 +6,13 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end
 
   def destroy
-    if resource.account.deuda? || resource.account.saldo < 0 ||
-       resource.calif_creadas.exists?(realizada: false) ||
+    if deuda?(resource) || calificacionesPendientes?(resource) ||
        viajesPendientes?(resource)
       flash[:danger] = []
-      if resource.account.deuda? || resource.account.saldo < 0
+      if deuda?(resource) ||
         flash[:danger] = 'No se puede tener deuda.'
       end
-      if resource.calif_creadas.exists?(realizada: false)
+      if calificacionesPendientes?(resource)
         if !flash[:danger].empty?
           flash[:danger][-1] = ', '
           flash[:danger] << 'calificaciones pendientes.'

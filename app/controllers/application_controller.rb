@@ -17,6 +17,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def deuda?(user)
+    user.account.deuda? || user.account.saldo < 0
+  end
+
+  def calificacionesPendientes?(user)
+    user.calif_creadas.exists?(realizada: false)
+  end
+
   def viajesPendientes?(user)
     !Embarkment.joins(:trip).where(estado: 'a', user_id: user, "trips.activo": true).empty? ||
     !Trip.where(activo: true, piloto: user).empty?
