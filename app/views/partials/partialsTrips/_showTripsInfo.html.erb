@@ -3,11 +3,11 @@
 <div class="row">
 <div class="well my-jumbotron">
 	<div style="text-align: center;">
-		<h2> 
+		<h2>
 			<% if @trip.origen != nil %>
-        		<%= @trip.origen %> 
+        		<%= @trip.origen %>
     		<% else %>
-        		no especifico origen 
+        		no especifico origen
     		<% end %>
     		 - <%= @trip.destino %>
     	</h2>
@@ -64,16 +64,16 @@
 			<br>
 			<b>Contacto del Piloto: </b><br>
 			Solo los usuarios aceptados como copiloto pueden ver esta informacion
-			
+
 		</div>
-		
+
 		<div class="col-md-6">
 			<h4><b>Costo total:</b> $<%= (@trip.costo).round(2) %> <br></h4>
 				(el costo por persona será calculado cuando el viaje sea realizado, un estimativo es: $<%= (@trip.costo/v.cantidad_asientos).round(2) %> por persona)<br><br>
 			<div class="col-md-2">
 			</div>
 			<div class="col-md-8">
-			<div class="well my-jumbotron2">	
+			<div class="well my-jumbotron2">
 			<h4><b>Vehiculo:</b></h4>
 				<div class="row">
 					<div class="col-md-6">
@@ -102,12 +102,15 @@
 	</div>
 	<br>
 	<div>
-		<!-- aca tiene que ir el boton.. lo hago con un link to porque ocupa lo que quiero que ocupe -->
-		<%= link_to 'Postularse', '#', :class => "btn btn-lg colapso btn-block my-link-button" %>
+		<% if user_signed_in? && !@trip.postulantes.exists?(id: current_user) &&
+			@trip.piloto != current_user%>
+			<%= button_to 'Postularse', {controller: :trips, action: 'postularse', idT: @trip.id},
+                {class: "btn btn-lg colapso btn-block my-link-button", method: :put} %>
+		<% end %>
 	</div>
 </div>
 </div>
 
 
 
-	
+

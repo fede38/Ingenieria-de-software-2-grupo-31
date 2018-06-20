@@ -43,14 +43,14 @@ class TripsController < ApplicationController
       end
       if calificacionesPendientes?(usuario)
         if !flash[:danger].empty?
-          flash[:danger][-1] = 'o '
+          flash[:danger][-1] = ' o '
           flash[:danger] << 'calificaciones pendientes.'
         else
           flash[:danger] = 'No puede haber calificaciones pendientes.'
         end
       end
       flash[:danger][-1] = ' '
-      flash[:danger] << 'para eliminar tu cuenta.'
+      flash[:danger] << 'para poder postularse a un viaje.'
 			redirect_to :back
 		else
 			viaje.postulantes << usuario
