@@ -91,7 +91,7 @@ end
     destino: destinos[v],
     activo: true,
     user_id: $user.id,
-    vehicle_id: $user.vehicles.all.sample.id,
+    vehicle_id: $user.vehicles.all.sample.id
   )
   viaje.save!
 end

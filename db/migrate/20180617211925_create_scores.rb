@@ -3,7 +3,8 @@ class CreateScores < ActiveRecord::Migration[5.0]
     create_table :scores do |t|
       t.integer :calificacion
       t.text :descripcion
-      t.datetime :fechayhora
+      t.date :fecha
+      t.time :hora
 
       t.timestamps
     end
