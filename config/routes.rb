@@ -15,6 +15,10 @@ Rails.application.routes.draw do
         delete :eliminar
       end
     end
+    member do
+      get 'calificaciones', to: 'scores#showCalificaciones'
+      get 'calificaciones_pendientes', to: 'scores#showCalifARealizar'
+    end
 		resources :vehicles
 	end
 

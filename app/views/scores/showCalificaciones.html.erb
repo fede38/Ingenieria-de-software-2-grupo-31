@@ -1,0 +1,35 @@
+
+<% if @calif_piloto.empty? %>
+	No posee calificaciones como piloto.
+<% else %>
+	<% @calif_piloto.each do |calif| %>
+	 	<div class="well my-jumbotron">
+	 		<b>Calificaion: </b> <%= calif.calificacion %>
+	 		<b>Fecha: </b> <%= calif.fecha %>
+	 		<b>Hora: </b> <%= calif.hora %><br>
+	 		<b>Creador: </b> <%= link_to image_tag(calif.creador.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(calif.creador), user_path(calif.creador) %><br>
+	 		<b>Descripcion: </b><br>
+	 			<div class="well my-jumbotron2">
+	 				<%= calif.descripcion %>
+	 			</div>
+	 	</div>
+	 	<br>
+	<% end %>
+<% end %>
+<% if @calif_copiloto.empty? %>
+	No posee calificaciones como copiloto
+<% else %>
+	<% @calif_copiloto.each do |calif| %>
+	 	<div class="well my-jumbotron">
+	 		<b>Calificaion: </b> <%= calif.calificacion %>
+	 		<b>Fecha: </b> <%= calif.fecha %>
+	 		<b>Hora: </b> <%= calif.hora %><br>
+	 		<b>Creador: </b> <%= link_to image_tag(calif.creador.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(calif.creador), user_path(calif.creador) %><br>
+	 		<b>Descripcion: </b><br>
+	 			<div class="well my-jumbotron2">
+	 				<%= calif.descripcion %>
+	 			</div>
+	 	</div>
+	 	<br>
+	<% end %>
+<% end %>
