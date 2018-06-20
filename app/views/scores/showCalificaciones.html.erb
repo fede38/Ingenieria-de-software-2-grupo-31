@@ -1,6 +1,6 @@
 
-<% if @calificacion.empty? %>
-	No posee calificaciones.
+<% if @calif_piloto.empty? %>
+	No posee calificaciones como piloto.
 <% else %>
 	<% @calif_piloto.each do |calif| %>
 	 	<div class="well my-jumbotron">
@@ -13,7 +13,12 @@
 	 				<%= calif.descripcion %>
 	 			</div>
 	 	</div>
+	 	<br>
 	<% end %>
+<% end %>
+<% if @calif_copiloto.empty? %>
+	No posee calificaciones como copiloto
+<% else %>
 	<% @calif_copiloto.each do |calif| %>
 	 	<div class="well my-jumbotron">
 	 		<b>Calificaion: </b> <%= calif.calificacion %>
@@ -25,5 +30,6 @@
 	 				<%= calif.descripcion %>
 	 			</div>
 	 	</div>
+	 	<br>
 	<% end %>
 <% end %>

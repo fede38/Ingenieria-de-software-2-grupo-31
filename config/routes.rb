@@ -5,8 +5,6 @@ Rails.application.routes.draw do
 
 	get '/users', to: 'users#show'
   get '/users/:id/postulaciones', to: 'users#postulaciones'
-  # get 'users/:id/showCalificaciones', to: 'scores#showCalificaciones'
-
 
 	resources :users do
 		resources :trips do
@@ -17,8 +15,11 @@ Rails.application.routes.draw do
         delete :eliminar
       end
     end
+    member do
+      get 'calificaciones', to: 'scores#showCalificaciones'
+      get 'calificaciones_pendientes', to: 'scores#showCalifARealizar'
+    end
 		resources :vehicles
-    get 'users/:id/showCalificaciones', to: 'scores#showCalificaciones'
 	end
 
 end
