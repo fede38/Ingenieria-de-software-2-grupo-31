@@ -33,6 +33,32 @@ class TripsController < ApplicationController
 		end
 	end
 
+	def postularse
+		usuario = current_user
+		viaje = Trip.find(params[:id])
+		if deuda?(usuario) || calificacionesPendientes?(usuario)
+      flash[:danger] = []
+      if deuda?(usuario)
+        flash[:danger] = 'No se puede tener deuda.'
+      end
+      if calificacionesPendientes?(usuario)
+        if !flash[:danger].empty?
+          flash[:danger][-1] = 'o '
+          flash[:danger] << 'calificaciones pendientes.'
+        else
+          flash[:danger] = 'No puede haber calificaciones pendientes.'
+        end
+      end
+      flash[:danger][-1] = ' '
+      flash[:danger] << 'para eliminar tu cuenta.'
+			redirect_to :back
+		else
+			viaje.postulantes << usuario
+			flash[:success] = 'Te has postulado correctamente.'
+			redirect_to user_trip_path(viaje.piloto, viaje)
+		end
+	end
+
 	def aceptar
 		usuario = User.find(params[:idU])
 		viaje = Trip.find(params[:idT])
