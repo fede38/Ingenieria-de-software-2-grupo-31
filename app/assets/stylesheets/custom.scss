@@ -122,6 +122,10 @@ success {
     height: 20px;
     width: 20px;
 }
+.post-image{
+    height: 35px;
+    width: 35px;
+}
 .circular-image{
     border-radius: 50%;
 }
@@ -229,11 +233,6 @@ success {
     text-align: center;
 }
 
-.my-button-color2{
-    background-color: #f2dede;
-
-}
-
 .my-hr{
     height:1px;
     border-width:0;
@@ -242,16 +241,87 @@ success {
 }
 
 .my-jumbotron{
-    background-color: #f2dede;
+    background-color:#f173762e;
     margin-bottom: 5px;
     padding: 20px;
 }
-.boton-ace-rec {
-    float: left;
-    margin-left: 5px;
-    position: relative;
-    top: 7px;
+.my-jumbotron2{
+    background-color: #fffefe7d;
+    margin-bottom: 5px;
+    padding: 20px;
 }
+
+.my-jumbotron-green{
+    background-color:#BDEDBA;
+    margin-bottom: 5px;
+    padding: 20px;
+}
+
+.my-jumbotron-blue{
+    background-color:#ABDAD8;
+    margin-bottom: 5px;
+    padding: 20px;
+}
+
+.boton-ace-rec {
+    float: right;
+    margin-right: 5px;
+    position: relative;
+    
+}
+.a1{
+    background-color: #BDEDBA !important ;
+    color:black !important ;
+    font-weight: bold !important ;
+    text-decoration: none !important ;
+    &:hover {
+        background-color: #BDEDBA !important ;
+        color:black !important ;
+        text-decoration: none !important ;
+    }
+    &:active{
+        background-color: #BDEDBA !important ;
+        color: black !important;
+        text-decoration: none !important;
+    }
+    &:focus {
+        background-color: #BDEDBA !important ;
+        color: black !important;
+        text-decoration: none !important;
+    }
+}
+
+.a2{
+    background-color: #ABDAD8 !important ;
+    color:black !important ;
+    font-weight: bold !important ;
+    text-decoration: none !important ;
+    &:hover {
+        background-color: #ABDAD8 !important ;
+        color: black !important ;
+        text-decoration: none !important ;
+    }
+    &:active{
+        background-color: #ABDAD8 !important ;
+        color: black !important ;
+        text-decoration: none !important ;        
+    }
+    &:focus {
+        background-color: #ABDAD8 !important ;
+        color: black !important ;
+        text-decoration: none !important ;
+    }
+}
+
+.a1{
+    a {
+        color: #F1F0F0 !important;
+        &:hover {
+            color: #BFEABD !important;
+        }
+    }
+}
+
 /*---------------Fin estulos de botones y jumbotrones------*/
 
 
@@ -271,7 +341,7 @@ success {
 /*---------------Fin estilos del footer--------------------*/
 
 .cajita-165px { @include cajita(#d1d1d1, 165px, 0, 2px, 50%); }
-.cajita-50px { @include cajita(#d1d1d1, 50px, 0, 2px, 50%); }
+.cajita-50px { @include cajita(#fffefe7d, 50px, 0, 2px, 50%); }
 .cajaRechazo { @include cajita(#dc3545, 33px, 3px, 3px, 1); }
 .cajaPendiente { @include cajita(#f1f1f1, 33px, 3px, 3px, 1); }
 .cajaAceptado { @include cajita(#28a745, 33px, 3px, 3px, 1); }

@@ -1,140 +1,35 @@
 <% provide(:titulo, "Viaje a "+@trip.destino.downcase) %>
 
-<h1>Viaje</h1>
-
-<b>Piloto:</b>
-	<%= link_to usernameOf(@trip.piloto), user_path(@trip.piloto) %> <br>
-<b>Fecha de salida:</b>
-	<%= @trip.fecha_inicio %> <br>
-<b>Hora de salida:</b>
-	<%= @trip.hora_inicio.strftime('%H:%M') %> <br>
-<b>Origen: </b>
-    <% if @trip.origen != nil %>
-        <%= @trip.origen %> <br>
-    <% else %>
-        - <br>
-    <% end %>
-<b>Destino:</b>
-	<%= @trip.destino %> <br>
-
-<% v = Vehicle.find(@trip.vehicle_id) %>
-
-<h3>Vehiculo:</h3>
-	<b>Marca:</b> <%= v.marca %> <br>
-	<b>Modelo:</b> <%= v.sub_marca %> <br>
-	<b>Año:</b> <%= v.modelo %> <br>
-	<b>Patente:</b> <%= v.patente %> <br>
-	<b>Cantidad de asientos ocupados:</b>
-	<%= @trip.cantidad_asientos_ocupados %>/<%= v.cantidad_asientos %><br>
-	<b>Costo total:</b> $<%= (@trip.costo).round(2) %> (el costo por persona será calculado cuando el viaje sea realizado, un estimativo es: $<%= (@trip.costo/v.cantidad_asientos).round(2) %> por persona) <br>
-
-<h3>Aceptados:</h3>
-  <% aceptados = Embarkment.where(estado: 'a', trip_id: @trip).all %>
-  <% if aceptados.empty? %>
-    No se ha aceptado a nadie en este viaje.
-  <% else %>
-    <% aceptados.each do |ace| %>
-      <% usr = User.find(ace.user_id) %>
-      <% if current_user == @trip.piloto %>
-        <div class="cajita-165px">
-          <div style="float: left; font-size: 24px;">
-            <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Avatar', size: '50x50')%>
-            <%= link_to usernameOf(usr), user_path(usr) %>
-          </div><br><br><br>
-          <b>Nombre:</b>
-          <%= usr.nombre + ' ' + usr.apellido %><br>
-          <b>Telefono:</b>
-          <% if usr.telefono %>
-            <%= usr.telefono %>
-          <% else %>
-            El usuario no tiene numero de telefono.
-          <% end %><br>
-          <b>Email:</b>
-          <%= usr.email %><br>
-          <div class="boton-ace-rec">
-            <%= button_to "Eliminar", {controller: :trips,
-                                         action: 'eliminar',
-                                         idU: usr.id,
-                                         idT: @trip.id},
-                                         {class: 'btn btn-danger',
-                                         method: :delete} %>
-          </div>
-          <div style="clear:both;">
-          </div>
-        </div>
-      <% elsif usr == current_user %>
-        <div class="cajita-50px">
-          <div style="float: left; font-size: 24px;">
-            <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Avatar', size: '50x50')%>
-            <%= link_to usernameOf(usr), user_path(usr) %>
-          </div>
-          <div class="boton-ace-rec">
-            <%= button_to "Cancelar postulacion", {controller: :trips,
-                                     action: 'cancelarPostulacion',
-                                     idU: current_user,
-                                     idT: @trip.id,},
-                                     {class: 'btn btn-danger',
-                                     method: :delete,
-                                     data: {confirm: '¿Estas seguro que queres cancelar la postulacion? Se te restara un punto de calificacion como acompañante.'}}
-                                      %>
-          </div>
-          <div style="clear:both;">
-          </div>
-        </div>
-      <% else %>
-        <div class="cajita-50px">
-          <div style="float: left; font-size: 24px;">
-            <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Avatar', size: '50x50')%>
-            <%= link_to usernameOf(usr), user_path(usr) %>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
-  <% end %>
-
-<h3>Postulantes:</h3>
-  <% pendientes = Embarkment.where(estado: 'p', trip_id: @trip).all %>
-  <% if pendientes.empty? %>
-    No hay postulantes para este viaje!
-  <% else %>
-    <% pendientes.each do |emb| %>
-      <% usr = User.find(emb.user_id) %>
-      <div style="height: 50px;">
-        <div style="float: left;">
-          <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Avatar', size: '50x50')%>
-          <%= link_to usernameOf(usr), user_path(usr) %>
-        </div>
-        <% if current_user == @trip.piloto %>
-          <div class="boton-ace-rec">
-            <%= button_to "Aceptar", {controller: :trips,
-                                     action: 'aceptar',
-                                     idU: usr.id,
-                                     idT: @trip.id},
-                                     {class: 'btn btn-success',
-                                     method: :put} %>
-          </div>
-          <div class="boton-ace-rec">
-            <%= button_to "Rechazar", {controller: :trips,
-                                      action: 'rechazar',
-                                      idU: usr.id,
-                                      idT: @trip.id},
-                                      {class: 'btn btn-danger',
-                                      method: :put} %>
-          </div>
-          <div style="clear:both;">
-          </div>
-        <% elsif current_user == usr %>
-          <div class="boton-ace-rec">
-            <%= button_to "Cancelar postulacion", {controller: :trips,
-                                                  action: 'cancelarPostulacion',
-                                                  idU: current_user.id,
-                                                  idT: @trip.id},
-                                                  {class: 'btn btn-danger',
-                                                  method: :delete} %>
-          </div>
-          <div style="clear:both;">
-          </div>
-        <% end %>
+<div class="row">
+  <div class="col-md-2">
+  </div>
+  <div class="col-md-8">
+    <br>
+    <%= render 'partials/partialsTrips/showTripsInfo' %>
+    <br>
+    <ul class="nav nav-pills nav-justified">
+      <li><a class="a1" data-toggle="tab" href="#home">Aceptados</a></li>
+      <li><a class="a2" data-toggle="tab" href="#menu1">Postulantes</a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="home" class="tab-pane fade in active">
+        <%= render 'partials/partialsTrips/showTripsAcept' %>
       </div>
-    <% end %>
-  <% end %>
+      <div id="menu1" class="tab-pane fade">
+        <%= render 'partials/partialsTrips/showTripsPostul' %>
+      </div>
+    </div>
+
+
+
+
+   <!--      <%= render 'partials/partialsTrips/showTripsAcept' %>
+        <%= render 'partials/partialsTrips/showTripsPostul' %> -->
+<!--   <div class=" col-md-1">
+  </div>
+  <div class="col-md-3"> -->
+
+  </div>
+  <div class="col-md-2">
+  </div>
+</div>
