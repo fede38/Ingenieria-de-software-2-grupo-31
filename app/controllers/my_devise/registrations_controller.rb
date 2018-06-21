@@ -9,7 +9,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     if deuda?(resource) || calificacionesPendientes?(resource) ||
        viajesPendientes?(resource)
       flash[:danger] = []
-      if deuda?(resource) ||
+      if deuda?(resource)
         flash[:danger] = 'No se puede tener deuda.'
       end
       if calificacionesPendientes?(resource)

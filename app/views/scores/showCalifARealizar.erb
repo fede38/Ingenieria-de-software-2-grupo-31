@@ -2,7 +2,7 @@
 	No posee calificaciones pendientes.
 <% else %>
 	<% @calification.each do |calif| %>
-	 	<div class="well my-jumbotron">>
+	 	<div class="well my-jumbotron">
 	 		<%= link_to image_tag(calif.calificado.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(calif.calificado), user_path(calif.calificado) %><br>
 	 		<b>Rol: </b><br>
 	 			<% if calif.tipo_calificacion == 'p' %>
@@ -10,8 +10,7 @@
 	 			<% else %>
 	 				Copiloto
 	 			<% end %><br>
-	 			<%= link_to 'Calificar', '#', :class => "btn btn-block btn-sm colapso my-link-button"
-
+	 			<%= link_to 'Calificar', edit_user_score_path(current_user, calif), {class: "btn btn-block btn-sm colapso my-link-button"} %>
 	 	</div>
 	<% end %>
 <% end %>
