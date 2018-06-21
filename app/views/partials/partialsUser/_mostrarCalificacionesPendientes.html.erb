@@ -1,0 +1,16 @@
+<% if @calification.empty? %>
+	<h4 style="text-align: center;"> No debe calificaciones a otros usuarios. </h4>
+<% else %>
+	<% @calification.each do |calif| %>
+	 	<div class="well my-jumbotron">>
+	 		<%= link_to image_tag(calif.calificado.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(calif.calificado), user_path(calif.calificado) %><br>
+	 		<b>Rol: </b><br>
+	 			<% if calif.tipo_calificacion == 'p' %>
+	 				Piloto
+	 			<% else %>
+	 				Copiloto
+	 			<% end %><br>
+	 			<%= link_to 'Calificar', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+	 	</div>
+	<% end %>
+<% end %>

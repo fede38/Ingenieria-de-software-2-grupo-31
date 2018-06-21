@@ -269,6 +269,7 @@ success {
     position: relative;
     
 }
+
 .a1{
     background-color: #BDEDBA !important ;
     color:black !important ;
@@ -313,13 +314,34 @@ success {
     }
 }
 
-.a1{
-    a {
-        color: #F1F0F0 !important;
-        &:hover {
-            color: #BFEABD !important;
-        }
+.nav-pills-calif>li.active>a{
+    background-color: #FD9FA1 !important ;
+    color: #fafafa !important ;
+    text-decoration: none !important ;    
+
+}
+
+.acalif{/*eeeeee*/
+    background-color: #f173762e !important ;
+    color:black !important ;
+    font-weight: bold !important ;
+    text-decoration: none !important ;
+    &:hover {
+        background-color: #FEC7C8 !important ;
+        color: black !important ;
+        text-decoration: none !important ;
     }
+    &:active{
+        background-color: #FD9FA1 !important ;
+        color: #fafafa !important ;
+        text-decoration: none !important ;        
+    }
+    &:focus {
+        background-color: #FD9FA1 !important ;
+        color: #fafafa !important ;
+        text-decoration: none !important ;
+    }
+
 }
 
 /*---------------Fin estulos de botones y jumbotrones------*/

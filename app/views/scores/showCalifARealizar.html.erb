@@ -1,17 +1,41 @@
-<% if @calification.empty? %>
-	No posee calificaciones pendientes.
-<% else %>
-	<% @calification.each do |calif| %>
-	 	<div class="well my-jumbotron">>
-	 		<%= link_to image_tag(calif.calificado.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(calif.calificado), user_path(calif.calificado) %><br>
-	 		<b>Rol: </b><br>
-	 			<% if calif.tipo_calificacion == 'p' %>
-	 				Piloto
-	 			<% else %>
-	 				Copiloto
-	 			<% end %><br>
-	 			<%= link_to 'Calificar', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
-
-	 	</div>
-	<% end %>
-<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <% if @user.eliminado %>
+      <div class="page-header">
+        <h1>Este usuario ya no existe</h1>
+      </div>
+    <% elsif !@user.confirmed_at %>
+      <h1>Este usuario todavia no confirmo su mail</h1>
+    <% else %>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-md-2">
+              <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
+              <%= render 'partials/partialsUser/informacionUser' %>
+              <%= render 'partials/partialsUser/botonesCalificacionesPendientes' %>
+            </div>
+            <div class="col-md-10" >
+              <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10" style="background-color: #fafafa">
+                  <div class="row">
+                    <h1 style="text-align: center;"> Calificaciones Pendientes </h1>
+                  </div>
+                  <br>
+                    <%= render 'partials/partialsUser/mostrarCalificacionesPendientes' %>
+                  </div>   
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="col-md-1">
+        </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<br><br><br>
