@@ -17,6 +17,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def mismaHora?(u, v)
+    emb = Embarkment.joins(:trip).where('trips.fecha_inicio': v.fecha_inicio,
+        'trips.hora_inicio': v.hora_inicio, estado: 'a',
+        'trips.activo': true)
+    return false if emb.empty?
+    emb.all.each do |e|
+      return true if e.user == u
+    end
+  end
+
   def deuda?(user)
     user.account.deuda? || user.account.saldo < 0
   end
