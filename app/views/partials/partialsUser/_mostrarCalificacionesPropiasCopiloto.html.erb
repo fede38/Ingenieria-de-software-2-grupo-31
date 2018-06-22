@@ -4,14 +4,18 @@
   <%= @user.calificacionCopiloto %> <h4><br>
 </div>
 <% if @calif_copiloto.empty? %>
-	<h4 style="text-align: center"> Aun posee calificaciones como copiloto. </h4>
+	<h4 style="text-align: center"> Aun no posee calificaciones como copiloto. </h4>
 <% else %>
 	<% @calif_copiloto.each do |calif| %>
 	 	<div class="well my-jumbotron">
-	 		<b>Calificaion: </b> <%= calif.calificacion %>
+	 		<b>Calificación: </b> <%= calif.calificacion %>
 	 		<b>Fecha: </b> <%= calif.fecha %>
 	 		<b>Hora: </b> <%= calif.hora %><br>
-	 		<b>Creador: </b> <%= link_to image_tag(calif.creador.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(calif.creador), user_path(calif.creador) %><br>
+	 		<% if !calif.creador %>
+		 		Sistema
+		 	<% else %>
+	 			<b>Creador: </b> <%= link_to image_tag(calif.creador.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(calif.creador), user_path(calif.creador) %><br>
+	 		<% end %>
 	 		<b>Descripcion: </b><br>
 	 			<div class="well my-jumbotron2">
 	 				<%= calif.descripcion %>

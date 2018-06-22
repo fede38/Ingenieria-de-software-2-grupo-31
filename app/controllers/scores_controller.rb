@@ -6,19 +6,17 @@ class ScoresController < ApplicationController
 	end
 
 	def update
-		if params[:score][:calif]
-			@user = current_user
-			@score = @user.calif_creadas.find(params[:id])
-			fecha = Time.now.year.to_s+'-'+Time.now.month.to_s+'-'+Time.now.day.to_s
-			hora = Time.now.hour.to_s+':'+Time.now.min.to_s
-			@score.update_attributes(realizada: true, fecha: fecha, hora: hora,
-				calificacion: params[:score][:calificacion], descripcion: params[:score][:descripcion])
+		@user = current_user
+		@score = @user.calif_creadas.find(params[:id])
+		fecha = Time.now.year.to_s+'-'+Time.now.month.to_s+'-'+Time.now.day.to_s
+		hora = Time.now.hour.to_s+':'+Time.now.min.to_s
+		if @score.update_attributes(realizada: true, fecha: fecha, hora: hora,
+			calificacion: params[:score][:calificacion], descripcion: params[:score][:descripcion])
 			calificar(@score.calificado, @score)
 			redirect_to calificaciones_pendientes_user_path(current_user)
 		else
-			flash[:danger] = 'La descripcion no puede estar vacia.'
-			redirect_to :back
-	 	end
+			render 'edit'
+		end
 	end
 
 	def showCalifARealizar

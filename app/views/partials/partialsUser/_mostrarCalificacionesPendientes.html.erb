@@ -10,7 +10,7 @@
 	 			<% else %>
 	 				Copiloto
 	 			<% end %><br>
-	 			<%= link_to 'Calificar', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+	 			<%= link_to 'Calificar', edit_user_score_path(current_user, calif), :class => "btn btn-block btn-sm colapso my-link-button" %>
 	 	</div>
 	<% end %>
 <% end %>
