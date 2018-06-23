@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-md-12">
+    <% if @user.eliminado %>
+      <div class="page-header">
+        <h1>Este usuario ya no existe</h1>
+      </div>
+    <% elsif !@user.confirmed_at %>
+      <h1>Este usuario todavia no confirmo su mail</h1>
+    <% else %>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-md-2">
+              <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
+              <%= render 'partials/partialsUser/informacionUser' %>
+              <%= render 'partials/partialsUser/botonesCalificacionesPropias' %>
+            </div>
+            <div class="col-md-10" >
+              <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10" style="background-color: #fafafa">
+                  <div class="row">
+                    <h1 style="text-align: center;"> Calificaciones </h1>
+                  </div>
+                  <br>
+                  <ul class="nav nav-pills nav-pills-calif nav-justified">
+                    <li class="active"><a class="acalif" data-toggle="tab" href="#home">Piloto</a></li>
+                    <li><a class="acalif" data-toggle="tab" href="#menu1">Copiloto</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                      <%= render 'partials/partialsUser/mostrarCalificacionesPropiasPiloto' %>
+                    </div>
+                    <div id="menu1" class="tab-pane fade">
+                      <%= render 'partials/partialsUser/mostrarCalificacionesPropiasCopiloto' %>
+                    </div>
+                  </div>   
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="col-md-1">
+        </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<br><br><br>

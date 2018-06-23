@@ -1,0 +1,27 @@
+<br>
+<div>
+	<h4> Reputacion:  <%= image_tag('autis.png', size: '20x20', class: 'logitos') %>
+  <%= @user.calificacionPiloto %> <h4><br>
+</div>
+	<% if @calif_piloto.empty? %>
+			<h4 style="text-align: center;"> Aun no posee calificaciones como piloto. </h4>
+	<% else %>
+		<% @calif_piloto.each do |calif| %>
+		 	<div class="well my-jumbotron">
+		 		<b>Calificación: </b> <%= calif.calificacion %>
+		 		<b>Fecha: </b> <%= calif.fecha %>
+		 		<b>Hora: </b> <%= calif.hora %><br>
+		 		<b>Creador: </b>
+		 		<% if !calif.creador %>
+		 			Sistema<br>
+		 		<% else %>
+		 			 <%= link_to image_tag(calif.creador.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(calif.creador), user_path(calif.creador) %><br>
+		 		<% end %>
+		 		<b>Descripcion: </b><br>
+		 			<div class="well my-jumbotron2">
+		 				<%= calif.descripcion %>
+		 			</div>
+		 	</div>
+		 	<br>
+		<% end %>
+	<% end %>

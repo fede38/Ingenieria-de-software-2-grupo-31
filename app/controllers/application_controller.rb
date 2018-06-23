@@ -3,24 +3,31 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  def calificarPositivamente(user, tipo)
-    if tipo == 'piloto'
-      user.increment!(:calificacionPiloto, 1)
+  def calificar(user, cal)
+    if cal.tipo_calificacion == 'p'
+      user.update_attributes(calificacionPiloto: (user.calificacionPiloto + cal.calificacion))
+      if user.calificacionPiloto < 0
+        user.update_attributes(calificacionPiloto: 0)
+      end
     else
-      user.increment!(:calificacionCopiloto, 1)
+      user.update_attributes(calificacionCopiloto: (user.calificacionCopiloto + cal.calificacion))
+      if user.calificacionCopiloto < 0
+        user.update_attributes(calificacionCopiloto: 0)
+      end
     end
   end
 
-  def calificarNegativamente(user, tipo)
-    if tipo == 'piloto'
-      unless user.calificacionPiloto == 0
-        user.decrement!(:calificacionPiloto, 1)
-      end
-    else
-      unless user.calificacionCopiloto == 0
-        user.decrement!(:calificacionCopiloto, 1)
-      end
-    end
+  def deuda?(user)
+    user.account.deuda? || user.account.saldo < 0
+  end
+
+  def calificacionesPendientes?(user)
+    user.calif_creadas.exists?(realizada: false)
+  end
+
+  def viajesPendientes?(user)
+    !Embarkment.joins(:trip).where(estado: 'a', user_id: user, "trips.activo": true).empty? ||
+    !Trip.where(activo: true, piloto: user).empty?
   end
 
   protected

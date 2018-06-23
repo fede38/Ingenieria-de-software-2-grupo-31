@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180618134940) do
+ActiveRecord::Schema.define(version: 20180618184701) do
 
   create_table "accounts", force: :cascade do |t|
     t.float    "deuda",      default: 0.0
@@ -43,7 +43,8 @@ ActiveRecord::Schema.define(version: 20180618134940) do
   create_table "scores", force: :cascade do |t|
     t.integer  "calificacion"
     t.text     "descripcion"
-    t.datetime "fechayhora"
+    t.date     "fecha"
+    t.time     "hora"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "calificado_id"
@@ -65,7 +66,7 @@ ActiveRecord::Schema.define(version: 20180618134940) do
     t.string   "destino"
     t.integer  "vehicle_id"
     t.boolean  "activo"
-    t.integer  "cantidad_asientos_ocupados", default: 0
+    t.integer  "cantidad_asientos_ocupados", default: 1
     t.string   "origen"
     t.index ["user_id"], name: "index_trips_on_user_id"
     t.index ["vehicle_id"], name: "index_trips_on_vehicle_id"

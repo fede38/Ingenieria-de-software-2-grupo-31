@@ -1,0 +1,34 @@
+<div class="centering">
+  <h2 style="text-align: center;">Calificar a <%= usernameOf(@score.calificado) %></h2>
+
+  <%= form_for([@user, @score]) do |f| %>
+
+    <% if @score.errors.any? %>
+      <div class="alert alert-danger alert-dismissable">
+        <button class="close" type="button" data-dismiss="alert">x</button>
+        <ul>
+          <% @score.errors.each do |e| %>
+        </ul>
+        <li>
+          <%=  e %>
+        </li>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :calificacion %> <br>
+      <%= f.select :calificacion, {'Positiva': 1, 'Neutral': 0,'Negativa': -1}, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :descripcion %> <br>
+      <%= f.text_area :descripcion, class: "form-control" %>
+    </div>
+
+    <div class=" actions">
+      <%= f.submit "Calificar", class:"btn my-link-button my-button-color" %>
+    </div>
+  <% end %>
+</div>
+<br><br><br>

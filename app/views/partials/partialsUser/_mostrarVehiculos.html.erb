@@ -67,13 +67,20 @@
                 </div>
                 <br>
               </div>
+            </div>
+              <div class="row">
               <% if @user == current_user %>
-              <button type="button" class="btn btn-block btn-sm my-button-color2">
-                <%= link_to 'Modificar', edit_user_vehicle_path(@user,ve.id),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-              </button>
-              <button type="button" class="btn btn-block btn-sm my-button-color2">
-                <%= link_to 'Eliminar', user_vehicle_path(@user,ve), method: :delete,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-              </button>
+                <div class="center" style="width: 100%; margin-bottom: 5px">
+                <b>
+                  <%= link_to 'Modificar', edit_user_vehicle_path(@user,ve.id),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                </b>
+                </div>
+
+                <div class="center" style="width: 100%; margin-top: 5px">
+                <b>
+                  <%= link_to 'Eliminar', user_vehicle_path(@user,ve), method: :delete,:class => "btn btn-block btn-sm my-button-color my-link-button", data: {confirm: '¿Estas seguro que quieres eliminar el vehiculo?'} %>
+                  </b>
+                </div>
               <% end %>
             </div>
           </div>
@@ -82,7 +89,7 @@
           <% end %>
         </div>
         <div class="col-md-1">
-        </div>
+      </div>
       </div>
     </div>
   </div>

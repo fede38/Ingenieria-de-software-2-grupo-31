@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="well my-jumbotron-blue">
+    <% pendientes = Embarkment.where(estado: 'p', trip_id: @trip).all %>
+    <% if pendientes.empty? %>
+      <div style="text-align: center; font-size: 18px">
+        <b>No hay postulantes para este viaje!</b>
+      </div>
+    <% else %>
+      <% pendientes.each do |emb| %>
+        <% usr = User.find(emb.user_id) %>
+        <div class="well-sm my-jumbotron2">
+          <div class="row">
+            <div class="col-md-3">
+              <div style="float: left;font-size: 18px;">
+                <%= image_tag(usr.avatar,:class=>"circular-image post-image", :alt=>'Avatar')%>
+                <%= link_to usernameOf(usr), user_path(usr) %>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div style="margin-top: 6px">
+              <b>Reputacion  <%= image_tag('pasajeris.png', size: '20x20', class: 'logitos') %>:</b> <%= usr.calificacionCopiloto %>
+            </div>
+            </div>
+            <div class="col-md-5">
+              <% if current_user == @trip.piloto %>
+                <div class="boton-ace-rec">
+                  <%= button_to "Rechazar", {controller: :trips,
+                                            action: 'rechazar',
+                                            idU: usr.id,
+                                            idT: @trip.id},
+                                            {class: 'btn btn-danger',
+                                            method: :put} %>
+                </div>
+                <div class="boton-ace-rec">
+                  <%= button_to "Aceptar", {controller: :trips,
+                                           action: 'aceptar',
+                                           idU: usr.id,
+                                           idT: @trip.id},
+                                           {class: 'btn btn-success',
+                                           method: :put} %>
+                </div>
+                <div style="clear:both;">
+                </div>
+              <% elsif current_user == usr %>
+                <div class="boton-ace-rec">
+                  <%= button_to "Cancelar postulacion", {controller: :trips,
+                                                        action: 'cancelarPostulacion',
+                                                        idU: current_user.id,
+                                                        idT: @trip.id},
+                                                        {class: 'btn btn-danger',
+                                                        method: :delete} %>
+                </div>
+                <div style="clear:both;">
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

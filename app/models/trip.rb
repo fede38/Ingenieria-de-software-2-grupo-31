@@ -1,5 +1,5 @@
 class Trip < ApplicationRecord
-  default_scope { order(destino: :asc) }
+  default_scope { order(origen: :asc, destino: :asc) }
 
   belongs_to :piloto, class_name: 'User', foreign_key: 'user_id'
   belongs_to :vehicle
@@ -28,7 +28,7 @@ class Trip < ApplicationRecord
   			errors.add("La fecha y hora deben ser ", 'posteriores a ahora.')
   	end
   end
-
+  
   def viajePostulado_a_la_misma_hora
   	if self.piloto.viajesPostulado.detect{ |t| t.fecha_inicio == self.fecha_inicio and 
   											t.hora_inicio == self.hora_inicio }

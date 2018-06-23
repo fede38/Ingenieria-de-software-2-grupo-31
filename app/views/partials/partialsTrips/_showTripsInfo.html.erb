@@ -1,0 +1,134 @@
+<% v = Vehicle.find(@trip.vehicle_id) %>
+<div class="row">
+<div class="well my-jumbotron">
+	<div style="text-align: center;">
+		<h2>
+			<% if @trip.origen != nil %>
+        		<%= @trip.origen %>
+    		<% else %>
+        		no especifico origen
+    		<% end %>
+    		 - <%= @trip.destino %>
+    	</h2>
+    	<h2>  <br>  </h2>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+			<h4><b> Informacion general </b></h4>
+			<br>
+			<div class="row">
+				<div class=" col-md-6">
+					<b>Origen: </b>
+	    			<% if @trip.origen != nil %>
+	        			<%= @trip.origen %> <br>
+	    			<% else %>
+	        			- <br>
+	    			<% end %>
+	    		</div>
+	    		<div class="col-md-6">
+					<b>Destino:</b>
+						<%= @trip.destino %> <br>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-6">
+					<b>Fecha de salida:</b>
+						<%= @trip.fecha_inicio %> <br>
+				</div>
+				<div class="col-md-6">
+					<b>Hora de salida:</b>
+						<%= @trip.hora_inicio.strftime('%H:%M') %> <br>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-6">
+					<b>Piloto:</b>
+						<%= link_to image_tag(@trip.piloto.avatar.url,:class=>"circular-image small-image")+'  '+usernameOf(@trip.piloto), user_path(@trip.piloto) %> <br>
+				</div>
+				<div class="col-md-6">
+					<b>Reputacion <%= image_tag('autis.png', size: '23x23', class: 'logitos') %>:</b>
+						<%= @trip.piloto.calificacionPiloto %>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-6">
+					<b>Asientos ocupados:</b>
+							<%= @trip.cantidad_asientos_ocupados %>/<%= v.cantidad_asientos %><br>
+				</div>
+				<div class="col-md-6"></div>
+			</div>
+			<br>
+
+
+
+			<!-- Aca puse que el piloto no vea su propia informacion de contacto o de ultima no vea el "Contacto del piloto" y ademas la impresion de datos para un usuario ya aceptado, le falta el estilo-->
+			<% unless @trip.piloto == current_user %>
+				<b>Contacto del Piloto: </b><br>
+				<% aceptados = Embarkment.where(estado: 'a', trip_id: @trip).all %>
+				<% if aceptados.exists?(user_id: current_user) %>
+					<%= @trip.piloto.nombre + ' ' + @trip.piloto.apellido %><br>
+					<% if @trip.piloto.telefono %>
+	          <%= @trip.piloto.telefono %><br>
+	        <% else %>
+	          El piloto no tiene numero de telefono.<br>
+	        <% end %>
+	        <%= @trip.piloto.email %><br>
+				<% else %>
+					Solo los usuarios aceptados como copiloto pueden ver esta informacion
+				<% end %>
+			<% end %>
+			<!-- -->
+
+
+
+		</div>
+		<div class="col-md-6">
+			<h4><b>Costo total:</b> $<%= (@trip.costo).round(2) %> <br></h4>
+				(el costo por persona será calculado cuando el viaje sea realizado, un estimativo es: $<%= (@trip.costo/v.cantidad_asientos).round(2) %> por persona)<br><br>
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-8">
+			<div class="well my-jumbotron2">
+			<h4><b>Vehiculo:</b></h4>
+				<div class="row">
+					<div class="col-md-6">
+						<b>Patente:</b> <%= v.patente %><br>
+						<b>Marca:</b> <%= v.marca %> <br>
+						<b>Tipo:</b> <%= v.tipo %> <br>
+						<b>Color:</b> <%= v.color %> <br>
+					</div>
+					<div class="col-md-6">
+						<br>
+						<b>Modelo:</b> <%= v.sub_marca %> <br>
+						<b>Año:</b> <%= v.modelo %> <br>
+						<b>Asientos:</b> <%= v.cantidad_asientos %>
+					</div>
+				</div>
+			</div>
+			</div>
+			<div class="col-md-2"></div>
+		</div>
+	</div>
+	<br>
+	<h4><b>Descripcion del Viaje:</b></h4>
+	<div class="well my-jumbotron2">
+
+		<%= @trip.descripcion %>
+	</div>
+	<br>
+	<div>
+		<% if user_signed_in? && !@trip.postulantes.exists?(id: current_user) &&
+			@trip.piloto != current_user%>
+			<%= button_to 'Postularse', {controller: :trips, action: 'postularse', idT: @trip.id},
+                {class: "btn btn-lg colapso btn-block my-link-button", method: :put} %>
+		<% end %>
+	</div>
+</div>
+</div>
+
+
+
+

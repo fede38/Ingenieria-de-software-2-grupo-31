@@ -48,7 +48,12 @@ class VehiclesController < ApplicationController
 
 	def destroy
 		@user = User.find(params[:user_id])
-		@user.vehicles.delete(params[:id])
+		@vehicle = @user.vehicles.find(params[:id])
+		if Trip.where(piloto: @user, vehicle: @vehicle, activo: true).exists?
+			flash[:danger] = "El vehiculo esta en un viaje activo propio y no puede ser eliminado"
+		else
+			@user.vehicles.delete(params[:id])
+		end
 		redirect_to user_vehicles_url
 	end
 

@@ -14,10 +14,21 @@
             <div class="col-md-2">
               <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
               <%= render 'partials/partialsUser/informacionUser' %>
-              <%= render 'partials/partialsUser/botonesPerfil' %>
+              <%= render 'partials/partialsUser/botonesCalificacionesPendientes' %>
             </div>
-            <div class="col-md-10">
-              <%= render 'partials/partialsUser/mostrarViajes' %>
+            <div class="col-md-10" >
+              <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10" style="background-color: #fafafa">
+                  <div class="row">
+                    <h1 style="text-align: center;"> Calificaciones Pendientes </h1>
+                  </div>
+                  <br>
+                    <%= render 'partials/partialsUser/mostrarCalificacionesPendientes' %>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         <div class="col-md-1">
