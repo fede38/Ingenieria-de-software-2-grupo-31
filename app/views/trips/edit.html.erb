@@ -1,0 +1,15 @@
+<% provide(:titulo, "Viaje a "+@trip.destino.downcase) %>
+<%= form_for ([@user, @trip]) do |form| %>
+
+		<% if @trip.errors.any? %>
+			<div class="alert alert-danger alert-dismissable">
+				<button class="close" type="button" data-dismiss="alert">x</button>	
+				<ul>
+					<% @trip.errors.each do |e| %>
+				</ul>
+				<li>
+					<%= @trip.errors[e][0] %>
+				</li>
+				<% end %>
+			</div>
+		<% end %>

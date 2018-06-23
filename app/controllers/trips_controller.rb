@@ -26,7 +26,7 @@ class TripsController < ApplicationController
 		@trip.user_id = @user.id
 		if @trip.save
 			@user.account.update_attribute(:deuda, 
-				(@user.account.deuda + @trip.costo* 0.05)) #cobra el 5% del valor del viaje
+				(@user.account.deuda + @trip.costo* 0.05))
 			current_user.viajesPiloto << @trip
 			redirect_to root_path
 			flash[:success] = 'Viaje creado existosamente!'
@@ -38,37 +38,44 @@ class TripsController < ApplicationController
 	def destroy
 		@user = User.find(params[:user_id])
 		@trip = Trip.find(params[:idT])
-		if @user.calificacionPiloto > Embarkment.where(:trip_id => @trip.id).select{|e|
-														e.estado == 'a'}.size
-			@user.update_attribute(:calificacionPiloto, @user.calificacionPiloto - 
-				Embarkment.where(:trip_id => @trip.id).select{|e| e.estado == 'a'}.size)
-		else
-			@user.update_attribute(:calificacionPiloto, 0)
+		
+		fecha = Time.now.year.to_s+'-'+Time.now.month.to_s+'-'+Time.now.day.to_s
+		hora = Time.now.hour.to_s+':'+Time.now.min.to_s
+ 		Embarkment.where(trip_id: @trip.id).each do |e|
+ 			if e.estado == 'a'
+ 				cal = Score.create(calificado: viaje.piloto, realizada: true,
+			                 tipo_calificacion: 'p', calificacion: -1,
+			                 descripcion: 'Cancelo un viaje con copilotos aceptados',
+			                 fecha: fecha, hora: hora)
+				calificar(viaje.piloto, cal)
+				TripMailer.sendMail(@trip, 'x', e.user_id).deliver
+			elsif e.estado != 'r'
+				action: 'rechazar', {idT: @trip, idU: e.user_id }
+			end
 		end
-		Embarkment.where(:trip_id => @trip.id).each do{ |e| (TripMailer.sendMail(@trip, 
-										'x', e.user_id).deliver) unless e.estado != 'a' }
-		super
+		Trip.delete(@trip.id)
+		redirect_to root_path
 	end
 
 	def postularse
 		usuario = current_user
 		viaje = Trip.find(params[:id])
 		if deuda?(usuario) || calificacionesPendientes?(usuario)
-      flash[:danger] = []
-      if deuda?(usuario)
-        flash[:danger] = 'No se puede tener deuda.'
-      end
-      if calificacionesPendientes?(usuario)
-        if !flash[:danger].empty?
-          flash[:danger][-1] = ' o '
-          flash[:danger] << 'calificaciones pendientes.'
-        else
-          flash[:danger] = 'No puede haber calificaciones pendientes.'
-        end
-      end
-      flash[:danger][-1] = ' '
-      flash[:danger] << 'para poder postularse a un viaje.'
-			redirect_to :back
+      		flash[:danger] = []
+      		if deuda?(usuario)
+        		flash[:danger] = 'No se puede tener deuda.'
+	      	end
+	      	if calificacionesPendientes?(usuario)
+		        if !flash[:danger].empty?
+		          flash[:danger][-1] = ' o '
+		          flash[:danger] << 'calificaciones pendientes.'
+		        else
+		          flash[:danger] = 'No puede haber calificaciones pendientes.'
+		        end
+      	end
+      	flash[:danger][-1] = ' '
+      	flash[:danger] << 'para poder postularse a un viaje.'
+		redirect_to :back
 		else
 			viaje.postulantes << usuario
 			flash[:success] = 'Te has postulado correctamente.'
