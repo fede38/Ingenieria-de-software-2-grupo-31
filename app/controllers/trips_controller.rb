@@ -87,6 +87,8 @@ class TripsController < ApplicationController
 		redirect_to :back
 	end
 
+	#embarkment estado = 'p' pendiente; 'r' rechazado; 'c' cancelado
+
 	def rechazar
 		usuario = User.find(params[:idU])
 		viaje = Trip.find(params[:idT])
