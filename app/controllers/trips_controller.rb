@@ -20,8 +20,8 @@ class TripsController < ApplicationController
 	end
 
 	def showMisViajes
-		@user = User.find(params[:user_id])
-		@creado_activo = Trip.where(piloto: @user, activo: true).order(fecha_inicio: :desc, hora_inicio: :desc)
+		@user = User.find(params[:id])
+    @creado_activo = Trip.where(piloto: @user, activo: true).order(fecha_inicio: :desc, hora_inicio: :desc)
 	end
 
 	def create
