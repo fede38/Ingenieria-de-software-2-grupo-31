@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         put :postularse
         delete :cancelarPostulacion
         delete :eliminar
+        get :showMisViajes
       end
     end
     resources :scores, only: [:edit, :update]
