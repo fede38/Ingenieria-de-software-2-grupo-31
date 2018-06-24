@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
 	get '/users', to: 'users#show'
   get '/users/:id/postulaciones', to: 'users#postulaciones'
+  get '/users/:id/showMisViajes', to: 'trips#showMisViajes'
 
 	resources :users do
 		resources :trips do

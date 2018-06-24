@@ -7,7 +7,7 @@ class Trip < ApplicationRecord
   has_many :embarkment
   has_many :postulantes, source: :user, through: :embarkment, class_name: 'User', foreign_key: 'user_id'
 
-  validates :destino, :vehicle_id, :costo, :fecha_inicio, :hora_inicio, presence: true
+  validates :origen, :destino, :vehicle_id, :costo, :fecha_inicio, :hora_inicio, presence: true
 
   validate :fecha_mayor_a_hoy
   validate :hora_mayor_a_ahora

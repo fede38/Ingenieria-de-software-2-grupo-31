@@ -19,6 +19,11 @@ class TripsController < ApplicationController
 		@trip = Trip.find(params[:id])
 	end
 
+	def showMisViajes
+		@user = User.find(params[:id])
+    	@creado_activo = Trip.where(piloto: @user, activo: true).reorder(:fecha_inicio, :hora_inicio)
+	end
+
 	def create
 		@trip = Trip.new(parametros_viaje)
 		@user= User.find(params[:user_id])
