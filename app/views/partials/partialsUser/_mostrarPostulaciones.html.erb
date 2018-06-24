@@ -3,7 +3,7 @@
     <div class="col-md-1"></div>
     <div class="col-md-10" style="background-color: #fafafa">
       <h1 style="text-align: center;">
-        Postulaciones en viajes activos:<br>
+        Postulaciones en viajes activos:<br><br>
       </h1>
       <div class="row">
         <div class="col-md-1"></div>
@@ -16,16 +16,46 @@
             <% @postulaciones.all.each do |pos| %>
               <% if pos.trip.activo %>
                 <% if pos.estado == 'a' %>
-                  <div class="cajaAceptado">
-                    <%= render 'partials/partialsUser/mostrarPostulacionesJumbo', {emb: pos, mensaje: 'Te han aceptado en el viaje '} %>
+                  <div class="well post-acept">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <span class="glyphicon glyphicon-ok-sign green-glyph" data-toggle="tooltip" title="Aceptado"></span>
+                      </div>
+                      <div class="col-md-8" style="font-size:18px">
+                        <%= link_to pos.trip.origen+' - '+pos.trip.destino, user_trip_path(pos.trip.piloto, pos.trip) %>
+                      </div>
+                      <div class="col-md-3">
+                        <span class="glyphicon glyphicon-calendar"></span> <%= '  '+formato_fecha(pos.trip.fecha_inicio) %>  <%= pos.trip.hora_inicio.strftime('%H:%M') %>
+                      </div>
+                    </div>
                   </div>
                 <% elsif pos.estado == 'p' %>
-                  <div class="cajaPendiente">
-                    <%= render 'partials/partialsUser/mostrarPostulacionesJumbo', {emb: pos, mensaje: 'Esperando ser aceptado o rechazado. '} %>
+                  <div class="well post-pend">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <span class="glyphicon glyphicon-time blue-glyph" data-toggle="tooltip" title="Pendiente"></span>
+                      </div>
+                      <div class="col-md-8" style="font-size:18px">
+                        <%= link_to pos.trip.origen+' - '+pos.trip.destino, user_trip_path(pos.trip.piloto, pos.trip) %>
+                      </div>
+                      <div class="col-md-3">
+                        <span class="glyphicon glyphicon-calendar"></span><%= '  '+formato_fecha(pos.trip.fecha_inicio) %> <%= pos.trip.hora_inicio.strftime('%H:%M') %>
+                      </div>
+                    </div>
                   </div>
                 <% else %>
-                  <div class="cajaRechazo">
-                    <%= render 'partials/partialsUser/mostrarPostulacionesJumbo', {emb: pos, mensaje: 'Te han rechazado en el viaje '} %>
+                  <div class="well-sm post-rech">
+                    <div class="row">
+                      <div class="col-md-1">
+                        <span class="glyphicon glyphicon-remove-sign red-glyph" data-toggle="tooltip" title="Rechazado"></span>
+                      </div>
+                      <div class="col-md-8" style="font-size:18px">
+                        <%= link_to pos.trip.origen+' - '+pos.trip.destino, user_trip_path(pos.trip.piloto, pos.trip) %>
+                      </div>
+                      <div class="col-md-3">
+                        <span class="glyphicon glyphicon-calendar"></span> <%= '  '+formato_fecha(pos.trip.fecha_inicio) %> <%= pos.trip.hora_inicio.strftime('%H:%M') %>
+                      </div>
+                    </div>
                   </div>
                 <% end %>
               <% end %>
