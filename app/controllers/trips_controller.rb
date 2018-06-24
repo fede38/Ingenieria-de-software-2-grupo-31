@@ -41,19 +41,22 @@ class TripsController < ApplicationController
 		
 		fecha = Time.now.year.to_s+'-'+Time.now.month.to_s+'-'+Time.now.day.to_s
 		hora = Time.now.hour.to_s+':'+Time.now.min.to_s
- 		Embarkment.where(trip_id: @trip.id).each do |e|
- 			if e.estado == 'a'
+ 		Embarkment.where(trip_id: @trip.id).each do |rel|
+ 			if rel.estado == 'a'
  				cal = Score.create(calificado: viaje.piloto, realizada: true,
 			                 tipo_calificacion: 'p', calificacion: -1,
 			                 descripcion: 'Cancelo un viaje con copilotos aceptados',
 			                 fecha: fecha, hora: hora)
 				calificar(viaje.piloto, cal)
-				TripMailer.sendMail(@trip, 'x', e.user_id).deliver
-			elsif e.estado != 'r'
-				action: 'rechazar', {idT: @trip, idU: e.user_id }
+				TripMailer.sendMail(@trip, 'x', rel.user_id).deliver
+				@trip.postulantes.delete(rel.user_id)
+			elsif rel.estado != 'r'
+				TripMailer.sendMail(viaje, 'r', usuario).deliver
+				@trip.postulantes.delete(rel.user_id)
 			end
 		end
 		Trip.delete(@trip.id)
+		flash[:success] = 'Viaje cancelado existosamente.'
 		redirect_to root_path
 	end
 
