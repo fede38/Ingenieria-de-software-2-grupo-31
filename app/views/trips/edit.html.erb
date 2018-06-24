@@ -1,15 +1,39 @@
-<% provide(:titulo, "Viaje a "+@trip.destino.downcase) %>
+<% provide(:titulo, "Modificar viaje a "+@trip.destino.downcase) %>
+
 <%= form_for ([@user, @trip]) do |form| %>
 
-		<% if @trip.errors.any? %>
-			<div class="alert alert-danger alert-dismissable">
-				<button class="close" type="button" data-dismiss="alert">x</button>	
-				<ul>
-					<% @trip.errors.each do |e| %>
-				</ul>
-				<li>
-					<%= @trip.errors[e][0] %>
-				</li>
+	<% if @trip.errors.any? %>
+		<div class="alert alert-danger alert-dismissable">
+			<button class="close" type="button" data-dismiss="alert">x</button>	
+			
+			<ul> <% @trip.errors.full_messages.each do |e| %> </ul>
+			
+					<li>
+						<%= e %>
+					</li>
+			
 				<% end %>
-			</div>
-		<% end %>
+		</div>
+	<% end %>
+
+	<%=	form.label :fecha_inicio, 'Fecha de inicio' %> <br>
+	<%= form.date_field :fecha_inicio %><br>
+
+	<%=	form.label :hora_inicio, 'Hora de inicio' %> <br>
+	<%= form.time_field :hora_inicio %><br>
+
+	<%=	form.label :descripcion, 'Descripción' %> <br>
+	<%= form.text_area :descripcion %><br>
+
+	<%=	form.label :origen %> <br>
+	<%= form.text_field :origen %><br>
+
+	<%=	form.label :destino %> <br>
+	<%= form.text_field :destino %><br>
+
+	<%=	form.label :vehicle_id, "Vehículo:" %> <br>
+	<%= form.select(:vehicle_id, @user.vehicles.map{|v| [v.patente, v.id]}, {class: 'form-control'}) %> <br>
+
+
+	<%= form.submit "Modificar" %>
+<% end %>

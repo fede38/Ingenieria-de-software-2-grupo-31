@@ -15,8 +15,18 @@ class Trip < ApplicationRecord
   validate :vehiculo_no_en_viaje
   validate :viajePostulado_a_la_misma_hora
   validate :viajePiloto_a_la_misma_hora
-  validate :saldo_en_contra
-  validate :calificaciones_pendientes
+
+  validate :saldo_en_contra, on: :create
+  validate :calificaciones_pendientes, on: :create
+
+  validate :no_tenga_postulantes_ni_copilotos, on: :update
+
+
+  def no_tenga_postulantes_ni_copilotos
+    if Embarkment.where('trip_id = ? and estado != ?', self.id, 'r')
+      errors.add("Para modificar el viaje, ", 'no puede haber postulantes o copilotos')
+    end
+  end
 
   def fecha_mayor_a_hoy
   	if self.fecha_inicio and self.fecha_inicio < Date.today
@@ -32,14 +42,14 @@ class Trip < ApplicationRecord
   end
   
   def viajePostulado_a_la_misma_hora
-  	if self.piloto.viajesPostulado.detect{ |t| t.fecha_inicio == self.fecha_inicio and 
+  	if self.piloto.viajesPostulado.detect{ |t| t.id != self.id and t.fecha_inicio == self.fecha_inicio and 
   											t.hora_inicio == self.hora_inicio }
   		errors.add("Estas postulado a un viaje,", ' a la misma hora, el mismo día que éste.')
   	end
   end
   
   def viajePiloto_a_la_misma_hora
-  	if self.piloto.viajesPiloto.detect{ |t| t.fecha_inicio == self.fecha_inicio and 
+  	if self.piloto.viajesPiloto.detect{ |t| t.id != self.id and t.fecha_inicio == self.fecha_inicio and 
   											t.hora_inicio == self.hora_inicio }
   		errors.add("Tienes un viaje pendiente,", ' a la misma hora, el mismo día que éste.')
   	end
@@ -52,7 +62,7 @@ class Trip < ApplicationRecord
   end
 
   def vehiculo_no_en_viaje
-  	if Trip.where(:vehicle_id => self.vehicle_id).detect{ |t| 
+  	if Trip.where(:vehicle_id => self.vehicle_id).detect{ |t| t.id != self.id and 
   				t.fecha_inicio == self.fecha_inicio and t.hora_inicio == self.hora_inicio }
   		errors.add("El vehículo elegido", 
   					' tiene un viaje asignado a la misma hora, el mismo día')

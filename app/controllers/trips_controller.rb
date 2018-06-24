@@ -10,9 +10,21 @@ class TripsController < ApplicationController
   	end
 
   	def edit
-  		@trip = Trip.find(params:[:id])
+  		@trip = Trip.find(params[:id])
   		@user = @trip.piloto
   	end
+
+  	def update
+  		@trip = Trip.find(params[:id])
+
+  		if @trip.update(parametros_viaje)
+  			redirect_to root_path
+  			#flash[:success] = 'Viaje modificado existosamente.'
+  		else
+  			render 'edit'
+  		end
+  	end
+
 
 	def new
 		@trip = Trip.new
@@ -123,7 +135,7 @@ class TripsController < ApplicationController
 		redirect_to :back
 	end
 
-	#embarkment estado = 'p' pendiente; 'r' rechazado; 'c' cancelado
+	#embarkment estado = 'p' pendiente; 'r' rechazado; 'a' aceptado
 
 	def rechazar
 		usuario = User.find(params[:idU])
