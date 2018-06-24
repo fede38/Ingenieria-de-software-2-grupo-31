@@ -1,1 +1,63 @@
-Estos son mis viajecitos activos jeje
+<div class="row">
+	<div class="col-md-12">
+		<br>
+		<%if @creado_activo.empty? %>
+			<div>
+				<h4> No tiene viajes creados activos </h4>	
+			</div>
+		<% else %>
+			<% @creado_activo.each do |t| %>
+			<div class="well my-jumbotron">
+				<div class="row">
+	                <h3 style="text-align: center;">
+	                  <%='Origen: '+t.origen %>   -    <%= 'Destino: '+t.destino %>
+	                </h3>
+	            </div>
+	            <div class="row">
+	                <div class="col-md-4">
+	                  <h5>
+	                    <b>Fecha: </b> <%= formato_fecha(t.fecha_inicio) %>
+	                  </h5>
+	                  <h5>
+	                    <b>Hora: </b> <%= t.hora_inicio.strftime('%H:%M') %>
+	                  </h5>
+	                  <h5>
+	                    <b>Piloto: </b> <%= link_to image_tag(t.piloto.avatar.url,:class=>"circular-image small-image")+'  '+usernameOf(t.piloto), user_path(t.piloto) %>
+	                  </h5>
+	                  <h5>
+	                    <b>Asientos: </b> <%= t.cantidad_asientos_ocupados %> / <%= t.vehicle.cantidad_asientos %>
+	                  </h5>
+	                </div>
+	                <div class="col-md-8">
+	                  <div class="row" style="width: 100%;">
+	                    <h4>
+	                      <b>Descripcion:</b> <%= t.descripcion %>
+	                    </h4>
+	                  </div>
+	                </div>
+				</div>
+				<br>
+				<div class=" row">
+					<div class="col-md-4">
+					<b>
+				  		<%= link_to 'Ver detalle', user_trip_path(t.piloto, t),:class => "btn btn-block btn-md my-button-color my-link-button"%>
+					</b>
+					</div>
+					<div class="col-md-4">
+						<b>
+				  		<%= link_to 'Modificar', '#',:class => "btn btn-block btn-md my-button-color my-link-button"%>
+					</b>
+					</div>
+					<div class="col-md-4">
+						<b>
+				  		<%= link_to 'Eliminar', '#',:class => "btn btn-block btn-md my-button-color my-link-button"%>
+					</b>
+					</div>
+				</div>
+			</div>
+			<br>
+			<% end %>
+		<% end %>
+
+	</div>
+</div>

@@ -6,7 +6,7 @@
   <%= link_to 'Mi Perfil',users_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
 <% else %>
   <br><br>
-  <%= link_to 'Calificaciones',  {controller: :scores, action: 'showCalificaciones', id: @user.id}, :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
+  <%= link_to 'Calificaciones',  {controller: :scores, action: 'showCalificaciones', id: @user.id}, :class => "btn btn-block btn-sm my-button-color my-link-button" %>
   <%= link_to 'Vehiculos', user_vehicles_path(@user), :class => "btn btn-block btn-sm my-button-color my-link-button" %>
   <%= link_to 'Perfil', user_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
 <% end %>

@@ -21,7 +21,7 @@ class TripsController < ApplicationController
 
 	def showMisViajes
 		@user = User.find(params[:id])
-    @creado_activo = Trip.where(piloto: @user, activo: true).order(fecha_inicio: :desc, hora_inicio: :desc)
+    	@creado_activo = Trip.where(piloto: @user, activo: true).reorder(:fecha_inicio, :hora_inicio)
 	end
 
 	def create
