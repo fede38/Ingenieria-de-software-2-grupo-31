@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate_user!
+  before_action :viajesPasados
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   def calificar(user, cal)
@@ -25,6 +26,7 @@ class ApplicationController < ActionController::Base
     emb.all.each do |e|
       return true if e.user == u
     end
+    return false
   end
 
   def deuda?(user)
@@ -41,6 +43,28 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+    def viajesPasados
+      fecha = Time.now.year.to_s + '-' + Time.now.month.to_s + '-' + Time.now.day.to_s
+      hora = Time.now.hour.to_s + ':' + Time.now.min.to_s
+      Trip.where("activo = ? and fecha_inicio <= ?", true, fecha).all.each do |trip|
+        total = trip.costo / trip.cantidad_asientos_ocupados
+        if (trip.fecha_inicio == Date.today && trip.hora_inicio <= hora) ||
+           (trip.fecha_inicio < Date.today)
+          trip.update_attributes(activo: false)
+          trip.piloto.account.update_attributes(deuda: (trip.piloto.account.deuda+(trip.costo * 0.05)+total))
+          trip.postulantes.each do |pos|
+            ## No anda bien
+            if Embarkment.find_by(trip_id: trip, user_id: pos, estado: 'a').present?
+              Score.create(calificado: pos, creador: trip.piloto, realizada: false, tipo_calificacion: 'c')
+              Score.create(calificado: trip.piloto, creador: pos, realizada: false, tipo_calificacion: 'p')
+              pos.account.update_attributes(deuda: pos.account.deuda+total)
+            end
+            ## No se porque
+          end
+        end
+      end
+    end
+
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up) { |u|
         u.permit(:nombre, :apellido, :fecha_nacimiento, :email, :password,

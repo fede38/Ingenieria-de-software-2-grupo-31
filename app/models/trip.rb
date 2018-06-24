@@ -13,15 +13,17 @@ class Trip < ApplicationRecord
   validate :hora_mayor_a_ahora
 
   def fecha_mayor_a_hoy
-  	if self.fecha_inicio and self.fecha_inicio.past?
-  		errors.add("La fecha de inicio debe ser ", 'posterior a hoy')
-  		end
+    if self.fecha_inicio and self.fecha_inicio < Date.today
+      errors.add("La fecha de inicio debe ser hoy o ", 'posterior a hoy.')
+      end
   end
 
   def hora_mayor_a_ahora
-  	if self.fecha_inicio and self.fecha_inicio == Date.today and self.hora_inicio.past?
-  			errors.add("La fecha y hora deben ser ", 'posteriores a ahora')
-  	end
+    hora = Time.now.hour.to_s + ':' + Time.now.min.to_s
+    hora_viaje = self.hora_inicio.hour.to_s + ':' + self.hora_inicio.min.to_s
+    if (self.fecha_inicio == Date.today) and (hora_viaje < hora)
+        errors.add("La fecha y hora deben ser ", 'posteriores a ahora.')
+    end
   end
 
 end
