@@ -91,16 +91,30 @@ class TripsController < ApplicationController
 		viaje = Trip.find(params[:idT])
 		rel = Embarkment.find_by(user_id: usuario.id,
 				  									 trip_id: viaje.id)
-		if viaje.cantidad_asientos_ocupados < viaje.vehicle.cantidad_asientos
+		if viaje.cantidad_asientos_ocupados == viaje.vehicle.cantidad_asientos ||
+			 mismaHora?(usuario, viaje)
+			flash[:danger] = []
+      if viaje.cantidad_asientos_ocupados == viaje.vehicle.cantidad_asientos
+        flash[:danger] = 'No hay mas espacio en el vehiculo.'
+      end
+      if mismaHora?(usuario, viaje)
+        if !flash[:danger].empty?
+          flash[:danger][-1] = ' y '
+          flash[:danger] << 'el usuario ya ha sido aceptado en otro viaje a la misma hora.'
+        else
+          flash[:danger] = 'El usuario ya ha sido aceptado en otro viaje a la misma hora.'
+        end
+      end
+		else
 			TripMailer.sendMail(viaje, 'a', usuario).deliver
 			rel.update_attribute(:estado, 'a')
 			viaje.increment!(:cantidad_asientos_ocupados, 1)
 			rel.touch
-		else
-			flash[:danger] = "No hay asientos disponibles en el auto, no se pueden aceptar mas postulantes."
 		end
 		redirect_to :back
 	end
+
+	#embarkment estado = 'p' pendiente; 'r' rechazado; 'c' cancelado
 
 	def rechazar
 		usuario = User.find(params[:idU])

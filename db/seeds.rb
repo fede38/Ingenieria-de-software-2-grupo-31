@@ -20,7 +20,7 @@ colores = [
   'Blanco', 'Negro', 'Gris'
 ]
 origenes = [
-  'Capital Federal', 'Mar del Plata', 
+  'Capital Federal', 'Mar del Plata',
   'Monte Hermoso', 'Villa Elisa (Entre Rios)',
   'Santa Rosa', 'Viedma', 'General Roca',
   'General Madariaga', 'Villa Regina', 'Allen','Cipolletti',
@@ -84,7 +84,7 @@ end
   end until !$user.vehicles.empty?
   viaje = Trip.new(
     descripcion: "Esta es la descripcion numero: "+ v.to_s + ".",
-    fecha_inicio: "2018-"+rand(7..12).to_s+"-"+rand(1..31).to_s,
+    fecha_inicio: "2018-"+rand(Time.now.month+1..12).to_s+"-"+rand(1..31).to_s,
     hora_inicio: rand(00..23).to_s+":"+rand(00..59).to_s,
     costo: rand(1000.0...5000.0),
     origen: origenes[v],

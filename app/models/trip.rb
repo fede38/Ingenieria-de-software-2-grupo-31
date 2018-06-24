@@ -24,8 +24,9 @@ class Trip < ApplicationRecord
   end
 
   def hora_mayor_a_ahora
-  	if (self.fecha_inicio == Date.today) and (self.hora_inicio < Time.now - (3600)*3) 
-  			errors.add("La fecha y hora deben ser ", 'posteriores a ahora.')
+  	if (self.fecha_inicio == Date.today) and (self.hora_inicio.strftime('%H:%M') < 
+                  Time.now.strftime('%H:%M'))
+  			errors.add("La fecha y hora defeben ser ", 'posteriores a ahora.')
   	end
   end
   
@@ -45,7 +46,7 @@ class Trip < ApplicationRecord
 
   def saldo_en_contra
   	if self.piloto.account.deuda? or self.piloto.account.saldo != 0
-  		errors.add("No puedes crear un viaje ", 'si tienes deuda pendiete')
+  		errors.add("No puedes crear un viaje ", 'si tienes deuda pendiente')
   	end
   end
 

@@ -263,11 +263,44 @@ success {
     padding: 20px;
 }
 
+.post-acept{
+    background-color: #E3FBB0;
+    margin-bottom: 5px;
+    padding: 20px;
+}
+
+.post-pend{
+    background-color: #CAFBF9;
+    margin-bottom: 5px;
+    padding: 20px;
+}
+
+.post-rech{
+    background-color: #ff000021;
+    margin-bottom: 5px;
+    padding: 20px;
+}
+
 .boton-ace-rec {
     float: right;
     margin-right: 5px;
     position: relative;
     
+}
+
+.green-glyph{
+    color: #63C55E;
+    font-size: 22px;
+}
+
+.red-glyph{
+    color: #da1b17;
+    font-size: 22px;
+}
+
+.blue-glyph{
+    color: #7CCDCA;
+    font-size: 22px;
 }
 
 .a1{
