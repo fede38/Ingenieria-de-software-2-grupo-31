@@ -9,6 +9,7 @@ class Trip < ApplicationRecord
 
   validates :destino, :origen, :vehicle_id, :costo, :fecha_inicio, :hora_inicio, presence: true
 
+
   validate :fecha_mayor_a_hoy
   validate :hora_mayor_a_ahora
   validate :vehiculo_no_en_viaje

@@ -1,13 +1,13 @@
 <% if @user == current_user %>
   <%= link_to 'Nuevo Vehiculo', new_user_vehicle_path(@user),:class => "btn btn-block btn-sm colapso my-link-button" %>
-  <%= link_to 'Mis Viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
+  <%= link_to 'Mis Viajes', {controller: :trips, action: 'showMisViajes', id: @user.id}, :class => "btn btn-block btn-sm my-button-color my-link-button" %>
   <%= link_to 'Mis Postulaciones', '/users/'+@user.id.to_s+'/postulaciones', :class => "btn btn-block btn-sm my-button-color my-link-button" %>
   <%= link_to 'Mis Calificaciones',  {controller: :scores, action: 'showCalificaciones', id: @user.id}, :class => "btn btn-block btn-sm my-button-color my-link-button" %>
   <%= link_to 'Calificaciones Pendientes', {controller: :scores, action: 'showCalifARealizar', id: @user.id}, :class => "btn btn-block btn-sm my-button-color my-link-button" %>
   <%= link_to 'Mi Perfil',users_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
 <% else %>
   <br><br>
-  <%= link_to 'Viajes', '#', :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
-  <%= link_to 'Calificaciones',  {controller: :scores, action: 'showCalificaciones', id: @user.id}, :class => "btn btn-block btn-sm my-button-color my-link-button isDisabled" %>
+  <%= link_to 'Viajes', {controller: :trips, action: 'showMisViajes', id: @user.id}, :class => "btn btn-block btn-sm my-button-color my-link-button" %>
+  <%= link_to 'Calificaciones',  {controller: :scores, action: 'showCalificaciones', id: @user.id}, :class => "btn btn-block btn-sm my-button-color my-link-button" %>
   <%= link_to 'Perfil', user_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
 <% end %>
