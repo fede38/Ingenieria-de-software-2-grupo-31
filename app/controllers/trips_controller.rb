@@ -9,6 +9,10 @@ class TripsController < ApplicationController
     	@trips = @q.result.paginate(page: params[:page], per_page: 5)
   	end
 
+  	def edit
+  		@trip = Trip.find(params:[:id])
+  		@user = @trip.piloto
+  	end
 
 	def new
 		@trip = Trip.new
