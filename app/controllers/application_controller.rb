@@ -45,10 +45,11 @@ class ApplicationController < ActionController::Base
   protected
     def viajesPasados
       fecha = Time.now.year.to_s + '-' + Time.now.month.to_s + '-' + Time.now.day.to_s
-      hora = Time.now.hour.to_s + ':' + Time.now.min.to_s
+      hora = Time.now.strftime("%H:%M")
       Trip.where("activo = ? and fecha_inicio <= ?", true, fecha).all.each do |trip|
+        horaInicio = trip.hora_inicio.strftime("%H:%M")
         total = trip.costo / trip.cantidad_asientos_ocupados
-        if (trip.fecha_inicio == Date.today && trip.hora_inicio <= hora) ||
+        if (trip.fecha_inicio == Date.today && horaInicio <= hora) ||
            (trip.fecha_inicio < Date.today)
           trip.update_attributes(activo: false)
           trip.piloto.account.update_attributes(deuda: (trip.piloto.account.deuda+(trip.costo * 0.05)+total))
