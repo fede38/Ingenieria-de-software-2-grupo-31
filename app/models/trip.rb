@@ -19,14 +19,6 @@ class Trip < ApplicationRecord
   validate :saldo_en_contra, on: :create
   validate :calificaciones_pendientes, on: :create
 
-  validate :no_tenga_postulantes_ni_copilotos, on: :update
-
-
-  def no_tenga_postulantes_ni_copilotos
-    if Embarkment.where('trip_id = ? and estado != ?', self.id, 'r')
-      errors.add("Para modificar el viaje, ", 'no puede haber postulantes o copilotos')
-    end
-  end
 
   def fecha_mayor_a_hoy
   	if self.fecha_inicio and self.fecha_inicio < Date.today

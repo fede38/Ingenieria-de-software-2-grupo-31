@@ -16,13 +16,20 @@ class TripsController < ApplicationController
 
   	def update
   		@trip = Trip.find(params[:id])
-
-  		if @trip.update(parametros_viaje)
-  			redirect_to root_path
-  			#flash[:success] = 'Viaje modificado existosamente.'
-  		else
-  			render 'edit'
+  		
+  		if Embarkment.where('trip_id = ? AND estado != ?', @trip.id, 'r')
+  			flash[:danger] = []	
+      		flash[:danger] << "Para modificar el viaje, no puede haber postulantes o copilotos."
+      		redirect_to root_path
+      		return
   		end
+
+	  	if @trip.update(parametros_viaje)
+  			redirect_to root_path
+  			flash[:success] = 'Viaje modificado existosamente.'    	
+		else
+			render 'edit'
+		end
   	end
 
 
