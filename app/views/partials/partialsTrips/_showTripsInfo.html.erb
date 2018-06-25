@@ -67,11 +67,11 @@
 				<% if aceptados.exists?(user_id: current_user) %>
 					<%= @trip.piloto.nombre + ' ' + @trip.piloto.apellido %><br>
 					<% if @trip.piloto.telefono %>
-	          <%= @trip.piloto.telefono %><br>
-	        <% else %>
-	          El piloto no tiene numero de telefono.<br>
-	        <% end %>
-	        <%= @trip.piloto.email %><br>
+	          			<%= @trip.piloto.telefono %><br>
+	        		<% else %>
+	          			El piloto no tiene numero de telefono.<br>
+	        		<% end %>
+	        		<%= @trip.piloto.email %><br>
 				<% else %>
 					Solo los usuarios aceptados como copiloto pueden ver esta informacion
 				<% end %>
@@ -128,5 +128,4 @@
 <% if @trip.piloto == current_user %>
 	<%= button_to 'Eliminar Viaje', {controller: :trips, action: :destroy, idT: @trip.id},
 		{data: {confirm: 'Eliminar el viaje no reintegra el dinero invertido, seguro que deseas continuar?'}, method: :delete} %>
-	<%= link_to 'Modificar viaje', edit_user_trip_path(@trip.piloto, @trip) %>
 <% end %>

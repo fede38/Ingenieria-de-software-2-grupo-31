@@ -58,13 +58,14 @@
 					<% vehiculos_propios << ve.patente %> 
 				<% end %> 
 				<%= form.select :vehicle_id, vehiculos_propios , class: "form-group form-control" %> -->
-				<%= form.select(:vehicle_id, @user.vehicles.map{|v| [v.patente, v.id]}, {class: 'form-control'}) %>
-			<% else %>	
+				<%= form.select(:vehicle_id, @user.vehicles.map{|v| [v.patente, v.id]},{}, {class: 'form-control'}) %>
+			<% else %>	 
 				No posee vehículos, <%= link_to ' agrega uno!', new_user_vehicle_path(@user) %>
 			<!--- <%= form.number_field :vehicle_id, class: "form-control" %> --->
 			<% end %>
 		</div>
-		<div class=" actions">
+		<br>
+		<div class=" actions" style="text-align: center;">
 			<%= form.submit "Crear viaje", class:"btn my-link-button my-button-color", data: {confirm: "Se le descontará el 5% del costo de su viaje, está seguro que desea continuar?" } %>
 		</div>
 	<% end %>

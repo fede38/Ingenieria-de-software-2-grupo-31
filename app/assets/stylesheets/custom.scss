@@ -191,16 +191,34 @@ success {
 }
 
 .form-group{
-   input:focus, textarea:focus {
+   input:focus, textarea:focus, select:focus {
         outline: none !important;
         box-shadow: none;
         @include box-shadow(3px, 3px, 3px, #FECDCE);
         border: 3px solid #FDA1A3 !important;
     }
+    /*Opciones para color de fondo de las opciones*/
+/*    option{
+        background-color: #f173762e !important;
+    }
+    option:focus{
+        background-color: #F17376 !important;
+    }*/
+    /*Esta el la forma original de borde y shadow*/
+   /* input:focus, textarea:focus, select:focus{
+        border-color: #F17376!important;
+        outline: none !important;
+        box-shadow: none;
+        @include box-shadow(3px, 3px, 3px, #FECDCE);
+    }
+    Esto es KK
+    select.decorated option:hover{
+        background-color: #F17376 !important;
+        
+    }*/
 }
 /*---------------Fin estilos de formularios----------------*/
-
-
+ 
 
 /*---------------Estilos de botones y jumbotrones----------*/
 .isDisabled {
