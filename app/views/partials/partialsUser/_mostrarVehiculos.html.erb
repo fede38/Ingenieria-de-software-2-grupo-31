@@ -18,74 +18,79 @@
             <% end %>
           </h3>
           <% else %>
-          <% @vehicle.each do |ve| %>
-          <div class="well my-jumbotron" >
-            <h3 style="text-align: center;">
-              Patente: <%= ve.patente.upcase %>
-            </h3>
-            <br/>
-            <div class="row ">
-              <div class="col-md-4" >
-                <div >
-                  <h5 style="font-weight: bold;">
-                    Marca: <%= ve.marca.upcase %>
-                  </h5>
+            <% @vehicle.each do |ve| %>
+              <div class="well my-jumbotron" >
+                <h3 style="text-align: center;">
+                  Patente: <%= ve.patente.upcase %>
+                </h3>
+                <br/>
+                <div class="row ">
+                  <div class="col-md-4" >
+                    <div>
+                      <h5 style="font-weight: bold;">
+                        Marca: <%= ve.marca.upcase %>
+                      </h5>
+                    </div>
+                    <div >
+                      <h5 style="font-weight: bold;">
+                        Tipo:
+                        <%= ve.tipo.upcase %>
+                      </h5>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div>
+                      <h5 style="font-weight: bold;">
+                        Modelo:
+                        <%= ve.sub_marca.upcase %>
+                      </h5>
+                    </div>
+                    <div>
+                      <h5 style="font-weight: bold;">
+                        Color:
+                        <%= ve.color.upcase %>
+                      </h5>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div>
+                      <h5 style="font-weight: bold;">
+                        Año:
+                        <%= ve.modelo %>
+                      </h5>
+                    </div>
+                    <div>
+                      <h5 style="font-weight: bold;">
+                        Asientos:
+                        <%= ve.cantidad_asientos %>
+                      </h5>
+                    </div>
+                    <br>
+                  </div>
                 </div>
-                <div >
-                  <h5 style="font-weight: bold;">
-                    Tipo:
-                    <%= ve.tipo.upcase %>
-                  </h5>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div>
-                  <h5 style="font-weight: bold;">
-                    Modelo:
-                    <%= ve.sub_marca.upcase %>
-                  </h5>
-                </div>
-                <div>
-                  <h5 style="font-weight: bold;">
-                    Color:
-                    <%= ve.color.upcase %>
-                  </h5>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div>
-                  <h5 style="font-weight: bold;">
-                    Año:
-                    <%= ve.modelo %>
-                  </h5>
-                </div>
-                <div>
-                  <h5 style="font-weight: bold;">
-                    Asientos:
-                    <%= ve.cantidad_asientos %>
-                  </h5>
-                </div>
-                <br>
-              </div>
-            </div>
-              <div class="row">
-              <% if @user == current_user %>
-                <div class="center" style="width: 100%; margin-bottom: 5px">
-                <b>
-                  <%= link_to 'Modificar', edit_user_vehicle_path(@user,ve.id),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-                </b>
-                </div>
+                  <div class="row">
+                  <% if @user == current_user %>
+                    <div class="center" style="width: 100%; margin-bottom: 5px">
+                    <b>
+                      <%= link_to 'Modificar', edit_user_vehicle_path(@user,ve.id),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
+                    </b>
+                    </div>
 
-                <div class="center" style="width: 100%; margin-top: 5px">
-                <b>
-                  <%= link_to 'Eliminar', user_vehicle_path(@user,ve), method: :delete,:class => "btn btn-block btn-sm my-button-color my-link-button", data: {confirm: '¿Estas seguro que quieres eliminar el vehiculo?'} %>
-                  </b>
+                    <div class="center" style="width: 100%; margin-top: 5px">
+                    <b>
+                      <%= link_to 'Eliminar', user_vehicle_path(@user,ve), method: :delete,:class => "btn btn-block btn-sm my-button-color my-link-button", data: {confirm: '¿Estas seguro que quieres eliminar el vehiculo?'} %>
+                      </b>
+                    </div>
+                  <% end %>
                 </div>
-              <% end %>
+              </div>
+              <br>
+            <% end %>
+            <div class="pagination-wrapper">
+              <div class="pagination">
+                  <%= will_paginate @vehicle, previous_label: 'Página anterior', next_label: 'Página siguiente' %>
+              </div>
             </div>
-          </div>
-          <br>
-          <% end %>
           <% end %>
         </div>
         <div class="col-md-1">

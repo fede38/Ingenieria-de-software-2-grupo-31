@@ -28,7 +28,7 @@ class VehiclesController < ApplicationController
 
 	def index
 		@user = User.find(params[:user_id])
-		@vehicle = @user.vehicles
+		@vehicle = @user.vehicles.paginate(page: params[:page], per_page: 5)
 	end
 
 	def edit
