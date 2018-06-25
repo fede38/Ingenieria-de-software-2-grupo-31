@@ -65,7 +65,7 @@ class TripsController < ApplicationController
 
 	def destroy
 		@user = User.find(params[:user_id])
-		@trip = Trip.find(params[:idT])
+		@trip = Trip.find(params[:id])
 		
 		fecha = Time.now.year.to_s+'-'+Time.now.month.to_s+'-'+Time.now.day.to_s
 		hora = Time.now.hour.to_s+':'+Time.now.min.to_s

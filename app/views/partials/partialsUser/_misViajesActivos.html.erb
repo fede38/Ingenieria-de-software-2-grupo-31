@@ -51,7 +51,7 @@
 					</div>
 					<div class="col-md-4">
 						<b>
-				  			<%= link_to 'Eliminar', '#',:class => "btn btn-block btn-md my-button-color my-link-button"%>
+				  			<%= link_to 'Eliminar', user_trip_path(t.piloto,t), {data: {confirm: 'Eliminar el viaje no reintegra el dinero invertido, seguro que deseas continuar?'}, method: :delete, :class => "btn btn-block btn-md my-button-color my-link-button"} %>
 						</b>
 					</div>
 					<% else %>

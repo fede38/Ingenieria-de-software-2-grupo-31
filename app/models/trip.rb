@@ -68,9 +68,8 @@ class Trip < ApplicationRecord
   end
 
   def costo_mayor_a_cero
-    if self.costo < 0
+    if self.costo <= 0
       errors.add("El costo", 'debe ser mayor a (0) cero')
-      
     end
   end
 
