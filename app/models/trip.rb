@@ -9,7 +9,7 @@ class Trip < ApplicationRecord
 
   validates :destino, :origen, :vehicle_id, :costo, :fecha_inicio, :hora_inicio, presence: true
 
-
+  validate :costo_mayor_a_cero
   validate :fecha_mayor_a_hoy
   validate :hora_mayor_a_ahora
   validate :vehiculo_no_en_viaje
@@ -67,5 +67,11 @@ class Trip < ApplicationRecord
   	end
   end
 
+  def costo_mayor_a_cero
+    if self.costo < 0
+      errors.add("El costo", 'debe ser mayor a (0) cero')
+      
+    end
+  end
 
 end

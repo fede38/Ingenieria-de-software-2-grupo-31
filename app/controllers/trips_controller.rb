@@ -71,15 +71,15 @@ class TripsController < ApplicationController
 		hora = Time.now.hour.to_s+':'+Time.now.min.to_s
  		Embarkment.where(trip_id: @trip.id).each do |rel|
  			if rel.estado == 'a'
- 				cal = Score.create(calificado: viaje.piloto, realizada: true,
+ 				cal = Score.create(calificado: @trip.piloto, realizada: true,
 			                 tipo_calificacion: 'p', calificacion: -1,
 			                 descripcion: 'Cancelo un viaje con copilotos aceptados',
 			                 fecha: fecha, hora: hora)
-				calificar(viaje.piloto, cal)
-				TripMailer.sendMail(@trip, 'x', rel.user_id).deliver
+				calificar(@trip.piloto, cal)
+				TripMailer.sendMail(@trip, 'x', User.find(rel.user_id)).deliver
 				@trip.postulantes.delete(rel.user_id)
 			elsif rel.estado != 'r'
-				TripMailer.sendMail(viaje, 'r', usuario).deliver
+				TripMailer.sendMail(@trip, 'r', User.find(rel.user_id)).deliver
 				@trip.postulantes.delete(rel.user_id)
 			end
 		end
