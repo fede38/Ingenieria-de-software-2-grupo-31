@@ -48,11 +48,12 @@ class ApplicationController < ActionController::Base
       hora = Time.now.strftime("%H:%M")
       Trip.where("activo = ? and fecha_inicio <= ?", true, fecha).all.each do |trip|
         horaInicio = trip.hora_inicio.strftime("%H:%M")
-        if trip.cantidad_asientos_ocupados == 1
-          total = 0
-        else
-          total = trip.costo / (trip.cantidad_asientos_ocupados - 1)
-        end
+        #if trip.cantidad_asientos_ocupados == 1
+        #  total = 0
+        #else
+        #  total = trip.costo / (trip.cantidad_asientos_ocupados - 1)
+        #end
+        total = trip.costo / trip.cantidad_asientos_ocupados
         if (trip.fecha_inicio == Date.today && horaInicio <= hora) ||
            (trip.fecha_inicio < Date.today)
           trip.update_attribute(:activo, false)
