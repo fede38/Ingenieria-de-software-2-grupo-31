@@ -1,6 +1,7 @@
 <p>El viaje a <%= @viaje.destino %> al que habías sido aceptado, ha sido cancelado</p> <br>
 <STRONG><p>Detalles:</p></STRONG><br>
-<%= @viaje.fecha_salida %><br>
-<%= @viaje.hora_salida %><br>
-<%= @viaje.origen %><br>
+Fecha de inicio: <%= @viaje.fecha_inicio %><br>
+Hora de inicio: <%= @viaje.hora_inicio.strftime('%H:%M') %><br>
+Origen: <%= @viaje.origen %><br>
+Destino: <%= @viaje.destino %><br>
 <p>Disculpe las molestias </p>
