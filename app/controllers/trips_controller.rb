@@ -19,7 +19,7 @@ class TripsController < ApplicationController
   		
   		if Embarkment.where('trip_id = ? AND estado != ?', @trip.id, 'r')
   			flash[:danger] = []	
-      		flash[:danger] << "Para modificar el viaje, no puede haber postulantes o copilotos."
+      		flash[:danger] << 'Para modificar el viaje, no puede haber postulantes o copilotos.'
       		redirect_to root_path
       		return
   		end
@@ -36,6 +36,7 @@ class TripsController < ApplicationController
 	def new
 		@trip = Trip.new
 		@user= User.find(params[:user_id])
+		2.times { @trip.periodic.build }
 	end
 
 	def show
@@ -194,7 +195,8 @@ private
 
 	def parametros_viaje
 		params.require(:trip).permit(:fecha_inicio, :hora_inicio, :costo, :origen, 
-										:destino, :descripcion, :vehicle_id, :user_id)
+										:destino, :descripcion, :vehicle_id, :user_id,
+										 periodics_attributes: [:id, :fecha, :hora])
 	end
 
 end

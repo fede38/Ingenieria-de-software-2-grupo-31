@@ -65,6 +65,22 @@
 			<% end %>
 		</div>
 		<br>
+		
+		Si el viaje es periódico agrega las nuevas fechas y horas debajo. <br>
+
+		<ul>
+			<%= form.fields_for :periodics do |periodics_form| %>
+				<li>
+					<%= periodics_form.label :fecha %>
+					<%= periodics_form.date_field :fecha %><br>
+
+					<%= periodics_form.label :hora %> 
+					<%= periodics_form.time_field :hora %><br>
+				</li>
+			<%= end %>
+		</ul>
+
+
 		<div class=" actions" style="text-align: center;">
 			<%= form.submit "Crear viaje", class:"btn my-link-button my-button-color", data: {confirm: "Se le descontará el 5% del costo de su viaje, está seguro que desea continuar?" } %>
 		</div>

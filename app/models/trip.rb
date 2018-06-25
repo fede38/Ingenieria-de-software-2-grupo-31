@@ -3,7 +3,8 @@ class Trip < ApplicationRecord
 
   belongs_to :piloto, class_name: 'User', foreign_key: 'user_id'
   belongs_to :vehicle
-
+  
+  has_many :periodic
   has_many :embarkment
   has_many :postulantes, source: :user, through: :embarkment, class_name: 'User', foreign_key: 'user_id'
 
@@ -19,6 +20,20 @@ class Trip < ApplicationRecord
   validate :saldo_en_contra, on: :create
   validate :calificaciones_pendientes, on: :create
 
+
+  def fechas_que_no_se_crucen
+    if self.periodic
+      if self.periodic.detect{|f| 
+          self.periodic.each do |f2|
+            if !(f == f2)
+              f.fecha == f2.fecha and f.hora == f2.hora
+            end
+          end
+        }
+          errors.add("No pueden haber, ", 'dos fechas y hora iguales')
+        end
+    end
+  end
 
   def fecha_mayor_a_hoy
   	if self.fecha_inicio and self.fecha_inicio < Date.today
