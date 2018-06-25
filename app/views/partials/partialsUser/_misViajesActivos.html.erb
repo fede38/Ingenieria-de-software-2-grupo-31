@@ -38,6 +38,7 @@
 				</div>
 				<br>
 				<div class=" row">
+					<%if current_user == @user %>
 					<div class="col-md-4">
 						<b>
 				  			<%= link_to 'Ver detalle', user_trip_path(t.piloto, t),:class => "btn btn-block btn-md my-button-color my-link-button"%>
@@ -53,11 +54,24 @@
 				  			<%= link_to 'Eliminar', '#',:class => "btn btn-block btn-md my-button-color my-link-button"%>
 						</b>
 					</div>
+					<% else %>
+						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<b>
+				  				<%= link_to 'Ver detalle', user_trip_path(t.piloto, t),:class => "btn btn-block btn-md my-button-color my-link-button"%>
+							</b>
+						</div>
+						<div class="col-md-4"></div>
+					<% end %>
 				</div>
 			</div>
 			<br>
 			<% end %>
 		<% end %>
-
+		<div class="pagination-wrapper">
+        <div class="pagination">
+          <%= will_paginate @creado_activo, previous_label: 'Página anterior', next_label: 'Página siguiente' %>
+        </div>
+      </div>
 	</div>
 </div>

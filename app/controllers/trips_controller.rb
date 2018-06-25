@@ -45,7 +45,7 @@ class TripsController < ApplicationController
 
 	def showMisViajes
 		@user = User.find(params[:id])
-    	@creado_activo = Trip.where(piloto: @user, activo: true).reorder(:fecha_inicio, :hora_inicio)
+    	@creado_activo = Trip.where(piloto: @user, activo: true).reorder(:fecha_inicio, :hora_inicio).paginate(page: params[:page], per_page:5 )
 	end
 
 	def create

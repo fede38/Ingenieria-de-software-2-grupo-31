@@ -115,11 +115,26 @@
 		<%= @trip.descripcion %>
 	</div>
 	<br>
-	<div>
+	<div class="row">
 		<% if user_signed_in? && !@trip.postulantes.exists?(id: current_user) &&
 			@trip.piloto != current_user%>
 			<%= button_to 'Postularse', {controller: :trips, action: 'postularse', idT: @trip.id},
                 {class: "btn btn-lg colapso btn-block my-link-button", method: :put} %>
+		<% end %>
+		<% if current_user == @trip.piloto %>
+			<div class="col-md-1"></div>
+			<div class="col-md-4">
+				<b>
+		  			<%= link_to 'Modificar', edit_user_trip_path(@trip.piloto, @trip),:class => "btn btn-block btn-md my-button-color my-link-button"%>
+				</b>
+			</div>
+			<div class="col-md-2"></div>
+			<div class="col-md-4">
+				<b>
+					<%= link_to 'Eliminar', '#',:class => "btn btn-block btn-md my-button-color my-link-button"%>
+				</b>
+			</div>
+			<div class="col-md-1"></div>
 		<% end %>
 	</div>
 </div>
