@@ -16,18 +16,25 @@
       </div>
     <% end %>
 
+    <br> <br>
     <div class="form-group">
       <%= f.label :calificacion %> <br>
       <%= f.select :calificacion, {'Positiva': 1, 'Neutral': 0,'Negativa': -1}, class: "form-control" %>
     </div>
 
+    <br>
     <div class="form-group">
       <%= f.label :descripcion %> <br>
       <%= f.text_area :descripcion, class: "form-control" %>
     </div>
-
-    <div class=" actions">
-      <%= f.submit "Calificar", class:"btn my-link-button my-button-color" %>
+    <div class="row">
+      <div class="col-md-4"> </div>
+      <div class="col-md-4">
+        <div class="actions" style="text-align: center">
+          <%= f.submit "Calificar", class:"btn btn-block my-link-button my-button-color" %>
+        </div>
+      </div>
+      <div class="col-md-4"></div>
     </div>
   <% end %>
 </div>
