@@ -1,39 +1,55 @@
 <% provide(:titulo, "Modificar viaje a "+@trip.destino.downcase) %>
 
-<%= form_for ([@user, @trip]) do |form| %>
+<div class="centering">
+	<%= form_for ([@user, @trip]) do |form| %>
 
-	<% if @trip.errors.any? %>
-		<div class="alert alert-danger alert-dismissable">
-			<button class="close" type="button" data-dismiss="alert">x</button>	
-			
-			<ul> <% @trip.errors.full_messages.each do |e| %> </ul>
-			
-					<li>
-						<%= e %>
-					</li>
-			
-				<% end %>
+		<% if @trip.errors.any? %>
+			<div class="alert alert-danger alert-dismissable">
+				<button class="close" type="button" data-dismiss="alert">x</button>	
+				
+				<ul> <% @trip.errors.full_messages.each do |e| %> </ul>
+				
+						<li>
+							<%= e %>
+						</li>
+				
+					<% end %>
+			</div>
+		<% end %>
+
+		<div class="form-group">
+			<%=	form.label :fecha_inicio, 'Fecha de inicio' %> <br>
+			<%= form.date_field :fecha_inicio, class: "form-control" %><br>
 		</div>
+
+		<div class="form-group">
+			<%=	form.label :hora_inicio, 'Hora de inicio' %> <br>
+			<%= form.time_field :hora_inicio, class: "form-control" %><br>
+		</div>
+
+		<div class="form-group">
+			<%=	form.label :descripcion, 'Descripción' %> <br>
+			<%= form.text_area :descripcion, class: "form-control" %><br>
+		</div>
+
+		<div class="form-group">
+			<%=	form.label :origen %> <br>
+			<%= form.text_field :origen, class: "form-control" %><br>
+		</div>
+
+		<div class="form-group">
+			<%=	form.label :destino %> <br>
+			<%= form.text_field :destino, class: "form-control" %><br>
+		</div>
+
+		<div class="form-group">
+			<%=	form.label :vehicle_id, "Vehículo:" %> <br>
+			<%= form.select(:vehicle_id, @user.vehicles.map{|v| [v.patente, v.id]},{}, {class: 'form-control'}) %> <br>
+		</div>
+
+		<div class=" actions">
+			<%= form.submit "Modificar", class:"btn my-link-button my-button-color" %>
+		</div>
+
 	<% end %>
-
-	<%=	form.label :fecha_inicio, 'Fecha de inicio' %> <br>
-	<%= form.date_field :fecha_inicio %><br>
-
-	<%=	form.label :hora_inicio, 'Hora de inicio' %> <br>
-	<%= form.time_field :hora_inicio %><br>
-
-	<%=	form.label :descripcion, 'Descripción' %> <br>
-	<%= form.text_area :descripcion %><br>
-
-	<%=	form.label :origen %> <br>
-	<%= form.text_field :origen %><br>
-
-	<%=	form.label :destino %> <br>
-	<%= form.text_field :destino %><br>
-
-	<%=	form.label :vehicle_id, "Vehículo:" %> <br>
-	<%= form.select(:vehicle_id, @user.vehicles.map{|v| [v.patente, v.id]}, {class: 'form-control'}) %> <br>
-
-
-	<%= form.submit "Modificar" %>
-<% end %>
+</div>

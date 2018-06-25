@@ -39,19 +39,19 @@
 				<br>
 				<div class=" row">
 					<div class="col-md-4">
-					<b>
-				  		<%= link_to 'Ver detalle', user_trip_path(t.piloto, t),:class => "btn btn-block btn-md my-button-color my-link-button"%>
-					</b>
+						<b>
+				  			<%= link_to 'Ver detalle', user_trip_path(t.piloto, t),:class => "btn btn-block btn-md my-button-color my-link-button"%>
+						</b>
 					</div>
 					<div class="col-md-4">
 						<b>
-				  		<%= link_to 'Modificar', '#',:class => "btn btn-block btn-md my-button-color my-link-button"%>
-					</b>
+				  			<%= link_to 'Modificar', edit_user_trip_path(t.piloto, t),:class => "btn btn-block btn-md my-button-color my-link-button"%>
+						</b>
 					</div>
 					<div class="col-md-4">
 						<b>
-				  		<%= link_to 'Eliminar', '#',:class => "btn btn-block btn-md my-button-color my-link-button"%>
-					</b>
+				  			<%= link_to 'Eliminar', '#',:class => "btn btn-block btn-md my-button-color my-link-button"%>
+						</b>
 					</div>
 				</div>
 			</div>
