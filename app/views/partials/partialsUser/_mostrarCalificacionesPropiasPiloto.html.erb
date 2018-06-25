@@ -9,15 +9,14 @@
   	</div>
 </div>
 <br>
-	<% if @calif_piloto.empty? %>
-			<h4 style="text-align: center;"> Aun no posee calificaciones como piloto. </h4>
-	<% else %>
-		<% @calif_piloto.each do |calif| %>
-		 	
-		 	<% if calif.calificacion >0 %>
-		 		<div class="well-sm post-acept">
-			 		<div class="row">
-			 			<div class="col-md-12">
+<% if @calif_piloto.empty? %>
+		<h4 style="text-align: center;"> Aun no posee calificaciones como piloto. </h4>
+<% else %>
+	<% @calif_piloto.each do |calif| %>	 	
+	 	<% if calif.calificacion >0 %>
+	 		<div class="well-sm post-acept">
+		 		<div class="row">
+		 			<div class="col-md-12">
 			 			<div class="row">
 				 			<div class="col-md-1">
 				 				<div style="text-align: left; margin-left: 15px"> 
@@ -46,78 +45,78 @@
 					 				<%= calif.descripcion %>
 					 			</div>
 			 			</div>
-			 		</div>
-			 		</div>
-			 	</div>
-			<% elsif calif.calificacion < 0 %>
-			 	<div class="well-sm post-rech">
-			 		<div class="row">
-		 			<div class="col-md-12">
-		 			<div class="row">
-			 			<div class="col-md-1"> 
-					 		<div style="text-align: left; margin-left: 15px">
-					 			<span class="glyphicon glyphicon-circle-arrow-down red-glyph"></span>
-					 		</div>
-					 	</div>
-					 	<div class="col-md-7">
-					 		<b>Creador: </b>
-					 		<% if !calif.creador %>
-					 			<b>UnAventon!<span class="glyphicon glyphicon-copyright-mark"></span></b> <br>
-					 		<% else %>
-					 			 <%= link_to image_tag(calif.creador.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(calif.creador), user_path(calif.creador) %><br>
-					 		<% end %>
-			 			</div>
-			 			<div class="col-md-4" >
-			 				<div style="text-align: right; margin-right: 15px">
-			 					<span class="glyphicon glyphicon-calendar"></span>  <%= '  '+formato_fecha(calif.fecha) %> <%= calif.hora.strftime('%H:%M') %><br>
-			 				</div>
-			 			</div>
-		 			</div>
-		 			<br>
-		 			<div class="row" style="margin-right: 15px; margin-left:15px ">
-				 			<b>Descripcion: </b><br>
-				 			<div class="well my-jumbotron2">
-				 				<%= calif.descripcion %>
-				 			</div>
-		 			</div>
-		 			</div>
 		 			</div>
 		 		</div>
-		 	<% else %>
-		 		<div class="well-sm post-pend">
+		 	</div>
+		<% elsif calif.calificacion < 0 %>
+		 	<div class="well-sm post-rech">
+		 		<div class="row">
+			 		<div class="col-md-12">
+			 			<div class="row">
+				 			<div class="col-md-1"> 
+						 		<div style="text-align: left; margin-left: 15px">
+						 			<span class="glyphicon glyphicon-circle-arrow-down red-glyph"></span>
+						 		</div>
+						 	</div>
+						 	<div class="col-md-7">
+						 		<b>Creador: </b>
+						 		<% if !calif.creador %>
+						 			<b>UnAventon!<span class="glyphicon glyphicon-copyright-mark"></span></b> <br>
+						 		<% else %>
+						 			 <%= link_to image_tag(calif.creador.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(calif.creador), user_path(calif.creador) %><br>
+						 		<% end %>
+				 			</div>
+				 			<div class="col-md-4" >
+				 				<div style="text-align: right; margin-right: 15px">
+				 					<span class="glyphicon glyphicon-calendar"></span>  <%= '  '+formato_fecha(calif.fecha) %> <%= calif.hora.strftime('%H:%M') %><br>
+				 				</div>
+				 			</div>
+			 			</div>
+			 			<br>
+			 			<div class="row" style="margin-right: 15px; margin-left:15px ">
+					 			<b>Descripcion: </b><br>
+					 			<div class="well my-jumbotron2">
+					 				<%= calif.descripcion %>
+					 			</div>
+			 			</div>
+		 			</div>
+	 			</div>
+	 		</div>
+	 	<% else %>
+	 		<div class="well-sm post-pend">
 		 		<div class="row">
 		 			<div class="col-md-12">
-		 			<div class="row">
-			 			<div class="col-md-1">
-			 				<div style="text-align: left; margin-left: 15px" >
-					 			<span class="glyphicon glyphicon-record blue-glyph"></span>
-					 		</div>
-					 	</div>
-					 	<div class="col-md-8">
-					 		<b>Creador: </b>
-					 		<% if !calif.creador %>
-					 			<b>UnAventon!<span class="glyphicon glyphicon-copyright-mark"></span></b> <br>
-					 		<% else %>
-					 			 <%= link_to image_tag(calif.creador.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(calif.creador), user_path(calif.creador) %><br>
-					 		<% end %>
-			 			</div>
-			 			<div class="col-md-3">
-			 				<div style="text-align: right; margin-right: 15px">
-			 					<span class="glyphicon glyphicon-calendar"></span>  <%= '  '+formato_fecha(calif.fecha) %> <%= calif.hora.strftime('%H:%M') %><br>
-			 				</div>
-			 			</div>
-		 			</div>
-		 			<br>
-		 			<div class="row" style="margin-right: 15px; margin-left:15px ">
-				 			<b>Descripcion: </b><br>
-				 			<div class="well my-jumbotron2">
-				 				<%= calif.descripcion %>
+			 			<div class="row">
+				 			<div class="col-md-1">
+				 				<div style="text-align: left; margin-left: 15px" >
+						 			<span class="glyphicon glyphicon-record blue-glyph"></span>
+						 		</div>
+						 	</div>
+						 	<div class="col-md-8">
+						 		<b>Creador: </b>
+						 		<% if !calif.creador %>
+						 			<b>UnAventon!<span class="glyphicon glyphicon-copyright-mark"></span></b> <br>
+						 		<% else %>
+						 			 <%= link_to image_tag(calif.creador.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(calif.creador), user_path(calif.creador) %><br>
+						 		<% end %>
 				 			</div>
-		 			</div>
+				 			<div class="col-md-3">
+				 				<div style="text-align: right; margin-right: 15px">
+				 					<span class="glyphicon glyphicon-calendar"></span>  <%= '  '+formato_fecha(calif.fecha) %> <%= calif.hora.strftime('%H:%M') %><br>
+				 				</div>
+				 			</div>
+			 			</div>
+			 			<br>
+			 			<div class="row" style="margin-right: 15px; margin-left:15px ">
+					 			<b>Descripcion: </b><br>
+					 			<div class="well my-jumbotron2">
+					 				<%= calif.descripcion %>
+					 			</div>
+			 			</div>
 		 			</div>
 		 		</div>
-		 		</div>
-		 	<% end %>
-		 	<br>
-		<% end %>
+	 		</div>
+	 	<% end %>
+	 	<br>
 	<% end %>
+<% end %>
