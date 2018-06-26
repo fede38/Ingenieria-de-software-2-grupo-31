@@ -4,7 +4,11 @@ class Trip < ApplicationRecord
   belongs_to :piloto, class_name: 'User', foreign_key: 'user_id'
   belongs_to :vehicle
   
-  has_many :periodic
+  has_many :periodics, inverse_of: :trip
+  accepts_nested_attributes_for :periodics
+
+
+
   has_many :embarkment
   has_many :postulantes, source: :user, through: :embarkment, class_name: 'User', foreign_key: 'user_id'
 
@@ -19,17 +23,15 @@ class Trip < ApplicationRecord
 
   validate :saldo_en_contra, on: :create
   validate :calificaciones_pendientes, on: :create
-
+  #validate :fechas_que_no_se_crucen
 
   def fechas_que_no_se_crucen
-    if self.periodic
-      if self.periodic.detect{|f| 
-          self.periodic.each do |f2|
-            if !(f == f2)
-              f.fecha == f2.fecha and f.hora == f2.hora
-            end
+    if self.periodics
+      if self.periodics.detect{|f| 
+          self.periodics.each do |f2|
+            f != f2 and f.fecha == f2.fecha and f.hora == f2.hora   
           end
-        }
+          }
           errors.add("No pueden haber, ", 'dos fechas y hora iguales')
         end
     end
@@ -83,7 +85,7 @@ class Trip < ApplicationRecord
   end
 
   def costo_mayor_a_cero
-    if self.costo <= 0
+    if self.costo and self.costo <= 0
       errors.add("El costo", 'debe ser mayor a (0) cero')
     end
   end

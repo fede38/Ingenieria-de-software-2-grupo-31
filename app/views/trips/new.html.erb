@@ -67,19 +67,15 @@
 		<br>
 		
 		Si el viaje es periódico agrega las nuevas fechas y horas debajo. <br>
-
-		<ul>
-			<%= form.fields_for :periodics do |periodics_form| %>
-				<li>
-					<%= periodics_form.label :fecha %>
-					<%= periodics_form.date_field :fecha %><br>
-
-					<%= periodics_form.label :hora %> 
-					<%= periodics_form.time_field :hora %><br>
-				</li>
-			<%= end %>
-		</ul>
-
+		
+		<%= submit_tag "Agregar fecha", :type => 'button', :id => 'addPeriodic', 
+          :onclick => 'addPeriodicField()', class: "btn my-link-button my-button-color" %> 
+			   
+			 
+			  <div id="periodicHeader" style="display:none">Información de la fecha:  </div>
+			 
+			  <ul id="myList">
+			  </ul>
 
 		<div class=" actions" style="text-align: center;">
 			<%= form.submit "Crear viaje", class:"btn my-link-button my-button-color", data: {confirm: "Se le descontará el 5% del costo de su viaje, está seguro que desea continuar?" } %>
