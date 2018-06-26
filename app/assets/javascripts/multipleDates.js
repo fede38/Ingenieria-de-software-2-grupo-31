@@ -30,7 +30,7 @@ function addPeriodicField() {
     //create input for Fecha, set it's type, id and name attribute, 
     //and append it to <li> element
     var inputFecha = document.createElement("INPUT");
-    inputFecha.setAttribute("type", "text");
+    inputFecha.setAttribute("type", "date");
     inputFecha.setAttribute("id", idAttributFecha);
     inputFecha.setAttribute("name", nameAttributFecha);
     li.appendChild(inputFecha);
@@ -46,7 +46,7 @@ function addPeriodicField() {
     //create input for Hora, set it's type, id and name attribute, 
     //and append it to <li> element
     var inputHora = document.createElement("INPUT");
-    inputHora.setAttribute("type", "text");
+    inputHora.setAttribute("type", "time");
     inputHora.setAttribute("id", idAttributHora);
     inputHora.setAttribute("name", nameAttributHora);
     li.appendChild(inputHora);

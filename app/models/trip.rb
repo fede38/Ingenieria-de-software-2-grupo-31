@@ -1,7 +1,8 @@
 class Trip < ApplicationRecord
   default_scope { order(origen: :asc, destino: :asc) }
 
-  belongs_to :piloto, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :p
+  piloto, class_name: 'User', foreign_key: 'user_id'
   belongs_to :vehicle
   
   has_many :periodics, inverse_of: :trip
@@ -23,17 +24,98 @@ class Trip < ApplicationRecord
 
   validate :saldo_en_contra, on: :create
   validate :calificaciones_pendientes, on: :create
-  #validate :fechas_que_no_se_crucen
+  
+  #Validaciones de viajes periódicos
+  validate :fechas_que_no_se_crucen
+  validate :fechas_mayores_a_hoy
+  validate :horas_mayores_a_ahora
+  validate :diferentes_de_inicio
+  validate :posteriores_a_inicio
+
+  def periodics
+    return self.periodics
+  end
+
+  def se_cruza_con(unViaje)
+    if self.fecha_inicio == unViaje.fecha_inicio && self.hora_inicio.strftime('%H:%M') == 
+                                                      unViaje.hora_inicio.strftime('%H:%M')
+      return true
+    end
+    if self.periodics
+      self.periodics do |periodica|
+        if periodica.fecha == unViaje.fecha_inicio && periodica.hora.strftime('%H:%M') ==
+                                                        unViaje.hora_inicio.strftime('%H:%M')
+          return true
+        end
+        unViaje.periodics do |unViajePeriodica|
+          if periodica.fecha == unViajePeriodica.fecha && periodica.hora.strftime('%H:%M') == 
+                                                            unViajePeriodica.hora.strftime('%H:%M')
+            return true
+          end
+        end
+      end
+      unViaje.periodics do |unViajePeriodica|
+        if unViajePeriodica.fecha == self.fecha_inicio && unViajePeriodica.hora.strftime('%H:%M') == 
+                                                            self.hora_inicio.strftime('%H:%M')
+          return true
+        end
+      end
+    end
+    return false
+  end
+
+  def posteriores_a_inicio
+    if self.periodics
+      self.periodics do |periodica|
+        if periodica.fecha < self.fecha_inicio || (periodica.fecha == self.fecha_inicio && 
+                        periodica.hora.strftime('%H:%M') < self.hora_inicio.strftime('%H:%M') )
+          errors.add("Las fechas y horas, ", 'deben ser posteriores a la de inicio')
+        end
+      end
+    end
+  end
+
+  def diferentes_de_inicio
+    if self.periodics
+      self.periodics do |periodica|
+        if periodica.fecha == self.fecha_inicio && periodica.hora.strftime('%H:%M') == 
+                                                    self.hora_inicio.strftime('%H:%M')
+          errors.add("Las fechas, ", 'deben ser diferentes a la primera fecha')
+        end
+      end
+    end
+  end
+
+  def fechas_mayores_a_hoy
+    if self.periodics
+      self.periodics do |periodica|
+        if periodica.fecha < Date.today
+          errors.add("Las fechas,", 'deben ser posteriores a hoy')
+        end
+      end
+    end
+  end
+
+  def horas_mayores_a_ahora
+    if self.periodics
+      self.periodics do |periodica|
+        if periodica.fecha == Date.today && periodica.hora.strftime('%H:%M') < Time.now.strftime('%H:%M')
+          errors.add("La hora", 'debe ser posterior a ahora.')   
+        end
+      end
+    end
+  end
 
   def fechas_que_no_se_crucen
     if self.periodics
-      if self.periodics.detect{|f| 
-          self.periodics.each do |f2|
-            f != f2 and f.fecha == f2.fecha and f.hora == f2.hora   
-          end
-          }
-          errors.add("No pueden haber, ", 'dos fechas y hora iguales')
+      cole = self.periodics
+      cole.each do |periodica|
+        cole.delete(periodica)
+        if cole.detect{|f| f.fecha == periodica.fecha && f.hora == periodica.hora }
+          errors.add("Dos fechas y horas, ", 'no pueden ser iguales')
         end
+        cole << periodica
+      end
     end
   end
 
