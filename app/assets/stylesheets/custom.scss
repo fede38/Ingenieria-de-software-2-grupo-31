@@ -214,11 +214,11 @@ success {
     Esto es KK
     select.decorated option:hover{
         background-color: #F17376 !important;
-        
+
     }*/
 }
 /*---------------Fin estilos de formularios----------------*/
- 
+
 
 /*---------------Estilos de botones y jumbotrones----------*/
 .isDisabled {
@@ -303,7 +303,7 @@ success {
     float: right;
     margin-right: 5px;
     position: relative;
-    
+
 }
 
 .green-glyph{
@@ -356,7 +356,7 @@ success {
     &:active{
         background-color: #ABDAD8 !important ;
         color: black !important ;
-        text-decoration: none !important ;        
+        text-decoration: none !important ;
     }
     &:focus {
         background-color: #ABDAD8 !important ;
@@ -368,12 +368,12 @@ success {
 .nav-pills-calif>li.active>a{
     background-color: #FD9FA1 !important ;
     color: #fafafa !important ;
-    text-decoration: none !important ;    
+    text-decoration: none !important ;
 
 }
 
 .acalif{
-    background-color: #f173762e !important ;
+    background-color: #f17376 !important ;
     color:black !important ;
     font-weight: bold !important ;
     text-decoration: none !important ;
@@ -385,7 +385,7 @@ success {
     &:active{
         background-color: #FD9FA1 !important ;
         color: #fafafa !important ;
-        text-decoration: none !important ;        
+        text-decoration: none !important ;
     }
     &:focus {
         background-color: #FD9FA1 !important ;
@@ -412,13 +412,13 @@ success {
     }
 }
 /*---------------Fin estilos del footer--------------------*/
-
+/*
 .cajita-165px { @include cajita(#d1d1d1, 165px, 0, 2px, 50%); }
 .cajita-50px { @include cajita(#fffefe7d, 50px, 0, 2px, 50%); }
 .cajaRechazo { @include cajita(#dc3545, 33px, 3px, 3px, 1); }
 .cajaPendiente { @include cajita(#f1f1f1, 33px, 3px, 3px, 1); }
 .cajaAceptado { @include cajita(#28a745, 33px, 3px, 3px, 1); }
-
+*/
 .pagination-wrapper {
   height: 50px;
   text-align: center;
