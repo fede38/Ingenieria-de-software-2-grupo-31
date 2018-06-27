@@ -131,7 +131,7 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-4">
 				<b>
-					<%= link_to 'Eliminar',{controller: :trips, action: :destroy, idT: @trip.id}, {data: {confirm: 'Eliminar el viaje no reintegra el dinero invertido, seguro que deseas continuar?'}, method: :delete, :class => "btn btn-block btn-md my-button-color my-link-button"} %>
+					<%= link_to 'Eliminar',{controller: :trips, action: :destroy, idT: @trip.id}, {data: {confirm: "Se te cobrara el 5\% del costo del viaje y se te restara un punto a tu reputación como piloto por cada usuario aceptado en el viaje. ¿Estas seguro que deseas continuar? "}, method: :delete, :class => "btn btn-block btn-md my-button-color my-link-button"} %>
 				</b>
 			</div>
 			<div class="col-md-1"></div>

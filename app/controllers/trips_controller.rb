@@ -77,6 +77,7 @@ class TripsController < ApplicationController
 				@trip.postulantes.delete(rel.user_id)
 			end
 		end
+    @user.account.update_attribute(:deuda, ((@trip.costo * 0.05)+@user.account.deuda))
 		Trip.delete(@trip.id)
 		flash[:success] = 'Viaje cancelado existosamente.'
 		redirect_to "/users/#{@user.id}/showMisViajes"
