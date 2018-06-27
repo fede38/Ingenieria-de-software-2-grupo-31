@@ -48,24 +48,17 @@ class ApplicationController < ActionController::Base
       hora = Time.now.strftime("%H:%M")
       Trip.where("activo = ? and fecha_inicio <= ?", true, fecha).all.each do |trip|
         horaInicio = trip.hora_inicio.strftime("%H:%M")
-        #if trip.cantidad_asientos_ocupados == 1
-        #  total = 0
-        #else
-        #  total = trip.costo / (trip.cantidad_asientos_ocupados - 1)
-        #end
         total = trip.costo / trip.cantidad_asientos_ocupados
         if (trip.fecha_inicio == Date.today && horaInicio <= hora) ||
            (trip.fecha_inicio < Date.today)
           trip.update_attribute(:activo, false)
           trip.piloto.account.update_attributes(deuda: (trip.piloto.account.deuda+(trip.costo * 0.05)))
           trip.postulantes.each do |pos|
-            ## No anda bien
             if Embarkment.find_by(trip_id: trip, user_id: pos, estado: 'a').present?
               Score.create(calificado: pos, creador: trip.piloto, realizada: false, tipo_calificacion: 'c')
               Score.create(calificado: trip.piloto, creador: pos, realizada: false, tipo_calificacion: 'p')
               pos.account.update_attributes(deuda: pos.account.deuda+total)
             end
-            ## No se porque
           end
         end
       end
