@@ -53,8 +53,6 @@ class TripsController < ApplicationController
 		@user= User.find(params[:user_id])
 		@trip.user_id = @user.id
 		if @trip.save
-			@user.account.update_attribute(:deuda,
-				(@user.account.deuda + @trip.costo* 0.05))
 			current_user.viajesPiloto << @trip
 			redirect_to root_path
 			flash[:success] = 'Viaje creado existosamente!'
@@ -85,7 +83,7 @@ class TripsController < ApplicationController
 		end
 		Trip.delete(@trip.id)
 		flash[:success] = 'Viaje cancelado existosamente.'
-		redirect_to root_path
+		redirect_to :back
 	end
 
 	def postularse
