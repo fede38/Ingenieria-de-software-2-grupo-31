@@ -64,7 +64,7 @@ end
     color: colores[a],
     tipo: 'Auto',
   )
-  auto.save!
+  auto.save
 end
 
 User.all.each do |user|

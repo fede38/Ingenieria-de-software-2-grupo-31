@@ -1,4 +1,6 @@
 class Vehicle < ApplicationRecord
+  before_validation :actualizarPatente, on: :create
+
   has_many :owners
   has_many :users, through: :owners
   has_many :trips
@@ -22,4 +24,11 @@ class Vehicle < ApplicationRecord
 			errors.add("Debes elegir ", 'un tipo de vehículo')
 		end
 	end
+
+	private
+
+	def actualizarPatente
+		self.patente.upcase!
+	end
+
 end
