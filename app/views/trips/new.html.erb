@@ -20,19 +20,19 @@
 		<div class="raw">
 			<div class="col-md-4">
 				<div class="form-group">
-					<%= form.label :fecha_inicio, "Fecha de inicio" %> <br>
+					<%= form.label :fecha_inicio, "Fecha de inicio:" %> <br>
 					<%= form.date_field :fecha_inicio, class: "form-control" %>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
-					<%=	form.label :hora_inicio, "Hora de inicio" %> <br>
+					<%=	form.label :hora_inicio, "Hora de inicio:" %> <br>
 					<%= form.time_field :hora_inicio, class: "form-control" %>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
-					<%=	form.label :costo %> <br>
+					<%=	form.label :costo, "Costo total:" %> <br>
 					<%= form.number_field :costo, class: "form-control" %>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 			<%= form.text_field :destino, class: "form-control" %>
 		</div>
 		<div class="form-group">
-			<%=	form.label :descripcion, "Descripción" %> <br>
+			<%=	form.label :descripcion, "Descripción:" %> <br>
 			<%= form.text_area :descripcion, class: "form-control" %>
 		</div>
 		<div class="form-group">
