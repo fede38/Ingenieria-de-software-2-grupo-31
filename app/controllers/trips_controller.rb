@@ -16,20 +16,16 @@ class TripsController < ApplicationController
 
   	def update
   		@trip = Trip.find(params[:id])
-
-  		if Embarkment.where('trip_id = ? AND estado != ?', @trip.id, 'r')
-  			flash[:danger] = []
-      		flash[:danger] << "Para modificar el viaje, no puede haber postulantes o copilotos."
-      		redirect_to root_path
-      		return
-  		end
-
-	  	if @trip.update(parametros_viaje)
-  			redirect_to root_path
+      @user = @trip.piloto
+  		if Embarkment.where('trip_id = ? AND estado != ?', @trip.id, 'r').present?
+      	flash[:danger] = "No se pudo modificar el viaje. Para modificar el viaje, no puede haber postulantes o copilotos."
+      	redirect_to :back
+	  	elsif @trip.update(parametros_viaje)
+        redirect_to "/users/#{current_user.id}/showMisViajes"
   			flash[:success] = 'Viaje modificado existosamente.'
-		else
-			render 'edit'
-		end
+		  else
+			  render 'edit'
+		  end
   	end
 
 
@@ -83,7 +79,7 @@ class TripsController < ApplicationController
 		end
 		Trip.delete(@trip.id)
 		flash[:success] = 'Viaje cancelado existosamente.'
-		redirect_to :back
+		redirect_to "/users/#{@user.id}/showMisViajes"
 	end
 
 	def postularse

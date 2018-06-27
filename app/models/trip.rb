@@ -48,7 +48,7 @@ class Trip < ApplicationRecord
   end
 
   def saldo_en_contra
-  	if self.piloto.account.deuda? or self.piloto.account.saldo <= 0
+  	if self.piloto.account.deuda? or self.piloto.account.saldo < 0
   		errors.add("No puedes crear un viaje ", 'si tienes deuda pendiente')
   	end
   end
