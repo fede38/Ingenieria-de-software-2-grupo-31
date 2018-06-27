@@ -171,8 +171,8 @@ class TripsController < ApplicationController
 		viaje = Trip.find(params[:idT])
 		if Embarkment.find_by(user_id: usuario.id, trip_id: viaje.id).estado == 'a'
 			TripMailer.sendMail(viaje, 'c', viaje.piloto).deliver
-			fecha = Time.now.year+'-'+Time.now.month+'-'+Time.now.day
-			hora = Time.now.hour+':'+Time.now.minutes
+			fecha = Time.now.year.to_s+'-'+Time.now.month.to_s+'-'+Time.now.day.to_s
+			hora = Time.now.hour.to_s+':'+Time.now.min.to_s
 			cal = Score.create(calificado: usuario, realizada: true,
 			                 tipo_calificacion: 'c', calificacion: -1,
 			                 descripcion: 'Cancelo la postulación a un viaje en el que ya habia sido aceptado.',
