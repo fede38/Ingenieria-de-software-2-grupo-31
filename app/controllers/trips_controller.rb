@@ -4,10 +4,10 @@ class TripsController < ApplicationController
 	def index
 		if user_signed_in?
 			@user = current_user
-		end 
-    	@q = Trip.ransack(params[:q])
-    	@trips = @q.result.paginate(page: params[:page], per_page: 5)
-  	end
+		end
+    @q = Trip.ransack(params[:q])
+    @trips = @q.result.where(activo: true).paginate(page: params[:page], per_page: 5)
+  end
 
   	def edit
   		@trip = Trip.find(params[:id])
@@ -16,9 +16,9 @@ class TripsController < ApplicationController
 
   	def update
   		@trip = Trip.find(params[:id])
-  		
+
   		if Embarkment.where('trip_id = ? AND estado != ?', @trip.id, 'r')
-  			flash[:danger] = []	
+  			flash[:danger] = []
       		flash[:danger] << "Para modificar el viaje, no puede haber postulantes o copilotos."
       		redirect_to root_path
       		return
@@ -26,7 +26,7 @@ class TripsController < ApplicationController
 
 	  	if @trip.update(parametros_viaje)
   			redirect_to root_path
-  			flash[:success] = 'Viaje modificado existosamente.'    	
+  			flash[:success] = 'Viaje modificado existosamente.'
 		else
 			render 'edit'
 		end
@@ -45,7 +45,7 @@ class TripsController < ApplicationController
 
 	def showMisViajes
 		@user = User.find(params[:id])
-    	@creado_activo = Trip.where(piloto: @user, activo: true).reorder(:fecha_inicio, :hora_inicio).paginate(page: params[:page], per_page:5 )
+    @creado_activo = Trip.where(piloto: @user, activo: true).reorder(:fecha_inicio, :hora_inicio).paginate(page: params[:page], per_page:5 )
 	end
 
 	def create
@@ -53,7 +53,7 @@ class TripsController < ApplicationController
 		@user= User.find(params[:user_id])
 		@trip.user_id = @user.id
 		if @trip.save
-			@user.account.update_attribute(:deuda, 
+			@user.account.update_attribute(:deuda,
 				(@user.account.deuda + @trip.costo* 0.05))
 			current_user.viajesPiloto << @trip
 			redirect_to root_path
@@ -66,7 +66,7 @@ class TripsController < ApplicationController
 	def destroy
 		@user = User.find(params[:user_id])
 		@trip = Trip.find(params[:id])
-		
+
 		fecha = Time.now.year.to_s+'-'+Time.now.month.to_s+'-'+Time.now.day.to_s
 		hora = Time.now.hour.to_s+':'+Time.now.min.to_s
  		Embarkment.where(trip_id: @trip.id).each do |rel|
@@ -193,7 +193,7 @@ class TripsController < ApplicationController
 private
 
 	def parametros_viaje
-		params.require(:trip).permit(:fecha_inicio, :hora_inicio, :costo, :origen, 
+		params.require(:trip).permit(:fecha_inicio, :hora_inicio, :costo, :origen,
 										:destino, :descripcion, :vehicle_id, :user_id)
 	end
 
