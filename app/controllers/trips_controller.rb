@@ -16,20 +16,16 @@ class TripsController < ApplicationController
 
   	def update
   		@trip = Trip.find(params[:id])
-
-  		if Embarkment.where('trip_id = ? AND estado != ?', @trip.id, 'r')
-  			flash[:danger] = []
-      		flash[:danger] << "Para modificar el viaje, no puede haber postulantes o copilotos."
-      		redirect_to root_path
-      		return
-  		end
-
-	  	if @trip.update(parametros_viaje)
-  			redirect_to root_path
+      @user = @trip.piloto
+  		if Embarkment.where('trip_id = ? AND estado != ?', @trip.id, 'r').present?
+      	flash[:danger] = "No se pudo modificar el viaje. Para modificar el viaje, no puede haber postulantes o copilotos."
+      	redirect_to :back
+	  	elsif @trip.update(parametros_viaje)
+        redirect_to "/users/#{current_user.id}/showMisViajes"
   			flash[:success] = 'Viaje modificado existosamente.'
-		else
-			render 'edit'
-		end
+		  else
+			  render 'edit'
+		  end
   	end
 
 
@@ -53,8 +49,6 @@ class TripsController < ApplicationController
 		@user= User.find(params[:user_id])
 		@trip.user_id = @user.id
 		if @trip.save
-			@user.account.update_attribute(:deuda,
-				(@user.account.deuda + @trip.costo* 0.05))
 			current_user.viajesPiloto << @trip
 			redirect_to root_path
 			flash[:success] = 'Viaje creado existosamente!'
@@ -83,9 +77,10 @@ class TripsController < ApplicationController
 				@trip.postulantes.delete(rel.user_id)
 			end
 		end
+    @user.account.update_attribute(:deuda, ((@trip.costo * 0.05)+@user.account.deuda))
 		Trip.delete(@trip.id)
 		flash[:success] = 'Viaje cancelado existosamente.'
-		redirect_to root_path
+		redirect_to "/users/#{@user.id}/showMisViajes"
 	end
 
 	def postularse
@@ -176,8 +171,8 @@ class TripsController < ApplicationController
 		viaje = Trip.find(params[:idT])
 		if Embarkment.find_by(user_id: usuario.id, trip_id: viaje.id).estado == 'a'
 			TripMailer.sendMail(viaje, 'c', viaje.piloto).deliver
-			fecha = Time.now.year+'-'+Time.now.month+'-'+Time.now.day
-			hora = Time.now.hour+':'+Time.now.minutes
+			fecha = Time.now.year.to_s+'-'+Time.now.month.to_s+'-'+Time.now.day.to_s
+			hora = Time.now.hour.to_s+':'+Time.now.min.to_s
 			cal = Score.create(calificado: usuario, realizada: true,
 			                 tipo_calificacion: 'c', calificacion: -1,
 			                 descripcion: 'Cancelo la postulación a un viaje en el que ya habia sido aceptado.',

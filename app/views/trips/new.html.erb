@@ -6,7 +6,7 @@
 
 		<% if @trip.errors.any? %>
 			<div class="alert alert-danger alert-dismissable">
-				<button class="close" type="button" data-dismiss="alert">x</button>	
+				<button class="close" type="button" data-dismiss="alert">x</button>
 				<ul>
 					<% @trip.errors.full_messages.each do |e| %>
 				</ul>
@@ -55,18 +55,18 @@
 			<% if !@user.vehicles.empty? %>
 <!--				<% vehiculos_propios = [] %>
 				<% @user.vehicles.each do |ve| %>
-					<% vehiculos_propios << ve.patente %> 
-				<% end %> 
+					<% vehiculos_propios << ve.patente %>
+				<% end %>
 				<%= form.select :vehicle_id, vehiculos_propios , class: "form-group form-control" %> -->
 				<%= form.select(:vehicle_id, @user.vehicles.map{|v| [v.patente, v.id]},{}, {class: 'form-control'}) %>
-			<% else %>	 
+			<% else %>
 				No posee vehículos, <%= link_to ' agrega uno!', new_user_vehicle_path(@user) %>
 			<!--- <%= form.number_field :vehicle_id, class: "form-control" %> --->
 			<% end %>
 		</div>
 		<br>
 		<div class=" actions" style="text-align: center;">
-			<%= form.submit "Crear viaje", class:"btn my-link-button my-button-color", data: {confirm: "Se le descontará el 5% del costo de su viaje, está seguro que desea continuar?" } %>
+			<%= form.submit "Crear viaje", class:"btn my-link-button my-button-color", data: {confirm: "Al crear el viaje se compromete a pagar el 5\% del costo de su viaje, ¿Está seguro que desea continuar?" } %>
 		</div>
 	<% end %>
 </div>
