@@ -3,7 +3,7 @@
 		<br>
 		<%if @realizado.empty? %>
 			<div>
-				<h4> No hay viajes realizados </h4>	
+				<h4> No hay viajes realizados </h4>
 			</div>
 		<% else %>
 			<% @realizado.each do |t| %>
@@ -39,7 +39,7 @@
 				<br>
 				<div class=" row">
 					<%if current_user == @user %>
-					<div class="col-md-4">	
+					<div class="col-md-4">
 					</div>
 					<div class="col-md-4">
 						<b>
@@ -64,7 +64,7 @@
 		<% end %>
 		<div class="pagination-wrapper">
         <div class="pagination">
-          <%= will_paginate @realizado, previous_label: 'Página anterior', next_label: 'Página siguiente' %>
+          <%= will_paginate @realizado, param_name: 'rea_page', previous_label: 'Página anterior', next_label: 'Página siguiente' %>
         </div>
       </div>
 	</div>
