@@ -2,41 +2,41 @@
 @import 'bootstrap';
 
 @mixin cajita($color, $altura, $margen-top, $margen-pot, $ancho) {
-    background-color: $color;
-    border: 1px solid black;
-    height: $altura;
-    margin-top: $margen-top;
-    margin-bottom: $margen-pot;
-    width: $ancho;
+	background-color: $color;
+	border: 1px solid black;
+	height: $altura;
+	margin-top: $margen-top;
+	margin-bottom: $margen-pot;
+	width: $ancho;
 }
 
 @mixin box-shadow($top, $left, $blur, $color, $inset: false) {
   @if $inset {
-    -webkit-box-shadow:inset $top $left $blur $color;
-    -moz-box-shadow:inset $top $left $blur $color;
-    box-shadow:inset $top $left $blur $color;
+	-webkit-box-shadow:inset $top $left $blur $color;
+	-moz-box-shadow:inset $top $left $blur $color;
+	box-shadow:inset $top $left $blur $color;
   } @else {
-    -webkit-box-shadow: $top $left $blur $color;
-    -moz-box-shadow: $top $left $blur $color;
-    box-shadow: $top $left $blur $color;
+	-webkit-box-shadow: $top $left $blur $color;
+	-moz-box-shadow: $top $left $blur $color;
+	box-shadow: $top $left $blur $color;
   }
 }
 
 /*--------------------Estilos globales---------------*/
 html,body{
-    height: 100%;
+	height: 100%;
 }
 
 #contenedor{
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0  0 -35px 0;
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0  0 -35px 0;
 }
 
 body {
-    background-color: #f5f5f5;
-    overflow-x: hidden;
+	background-color: #f5f5f5;
+	overflow-x: hidden;
 }
 /*--------------------Fin estilos globales-----------*/
 
@@ -45,32 +45,32 @@ body {
 /*------------------------Mensajes-------------------------*/
 /* Mensaje rojo de fallo */
 .alert-error {
-    background-color: #f2dede;
-    border-color: #eed3d7;
-    color: #b94a48;
-    text-align: left;
+	background-color: #f2dede;
+	border-color: #eed3d7;
+	color: #b94a48;
+	text-align: left;
  }
  /* Mensaje amarillo de alerta */
 .alert-alert {
-    background-color: #f2dede;
-    border-color: #eed3d7;
-    color: #b94a48;
-    text-align: left;
+	background-color: #f2dede;
+	border-color: #eed3d7;
+	color: #b94a48;
+	text-align: left;
  }
  /* Mensaje verde de exito */
 .alert-
 success {
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    color: #468847;
-    text-align: left;
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	color: #468847;
+	text-align: left;
  }
  /* Mensaje azul de aviso */
 .alert-notice {
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
-    color: #468847;
-    text-align: left;
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	color: #468847;
+	text-align: left;
  }
 /*------------------Fin estilos mensajes-------------------*/
 
@@ -78,38 +78,38 @@ success {
 
 /*-------------------Estilos del header--------------------*/
 .navbar-default {
-    background-color: #F17376;
-    border-color: #F18973;
+	background-color: #F17376;
+	border-color: #F18973;
 }
 .navbar-left{
-    color: #F17376 !important;
+	color: #F17376 !important;
 }
 .navbutton{
-    color: #F17376 !important;
-    font-weight: bold;
-    text-decoration: none;
-    &:hover {
-        color: #249A1E !important;
-        font-weight: bold;
-        text-decoration: none;
-    }
+	color: #F17376 !important;
+	font-weight: bold;
+	text-decoration: none;
+	&:hover {
+		color: #249A1E !important;
+		font-weight: bold;
+		text-decoration: none;
+	}
 }
 .my-navbar{
-    a {
-        color: #F1F0F0 !important;
-        &:hover {
-            color: #BFEABD !important;
-        }
-    }
+	a {
+		color: #F1F0F0 !important;
+		&:hover {
+			color: #BFEABD !important;
+		}
+	}
 }
 .navbar-nav.navbar-center{
-    left: 25%;
-    position: absolute;
-    transform: translateX(-75%);
+	left: 25%;
+	position: absolute;
+	transform: translateX(-75%);
 }
 .my-button{
-    background-color: #fafafa;
-    border-radius: 10%;
+	background-color: #fafafa;
+	border-radius: 10%;
 }
 
 
@@ -119,23 +119,23 @@ success {
 
 /*----------------Estilos de imagenes----------------------*/
 .small-image{
-    height: 20px;
-    width: 20px;
+	height: 20px;
+	width: 20px;
 }
 .post-image{
-    height: 35px;
-    width: 35px;
+	height: 35px;
+	width: 35px;
 }
 .circular-image{
-    border-radius: 50%;
+	border-radius: 50%;
 }
 .mediumm-image{
-    height:175px;
-    width:175px;
+	height:175px;
+	width:175px;
 }
 .logitos {
-    position: relative;
-    top: -2px;
+	position: relative;
+	top: -2px;
 }
 /*----------------Fin estilos de imagenes------------------*/
 
@@ -143,79 +143,79 @@ success {
 
 /*-----------------Estilos de formularios------------------*/
 .centering {
-    float: none;
-    margin: 0 auto;
-    width: 50%;
+	float: none;
+	margin: 0 auto;
+	width: 50%;
 }
 .flotar-medio {
-    text-align: center;
+	text-align: center;
 }
 .colapso {
-    background-color: #63C55E;
-    border-color: #63C55E;
-    padding: 5;
-    text-decoration: none;
-    font-weight: bold;
-    color: #fafafa !important;
-    &:hover {
-        border-color:#63C55E;
-        background-color: #63C55E;
-        text-decoration: none;
-        font-weight: bold;
-        color: #fafafa !important;
-    }
-    &:click {
-        text-decoration: none;
-        font-weight: bold;
-        color: #fafafa!important;
-        background-color: #63C55E;
-    }
+	background-color: #63C55E;
+	border-color: #63C55E;
+	padding: 5;
+	text-decoration: none;
+	font-weight: bold;
+	color: #fafafa !important;
+	&:hover {
+		border-color:#63C55E;
+		background-color: #63C55E;
+		text-decoration: none;
+		font-weight: bold;
+		color: #fafafa !important;
+	}
+	&:click {
+		text-decoration: none;
+		font-weight: bold;
+		color: #fafafa!important;
+		background-color: #63C55E;
+	}
 }
 .my-borders{
-    :active{
-        border: 2px solid #F17376;
-        border-color: #F17376 !important;
-    }
-    ::focus  {
-        border: 2px solid #F17376;
-        border-color: #F17376 !important;
-    }
+	:active{
+		border: 2px solid #F17376;
+		border-color: #F17376 !important;
+	}
+	::focus  {
+		border: 2px solid #F17376;
+		border-color: #F17376 !important;
+	}
 }
 .field{
-    input:focus, textarea:focus {
-        outline: none;
-        box-shadow: none;
-        @include box-shadow(3px, 3px, 3px, #FECDCE);
-        border: 3px solid #FDA1A3;
-    }
+	input:focus, textarea:focus {
+		outline: none;
+		box-shadow: none;
+		@include box-shadow(3px, 3px, 3px, #FECDCE);
+		border: 3px solid #FDA1A3;
+	}
 }
 
 .form-group{
    input:focus, textarea:focus, select:focus {
-        outline: none !important;
-        box-shadow: none;
-        @include box-shadow(3px, 3px, 3px, #FECDCE);
-        border: 3px solid #FDA1A3 !important;
-    }
-    /*Opciones para color de fondo de las opciones*/
+		outline: none !important;
+		box-shadow: none;
+		@include box-shadow(3px, 3px, 3px, #FECDCE);
+		border: 3px solid #FDA1A3 !important;
+	}
+	/*Opciones para color de fondo de las opciones*/
 /*    option{
-        background-color: #f173762e !important;
-    }
-    option:focus{
-        background-color: #F17376 !important;
-    }*/
-    /*Esta el la forma original de borde y shadow*/
+		background-color: #f173762e !important;
+	}
+	option:focus{
+		background-color: #F17376 !important;
+	}*/
+	/*Esta el la forma original de borde y shadow*/
    /* input:focus, textarea:focus, select:focus{
-        border-color: #F17376!important;
-        outline: none !important;
-        box-shadow: none;
-        @include box-shadow(3px, 3px, 3px, #FECDCE);
-    }
-    Esto es KK
-    select.decorated option:hover{
-        background-color: #F17376 !important;
+		border-color: #F17376!important;
+		outline: none !important;
+		box-shadow: none;
+		@include box-shadow(3px, 3px, 3px, #FECDCE);
+	}
+	Esto es KK
+	select.decorated option:hover{
+		background-color: #F17376 !important;
 
-    }*/
+	}*/
 }
 /*---------------Fin estilos de formularios----------------*/
 
@@ -229,169 +229,169 @@ success {
 }
 
 .my-button-with{
-    width: 50%
+	width: 50%
 }
 
 .my-button-with2{
-    width: 20%
+	width: 20%
 }
 
 .my-link-button{
-    color: #F1F0F0;
-    font-weight: bold;
-    text-decoration: none;
-    &:hover {
-        color: #BFEABD;
-        text-decoration: none;
-    }
+	color: #F1F0F0;
+	font-weight: bold;
+	text-decoration: none;
+	&:hover {
+		color: #BFEABD;
+		text-decoration: none;
+	}
 }
 
 .my-button-color{
-    background-color: #F17376;
-    text-align: center;
+	background-color: #F17376;
+	text-align: center;
 }
 
 .my-hr{
-    height:1px;
-    border-width:0;
-    color:gray;
-    background-color:#BB9797;
+	height:1px;
+	border-width:0;
+	color:gray;
+	background-color:#BB9797;
 }
 
 .my-jumbotron{
-    background-color:#f173762e;
-    margin-bottom: 5px;
-    padding: 20px;
+	background-color:#f173762e;
+	margin-bottom: 5px;
+	padding: 20px;
 }
 .my-jumbotron2{
-    background-color: #fffefe7d;
-    margin-bottom: 5px;
-    padding: 20px;
+	background-color: #fffefe7d;
+	margin-bottom: 5px;
+	padding: 20px;
 }
 
 .my-jumbotron-green{
-    background-color:#BDEDBA;
-    margin-bottom: 5px;
-    padding: 20px;
+	background-color:#BDEDBA;
+	margin-bottom: 5px;
+	padding: 20px;
 }
 
 .my-jumbotron-blue{
-    background-color:#ABDAD8;
-    margin-bottom: 5px;
-    padding: 20px;
+	background-color:#ABDAD8;
+	margin-bottom: 5px;
+	padding: 20px;
 }
 
 .post-acept{
-    background-color: #E3FBB0;
-    margin-bottom: 5px;
-    padding: 20px;
+	background-color: #E3FBB0;
+	margin-bottom: 5px;
+	padding: 20px;
 }
 
 .post-pend{
-    background-color: #CAFBF9;
-    margin-bottom: 5px;
-    padding: 20px;
+	background-color: #CAFBF9;
+	margin-bottom: 5px;
+	padding: 20px;
 }
 
 .post-rech{
-    background-color: #ff000021;
-    margin-bottom: 5px;
-    padding: 20px;
+	background-color: #ff000021;
+	margin-bottom: 5px;
+	padding: 20px;
 }
 
 .boton-ace-rec {
-    float: right;
-    margin-right: 5px;
-    position: relative;
+	float: right;
+	margin-right: 5px;
+	position: relative;
 
 }
 
 .green-glyph{
-    color: #63C55E;
-    font-size: 22px;
+	color: #63C55E;
+	font-size: 22px;
 }
 
 .red-glyph{
-    color: #da1b17;
-    font-size: 22px;
+	color: #da1b17;
+	font-size: 22px;
 }
 
 .blue-glyph{
-    color: #7CCDCA;
-    font-size: 22px;
+	color: #7CCDCA;
+	font-size: 22px;
 }
 
 .a1{
-    background-color: #BDEDBA !important ;
-    color:black !important ;
-    font-weight: bold !important ;
-    text-decoration: none !important ;
-    &:hover {
-        background-color: #BDEDBA !important ;
-        color:black !important ;
-        text-decoration: none !important ;
-    }
-    &:active{
-        background-color: #BDEDBA !important ;
-        color: black !important;
-        text-decoration: none !important;
-    }
-    &:focus {
-        background-color: #BDEDBA !important ;
-        color: black !important;
-        text-decoration: none !important;
-    }
+	background-color: #BDEDBA !important ;
+	color:black !important ;
+	font-weight: bold !important ;
+	text-decoration: none !important ;
+	&:hover {
+		background-color: #BDEDBA !important ;
+		color:black !important ;
+		text-decoration: none !important ;
+	}
+	&:active{
+		background-color: #BDEDBA !important ;
+		color: black !important;
+		text-decoration: none !important;
+	}
+	&:focus {
+		background-color: #BDEDBA !important ;
+		color: black !important;
+		text-decoration: none !important;
+	}
 }
 
 .a2{
-    background-color: #ABDAD8 !important ;
-    color:black !important ;
-    font-weight: bold !important ;
-    text-decoration: none !important ;
-    &:hover {
-        background-color: #ABDAD8 !important ;
-        color: black !important ;
-        text-decoration: none !important ;
-    }
-    &:active{
-        background-color: #ABDAD8 !important ;
-        color: black !important ;
-        text-decoration: none !important ;
-    }
-    &:focus {
-        background-color: #ABDAD8 !important ;
-        color: black !important ;
-        text-decoration: none !important ;
-    }
+	background-color: #ABDAD8 !important ;
+	color:black !important ;
+	font-weight: bold !important ;
+	text-decoration: none !important ;
+	&:hover {
+		background-color: #ABDAD8 !important ;
+		color: black !important ;
+		text-decoration: none !important ;
+	}
+	&:active{
+		background-color: #ABDAD8 !important ;
+		color: black !important ;
+		text-decoration: none !important ;
+	}
+	&:focus {
+		background-color: #ABDAD8 !important ;
+		color: black !important ;
+		text-decoration: none !important ;
+	}
 }
 
 .nav-pills-calif>li.active>a{
-    background-color: #FD9FA1 !important ;
-    color: #fafafa !important ;
-    text-decoration: none !important ;    
+	background-color: #FD9FA1 !important ;
+	color: #fafafa !important ;
+	text-decoration: none !important ;    
 
 }
 
 .acalif{/*eeeeee*/
-    background-color: #f173762e !important ;
-    color:black !important ;
-    font-weight: bold !important ;
-    text-decoration: none !important ;
-    &:hover {
-        background-color: #FEC7C8 !important ;
-        color: black !important ;
-        text-decoration: none !important ;
-    }
-    &:active{
-        background-color: #FD9FA1 !important ;
-        color: #fafafa !important ;
-        text-decoration: none !important ;        
-    }
-    &:focus {
-        background-color: #FD9FA1 !important ;
-        color: #fafafa !important ;
-        text-decoration: none !important ;
-    }
+	background-color: #f173762e !important ;
+	color:black !important ;
+	font-weight: bold !important ;
+	text-decoration: none !important ;
+	&:hover {
+		background-color: #FEC7C8 !important ;
+		color: black !important ;
+		text-decoration: none !important ;
+	}
+	&:active{
+		background-color: #FD9FA1 !important ;
+		color: #fafafa !important ;
+		text-decoration: none !important ;        
+	}
+	&:focus {
+		background-color: #FD9FA1 !important ;
+		color: #fafafa !important ;
+		text-decoration: none !important ;
+	}
 
 }
 
@@ -400,16 +400,16 @@ success {
 
 /*---------------Estilos del footer------------------------*/
 .footer {
-    border-top: 1px solid black;
-    font-weight: normal;
-    height: 35px;
-    ul {
-        list-style: none;
-        li {
-            float: right;
-            margin-right: 10px;
-        }
-    }
+	border-top: 1px solid black;
+	font-weight: normal;
+	height: 35px;
+	ul {
+		list-style: none;
+		li {
+			float: right;
+			margin-right: 10px;
+		}
+	}
 }
 /*---------------Fin estilos del footer--------------------*/
 /*

@@ -1,6 +1,6 @@
 class Trip < ApplicationRecord
   default_scope { order(origen: :asc, destino: :asc) }
-
+  
   belongs_to :piloto, class_name: 'User', foreign_key: 'user_id'
   belongs_to :vehicle
 
