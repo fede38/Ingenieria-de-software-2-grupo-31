@@ -121,7 +121,7 @@
 	<% end %>
 	<div class="pagination-wrapper">
         <div class="pagination">
-          <%= will_paginate @calif_copiloto, previous_label: 'Página anterior', next_label: 'Página siguiente' %>
+          <%= will_paginate @calif_copiloto, param_name: 'co_page',previous_label: 'Página anterior', next_label: 'Página siguiente' %>
         </div>
     </div>
 <% end %>

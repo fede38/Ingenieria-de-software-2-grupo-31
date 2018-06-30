@@ -41,16 +41,12 @@ class TripsController < ApplicationController
 
 	def showMisViajes
 		@user = User.find(params[:id])
-    act_ord = Trip.where(piloto: @user, activo: true).reorder(:fecha_inicio, :hora_inicio)
-    @creado_activo = act_ord.paginate(page: params[:act_page], per_page: 5)
-    @q = Embarkment.where(user_id: @user)
-    @q1 = @q.where(estado: 'a')
-    @q4 = @q1.select(:trip_id)
-    @q2 = Trip.where(activo: false)
-    @q3 = @q2.where(id: @q4)
-    @r = Trip.where(activo: false, piloto: @user).or(@q3)
-    rea_ord = @r.order(:fecha_inicio, :hora_inicio)
-    @realizado = rea_ord.paginate(page: params[:rea_page], per_page: 5)
+	    act_ord = Trip.where(piloto: @user, activo: true).reorder(:fecha_inicio, :hora_inicio)
+	    @creado_activo = act_ord.paginate(page: params[:act_page], per_page: 5)
+	    q = Embarkment.where(user_id: @user, estado: 'a').select(:trip_id)
+	    r = Trip.where(activo: false, piloto: @user).or(Trip.where(activo: false, id: q))
+	    rea_ord = r.order(:fecha_inicio, :hora_inicio)
+	    @realizado = rea_ord.paginate(page: params[:rea_page], per_page: 5)
    end
 
 	def create
