@@ -6,6 +6,17 @@
         Vehiculos<br>
       </h1>
       <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <% if @user == current_user %>
+            <br> <br>
+            <%= link_to 'Nuevo Vehiculo', new_user_vehicle_path(@user),:class => "btn btn-block btn-lg colapso my-link-button" %>
+            <br><br>
+          <% end %>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+      <div class="row">
         <div class="col-md-1">
         </div>
         <div class="col-md-10">
