@@ -102,6 +102,11 @@ success {
 		}
 	}
 }
+.my-navbar>li.active>a{
+	background-color: #F17376 !important;
+	border-color: #F18973 !important;	
+}
+
 .navbar-nav.navbar-center{
 	left: 25%;
 	position: absolute;
@@ -396,11 +401,12 @@ success {
 }
 
 
-.nav-pills-perf>li.active{
+.nav-pills-perf>li.active>a{
 	background-color: #FD9FA1 !important ;
 	color: #fafafa !important ;
-	text-decoration: none !important ;    
-
+	text-decoration: none !important ; 
+	text-align: center;
+	font-size: 12px !important;   
 }
 
 .aperf{/*eeeeee*/
@@ -408,23 +414,33 @@ success {
 	color:black !important ;
 	font-weight: bold !important ;
 	text-decoration: none !important ;
+	text-align: center;
+	font-size: 12px !important;
 	&:hover {
 		background-color: #FEC7C8 !important ;
 		color: black !important ;
 		text-decoration: none !important ;
+		text-align: center;
+		font-size: 12px !important;
 	}
 	&:active{
 		background-color: #FD9FA1 !important ;
 		color: #fafafa !important ;
-		text-decoration: none !important ;        
+		text-decoration: none !important ;
+		text-align: center;
+		font-size: 12px !important;        
 	}
 	&:focus {
 		background-color: #FD9FA1 !important ;
 		color: #fafafa !important ;
 		text-decoration: none !important ;
+		text-align: center;
+		font-size: 12px !important;
 	}
 
 }
+
+
 
 
 /*---------------Fin estulos de botones y jumbotrones------*/

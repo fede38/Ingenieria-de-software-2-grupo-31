@@ -10,15 +10,15 @@
 		<li><%= link_to 'Cuenta', user_accounts_path(@user),:class => "aperf" %></li>
 	<% else %>
 		<br><br>
-		<li class="active"><a href="#">Home</a></li>
-		<li><a href="#">Menu 1</a></li>  
-		<li><a href="#">Menu 2</a></li>
-		<li><a href="#">Menu 3</a></li>
+		<li><%= link_to 'Perfil', user_path(@user),:class => "aperf" %></li>
+		<li><%= link_to 'Viajes', {controller: :trips, action: 'showMisViajes', id: @user.id},:class => "aperf" %></li>  
+		<li><%= link_to 'Calificaciones',  {controller: :scores, action: 'showCalificaciones', id: @user.id},:class => "aperf" %></li>
+		<li><%= link_to 'Vehiculos', user_vehicles_path(@user),:class => "aperf" %></li>
 	<% end %>
 </ul>
 <script>
 $(document).ready(function () {
-  $(".nav li").removeClass("active");
-  $('[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+  		$(".nav li").removeClass("active");
+  		$('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
 });
 </script>
