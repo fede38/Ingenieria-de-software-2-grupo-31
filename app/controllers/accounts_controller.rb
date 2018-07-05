@@ -3,6 +3,6 @@ class AccountsController < ApplicationController
     @user = User.find(params[:user_id])
     @cuenta = @user.account
     r = Trip.where(activo: false).select(:trip_id)
-    @deudas = Embarkment.where(user_id: @user, estado: 'a', trip_id: r)
+    @deudas = Embarkment.where(user_id: @user, estado: 'a', trip_id: r).where.not(deuda: 0)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180624224207) do
+ActiveRecord::Schema.define(version: 20180705223711) do
 
   create_table "accounts", force: :cascade do |t|
     t.float    "deuda",      default: 0.0
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20180624224207) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.string   "estado",     default: "p"
+    t.float    "deuda",      default: 0.0
     t.index ["trip_id"], name: "index_embarkments_on_trip_id"
     t.index ["user_id"], name: "index_embarkments_on_user_id"
   end
