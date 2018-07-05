@@ -1,6 +1,6 @@
 <ul class="nav nav-pills nav-stacked nav-pills-perf" id="myDIV">
 	<% if @user == current_user %>
-		<li> <%= link_to 'Mi Perfil',users_path,:class => "aperf" %> </li>
+		<li class="pri"> <%= link_to 'Mi Perfil',users_path,:class => "aperf" %> </li>
 		<li><%= link_to 'Mis Viajes', {controller: :trips, action: 'showMisViajes', id: @user.id},:class => "aperf" %></li>  
 		<li><%= link_to 'Mis Vehiculos', user_vehicles_path(@user),:class => "aperf" %></li>
 		<li><%= link_to 'Mis Postulaciones', '/users/'+@user.id.to_s+'/postulaciones',:class => "aperf" %></li>
@@ -17,8 +17,8 @@
 	<% end %>
 </ul>
 <script>
-$(document).ready(function () {
+	$(document).ready(function () {
   		$(".nav li").removeClass("active");
   		$('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
-});
+	});
 </script>
