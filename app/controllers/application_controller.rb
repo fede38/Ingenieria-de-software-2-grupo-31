@@ -57,6 +57,8 @@ class ApplicationController < ActionController::Base
             if Embarkment.find_by(trip_id: trip, user_id: pos, estado: 'a').present?
               Score.create(calificado: pos, creador: trip.piloto, realizada: false, tipo_calificacion: 'c')
               Score.create(calificado: trip.piloto, creador: pos, realizada: false, tipo_calificacion: 'p')
+              e = Embarkment.find_by(trip_id: trip, user_id: pos, estado: 'a')
+              e.update_attributes(deuda: total)
               pos.account.update_attributes(deuda: pos.account.deuda+total)
             end
           end

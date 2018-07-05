@@ -44,7 +44,7 @@
 					 						<b>Piloto: </b> <%= link_to image_tag(deuda.trip.piloto.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(deuda.trip.piloto), user_path(deuda.trip.piloto) %>
 					 					</div>
 					 					<div class="col-md-4" style="margin-top: 6px">
-					 						<b> Deuda: </b> $ ----
+					 						<b> Deuda: </b> $ <%= deuda.deuda %>
 					 					</div>
 					 				</div>
 					 			</div>
