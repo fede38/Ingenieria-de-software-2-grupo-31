@@ -10,8 +10,14 @@ Rails.application.routes.draw do
   get '/contactanos', to: 'static_pages#contacto'
 
 	resources :users do
+    collection do
+      put :pagarTodoSaldo
+      put :pagarTodoTarjeta
+      put :pagarViajeSaldo
+      put :pagarViajeTarjeta
+    end
     resources :accounts, only: [:index]
-		resources :trips do
+    resources :trips do
       member do
         put :aceptar
         put :rechazar

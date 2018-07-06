@@ -48,11 +48,11 @@ class ApplicationController < ActionController::Base
       hora = Time.now.strftime("%H:%M")
       Trip.where("activo = ? and fecha_inicio <= ?", true, fecha).all.each do |trip|
         horaInicio = trip.hora_inicio.strftime("%H:%M")
-        total = trip.costo / trip.cantidad_asientos_ocupados
+        total = (trip.costo / trip.cantidad_asientos_ocupados).round(2)
         if (trip.fecha_inicio == Date.today && horaInicio <= hora) ||
            (trip.fecha_inicio < Date.today)
           trip.update_attribute(:activo, false)
-          trip.piloto.account.update_attributes(deuda: (trip.piloto.account.deuda+(trip.costo * 0.05)))
+          trip.piloto.account.update_attributes(deuda: (trip.piloto.account.deuda+(trip.costo * 0.05).round(2)))
           trip.postulantes.each do |pos|
             if Embarkment.find_by(trip_id: trip, user_id: pos, estado: 'a').present?
               Score.create(calificado: pos, creador: trip.piloto, realizada: false, tipo_calificacion: 'c')

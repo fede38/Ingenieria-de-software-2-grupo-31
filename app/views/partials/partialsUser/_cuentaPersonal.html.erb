@@ -14,8 +14,8 @@
 			<div class=" row">
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
-					<%= link_to 'Pagar deuda total con saldo', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
-	        		<%= link_to 'Pagar deuda total con tarjeta', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+					<%= link_to 'Pagar deuda total con saldo', pagarTodoSaldo_users_path(id: @user), {class: "btn btn-block btn-sm colapso my-link-button", method: :put} %>
+	        <%= link_to 'Pagar deuda total con tarjeta', pagarTodoTarjeta_users_path(id: @user), {class: "btn btn-block btn-sm colapso my-link-button", method: :put} %>
 					<!-- <button type="button" class="btn btn-block btn-lg colapso my-link-button" data-toggle="modal" data-target="#myModal">Pagar deuda total</button> -->
 				</div>
 				<div class="col-md-1"></div>
@@ -42,7 +42,7 @@
 						<br>
 					  </div>
 					</div>
-				  </div>  
+				  </div>
 				  <script type="text/javascript">
 					if (location.hash) {
 					  $('a[href=\'' + location.hash + '\']').tab('show');
@@ -72,7 +72,7 @@
 						$('a[href=\'' + anchor + '\']').tab('show');
 					});
 				  $('#myTab a[href="' + hash + '"]').tab('show');
-				  </script> 
+				  </script>
 				</div>
 				<div class="col-md-1"></div>
 			</div>
@@ -93,5 +93,5 @@
 	        <%= link_to 'Pagar con tarjeta', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
 	      </div>
 	    </div>
-	</div> 
+	</div>
 </div> -->
