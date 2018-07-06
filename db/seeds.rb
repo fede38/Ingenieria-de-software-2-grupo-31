@@ -89,7 +89,7 @@ end
     costo: rand(1000.0...5000.0),
     origen: origenes[v],
     destino: destinos[v],
-    activo: [true, true, true, false].sample,
+    activo: true,
     user_id: $user.id,
     vehicle_id: $user.vehicles.all.sample.id
   )

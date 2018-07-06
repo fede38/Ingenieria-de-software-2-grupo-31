@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180705223711) do
+ActiveRecord::Schema.define(version: 20180706001058) do
 
   create_table "accounts", force: :cascade do |t|
     t.float    "deuda",      default: 0.0
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 20180705223711) do
   end
 
   create_table "trips", force: :cascade do |t|
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.text     "descripcion"
     t.integer  "user_id"
     t.date     "fecha_inicio"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20180705223711) do
     t.boolean  "activo",                     default: true
     t.integer  "cantidad_asientos_ocupados", default: 1
     t.string   "origen"
+    t.boolean  "pagado",                     default: false
     t.index ["user_id"], name: "index_trips_on_user_id"
     t.index ["vehicle_id"], name: "index_trips_on_vehicle_id"
   end

@@ -14,8 +14,8 @@
 			<div class=" row">
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
-					<%= link_to 'Pagar con saldo', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
-	        		<%= link_to 'Pagar con tarjeta', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+					<%= link_to 'Pagar deuda total con saldo', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+	        		<%= link_to 'Pagar deuda total con tarjeta', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
 					<!-- <button type="button" class="btn btn-block btn-lg colapso my-link-button" data-toggle="modal" data-target="#myModal">Pagar deuda total</button> -->
 				</div>
 				<div class="col-md-1"></div>
@@ -26,36 +26,53 @@
 				<h2 style="text-align: center;"> Deudas </h2>
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
-					<% @deudas.each do |deuda| %>
-						<div class="well my-jumbotron">
-							<div class="row">
-					 			<div class=" col-md-9">
-					 				<div class="row">
-					 					<div class="col-md-8">
-					 					<h4> <b> <%= deuda.trip.origen %> - <%= deuda.trip.destino %> </b> </h4>
-					 					</div>
-					 					<div class="col-md-4"> 
-					 					<h5> <span class="glyphicon glyphicon-calendar"></span> <%= '  '+formato_fecha(deuda.trip.fecha_inicio) %>  <%= deuda.trip.hora_inicio.strftime('%H:%M') %> </h5>
-					 					
-					 					</div>	
-					 				</div>
-					 				<div class="row">
-					 					<div class="col-md-8">
-					 						<b>Piloto: </b> <%= link_to image_tag(deuda.trip.piloto.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(deuda.trip.piloto), user_path(deuda.trip.piloto) %>
-					 					</div>
-					 					<div class="col-md-4" style="margin-top: 6px">
-					 						<b> Deuda: </b> $ <%= deuda.deuda %>
-					 					</div>
-					 				</div>
-					 			</div>
-					 			<div class="col-md-3" style="margin-top: 15px">
-					 				<%= link_to 'Pagar con saldo', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
-	        						<%= link_to 'Pagar con tarjeta', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
-					 				<!-- <button type="button" class="btn btn-block btn-sm colapso my-link-button" data-toggle="modal" data-target="#myModal">Pagar</button> -->
-					 			</div>
-					 		</div>
- 						</div>	
-					<% end %> 
+					 <ul class="nav nav-pills nav-pills-calif nav-justified" data-tab data-options="deep_linking: true">
+					<li class="active"><a class="acalif" data-toggle="tab" href="#home">A UnAventon!</a></li>
+					<li><a class="acalif" data-toggle="tab" href="#menu1">A Pilotos</a></li>
+				  </ul>
+				  <div class="tab-content">
+					<div id="home" class="tab-pane fade in active">
+						<br>
+						<%= render 'partials/partialsUser/deudaPiloto' %>
+					</div>
+					<div id="menu1" class="tab-pane fade">
+					  <div style="text-align: center;">
+						<br>
+						<%= render 'partials/partialsUser/deudaCopiloto' %>
+						<br>
+					  </div>
+					</div>
+				  </div>  
+				  <script type="text/javascript">
+					if (location.hash) {
+					  $('a[href=\'' + location.hash + '\']').tab('show');
+					}
+					var activeTab = localStorage.getItem('activeTab');
+					if (activeTab) {
+					  $('a[href="' + activeTab + '"]').tab('show');
+					}
+
+					$('body').on('click', 'a[data-toggle=\'tab\']', function (e) {
+					e.preventDefault()
+					var tab_name = this.getAttribute('href')
+					if (history.pushState) {
+					  history.pushState(null, null, tab_name)
+					}
+					else {
+					  location.hash = tab_name
+					}
+					localStorage.setItem('activeTab', tab_name)
+
+					$(this).tab('show');
+					 return false;
+					});
+					$(window).on('popstate', function () {
+						var anchor = location.hash ||
+						$('a[data-toggle=\'tab\']').first().attr('href');
+						$('a[href=\'' + anchor + '\']').tab('show');
+					});
+				  $('#myTab a[href="' + hash + '"]').tab('show');
+				  </script> 
 				</div>
 				<div class="col-md-1"></div>
 			</div>

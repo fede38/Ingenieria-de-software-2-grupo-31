@@ -1,86 +1,86 @@
 
 <div class="row">
   <div class="col-md-12">
-    <% if @user.eliminado %>
-      <div class="page-header">
-        <h1>Este usuario ya no existe</h1>
-      </div>
-    <% elsif !@user.confirmed_at %>
-      <h1>Este usuario todavia no confirmo su mail</h1>
-    <% else %>
-      <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-          <div class="row">
-            <div class="col-md-2">
-              <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
-              <%= render 'partials/partialsUser/informacionUser' %>
-              <%= render 'partials/partialsUser/botonesPerfilNav' %>
-            </div>
-            <div class="col-md-10" >
-              <div class="row">
-                <div class="col-md-1">
-                </div>
-                <div class="col-md-10" style="background-color: #fafafa">
-                  <div class="row">
-                    <h1 style="text-align: center;"> Viajes </h1>
-                  </div>
-                  <br>
-                  <ul class="nav nav-pills nav-pills-calif nav-justified" data-tab data-options="deep_linking: true">
-                    <li class="active"><a class="acalif" data-toggle="tab" href="#home">Creados Activos</a></li>
-                    <li><a class="acalif" data-toggle="tab" href="#menu1">Realizados</a></li>
-                  </ul>
-                  <div class="tab-content">
-                    <div id="home" class="tab-pane fade in active">
-                      <%= render 'partials/partialsUser/misViajesActivos' %>
-                    </div>
-                    <div id="menu1" class="tab-pane fade">
-                      <div style="text-align: center;">
-                        <br>
-                        <%= render 'partials/partialsUser/misViajesRealizados' %>
-                        <br>
-                      </div>
-                    </div>
-                  </div>  
-                  <script type="text/javascript">
-                    if (location.hash) {
-                      $('a[href=\'' + location.hash + '\']').tab('show');
-                    }
-                    var activeTab = localStorage.getItem('activeTab');
-                    if (activeTab) {
-                      $('a[href="' + activeTab + '"]').tab('show');
-                    }
+	<% if @user.eliminado %>
+	  <div class="page-header">
+		<h1>Este usuario ya no existe</h1>
+	  </div>
+	<% elsif !@user.confirmed_at %>
+	  <h1>Este usuario todavia no confirmo su mail</h1>
+	<% else %>
+	  <div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+		  <div class="row">
+			<div class="col-md-2">
+			  <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
+			  <%= render 'partials/partialsUser/informacionUser' %>
+			  <%= render 'partials/partialsUser/botonesPerfilNav' %>
+			</div>
+			<div class="col-md-10" >
+			  <div class="row">
+				<div class="col-md-1">
+				</div>
+				<div class="col-md-10" style="background-color: #fafafa">
+				  <div class="row">
+					<h1 style="text-align: center;"> Viajes </h1>
+				  </div>
+				  <br>
+				  <ul class="nav nav-pills nav-pills-calif nav-justified" data-tab data-options="deep_linking: true">
+					<li class="active"><a class="acalif" data-toggle="tab" href="#home">Creados Activos</a></li>
+					<li><a class="acalif" data-toggle="tab" href="#menu1">Realizados</a></li>
+				  </ul>
+				  <div class="tab-content">
+					<div id="home" class="tab-pane fade in active">
+					  <%= render 'partials/partialsUser/misViajesActivos' %>
+					</div>
+					<div id="menu1" class="tab-pane fade">
+					  <div style="text-align: center;">
+						<br>
+						<%= render 'partials/partialsUser/misViajesRealizados' %>
+						<br>
+					  </div>	
+					</div>
+				  </div>  
+				  <script type="text/javascript">
+					if (location.hash) {
+					  $('a[href=\'' + location.hash + '\']').tab('show');
+					}
+					var activeTab = localStorage.getItem('activeTab');
+					if (activeTab) {
+					  $('a[href="' + activeTab + '"]').tab('show');
+					}
 
-                    $('body').on('click', 'a[data-toggle=\'tab\']', function (e) {
-                    e.preventDefault()
-                    var tab_name = this.getAttribute('href')
-                    if (history.pushState) {
-                      history.pushState(null, null, tab_name)
-                    }
-                    else {
-                      location.hash = tab_name
-                    }
-                    localStorage.setItem('activeTab', tab_name)
+					$('body').on('click', 'a[data-toggle=\'tab\']', function (e) {
+					e.preventDefault()
+					var tab_name = this.getAttribute('href')
+					if (history.pushState) {
+					  history.pushState(null, null, tab_name)
+					}
+					else {
+					  location.hash = tab_name
+					}
+					localStorage.setItem('activeTab', tab_name)
 
-                    $(this).tab('show');
-                     return false;
-                    });
-                    $(window).on('popstate', function () {
-                        var anchor = location.hash ||
-                        $('a[data-toggle=\'tab\']').first().attr('href');
-                        $('a[href=\'' + anchor + '\']').tab('show');
-                    });
-                  $('#myTab a[href="' + hash + '"]').tab('show');
-                  </script> 
-                </div>
-              </div>
-            </div>
-          </div>
-        <div class="col-md-1">
-        </div>
-        </div>
-      </div>
-    <% end %>
+					$(this).tab('show');
+					 return false;
+					});
+					$(window).on('popstate', function () {
+						var anchor = location.hash ||
+						$('a[data-toggle=\'tab\']').first().attr('href');
+						$('a[href=\'' + anchor + '\']').tab('show');
+					});
+				  $('#myTab a[href="' + hash + '"]').tab('show');
+				  </script> 
+				</div>
+			  </div>
+			</div>
+		  </div>
+		<div class="col-md-1">
+		</div>
+		</div>
+	  </div>
+	<% end %>
   </div>
 </div>
 <br><br><br>

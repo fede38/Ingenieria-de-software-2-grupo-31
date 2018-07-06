@@ -16,7 +16,7 @@ class TripsController < ApplicationController
 
   	def update
   		@trip = Trip.find(params[:id])
-      @user = @trip.piloto
+      	@user = @trip.piloto
   		if Embarkment.where('trip_id = ? AND estado != ?', @trip.id, 'r').present?
       	flash[:danger] = "No se pudo modificar el viaje. Para modificar el viaje, no puede haber postulantes o copilotos."
       	redirect_to :back
@@ -44,8 +44,8 @@ class TripsController < ApplicationController
 	    act_ord = Trip.where(piloto: @user, activo: true).reorder(:fecha_inicio, :hora_inicio)
 	    @creado_activo = act_ord.paginate(page: params[:act_page], per_page: 5)
 	    q = Embarkment.where(user_id: @user, estado: 'a').select(:trip_id)
-	    r = Trip.where(activo: false, piloto: @user).or(Trip.where(activo: false, id: q))
-	    rea_ord = r.order(:fecha_inicio, :hora_inicio)
+	    re = Trip.where(activo: false, piloto: @user).or(Trip.where(activo: false, id: q))
+	    rea_ord = re.order(:fecha_inicio, :hora_inicio)
 	    @realizado = rea_ord.paginate(page: params[:rea_page], per_page: 5)
    end
 
