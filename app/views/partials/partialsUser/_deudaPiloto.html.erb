@@ -9,26 +9,26 @@
 	 					<div class="col-md-8">
 	 					<h4> <b> <%= deuda.origen %> - <%= deuda.destino %> </b> </h4>
 	 					</div>
-	 					<div class="col-md-4"> 
+	 					<div class="col-md-4">
 	 					<h5> <span class="glyphicon glyphicon-calendar"></span> <%= '  '+formato_fecha(deuda.fecha_inicio) %>  <%= deuda.hora_inicio.strftime('%H:%M') %> </h5>
-	 					
-	 					</div>	
+
+	 					</div>
 	 				</div>
 	 				<div class="row">
 	 					<div class="col-md-8">
 	 						<b>Piloto: </b> <%= link_to image_tag(deuda.piloto.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(deuda.piloto), user_path(deuda.piloto) %>
 	 					</div>
 	 					<div class="col-md-4" style="margin-top: 6px">
-	 						<% debe_app = deuda.costo * 0.05 %>
+	 						<% debe_app = (deuda.costo * 0.05).round(2) %>
 	 						<b> Deuda: </b> $ <%= debe_app %>
 	 					</div>
 	 				</div>
 	 			</div>
 	 			<div class="col-md-3" style="margin-top: 15px">
-	 				<%= link_to 'Pagar con saldo', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
-					<%= link_to 'Pagar con tarjeta', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+	 				<%= link_to 'Pagar con saldo', pagarViajeSaldo_users_path(id: @user, tipo: 'p', idT: deuda), {class: "btn btn-block btn-sm colapso my-link-button", method: :put} %>
+					<%= link_to 'Pagar con tarjeta', pagarViajeTarjeta_users_path(id: @user, tipo: 'p', idT: deuda), {class: "btn btn-block btn-sm colapso my-link-button", method: :put} %>
 	 			</div>
 	 		</div>
-		</div>	
-	<% end %> 
+		</div>
+	<% end %>
 <% end %>

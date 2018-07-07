@@ -52,14 +52,14 @@ class ApplicationController < ActionController::Base
         if (trip.fecha_inicio == Date.today && horaInicio <= hora) ||
            (trip.fecha_inicio < Date.today)
           trip.update_attribute(:activo, false)
-          trip.piloto.account.update_attributes(deuda: (trip.piloto.account.deuda+(trip.costo * 0.05).round(2)))
+          trip.piloto.account.update_attributes(deuda: (trip.piloto.account.deuda+((trip.costo * 0.05).round(2))))
           trip.postulantes.each do |pos|
             if Embarkment.find_by(trip_id: trip, user_id: pos, estado: 'a').present?
               Score.create(calificado: pos, creador: trip.piloto, realizada: false, tipo_calificacion: 'c')
               Score.create(calificado: trip.piloto, creador: pos, realizada: false, tipo_calificacion: 'p')
               e = Embarkment.find_by(trip_id: trip, user_id: pos, estado: 'a')
               e.update_attributes(deuda: total)
-              pos.account.update_attributes(deuda: pos.account.deuda+total)
+              pos.account.update_attributes(deuda: (pos.account.deuda+total).round(2))
             end
           end
         end
