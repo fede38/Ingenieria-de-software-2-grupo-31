@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180706001058) do
+ActiveRecord::Schema.define(version: 20180708172850) do
 
   create_table "accounts", force: :cascade do |t|
     t.float    "deuda",      default: 0.0
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(version: 20180706001058) do
     t.datetime "updated_at",               null: false
     t.integer  "user_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.text     "respuesta"
+    t.integer  "question_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
   create_table "embarkments", force: :cascade do |t|
@@ -39,6 +47,14 @@ ActiveRecord::Schema.define(version: 20180706001058) do
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_owners_on_user_id"
     t.index ["vehicle_id"], name: "index_owners_on_vehicle_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.text     "pregunta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "trip_id"
+    t.index ["trip_id"], name: "index_questions_on_trip_id"
   end
 
   create_table "scores", force: :cascade do |t|
