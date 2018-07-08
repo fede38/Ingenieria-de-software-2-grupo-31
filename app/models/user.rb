@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_attached_file :avatar, :default_url => 'missing_user.png'
   validates_attachment_content_type :avatar, :content_type => ["image/jpg",
                                     "image/jpeg", "image/png", "image/gif"]
+  has_many :questions
   has_many :owner
   has_many :vehicles, through: :owner
   has_many :embarkment
