@@ -6,8 +6,11 @@ Rails.application.routes.draw do
 	get '/users', to: 'users#show'
   get '/users/:id/postulaciones', to: 'users#postulaciones'
   get '/users/:id/showMisViajes', to: 'trips#showMisViajes'
+  get '/ayuda', to: 'static_pages#ayuda'
+  get '/contactanos', to: 'static_pages#contacto'
 
 	resources :users do
+    resources :accounts, only: [:index]
 		resources :trips do
       member do
         put :aceptar

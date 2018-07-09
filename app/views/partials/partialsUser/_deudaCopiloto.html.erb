@@ -1,0 +1,33 @@
+<% if @deuda_copiloto.empty? %>
+	<h3>No posee deudas a pilotos de los viajes que ha realizado</h3>
+<% else %>
+	<% @deuda_copiloto.each do |deuda| %>
+		<div class="well my-jumbotron">
+			<div class="row">
+	 			<div class=" col-md-9">
+	 				<div class="row">
+	 					<div class="col-md-8">
+	 					<h4> <b> <%= deuda.trip.origen %> - <%= deuda.trip.destino %> </b> </h4>
+	 					</div>
+	 					<div class="col-md-4"> 
+	 					<h5> <span class="glyphicon glyphicon-calendar"></span> <%= '  '+formato_fecha(deuda.trip.fecha_inicio) %>  <%= deuda.trip.hora_inicio.strftime('%H:%M') %> </h5>
+	 					
+	 					</div>	
+	 				</div>
+	 				<div class="row">
+	 					<div class="col-md-8">
+	 						<b>Piloto: </b> <%= link_to image_tag(deuda.trip.piloto.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(deuda.trip.piloto), user_path(deuda.trip.piloto) %>
+	 					</div>
+	 					<div class="col-md-4" style="margin-top: 6px">
+	 						<b> Deuda: </b> $ <%= deuda.deuda %>
+	 					</div>
+	 				</div>
+	 			</div>
+	 			<div class="col-md-3" style="margin-top: 15px">
+	 				<%= link_to 'Pagar con saldo', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+					<%= link_to 'Pagar con tarjeta', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+	 			</div>
+	 		</div>
+		</div>	
+	<% end %>
+<% end %>

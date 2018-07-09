@@ -21,15 +21,14 @@ class ScoresController < ApplicationController
 
 	def showCalifARealizar
 		@user = User.find(params[:id])
-		@q = Score.where(creador: @user, realizada: false).reorder(fecha: :desc, hora: :desc)
-		@calification = @q.result.paginate(page: params[:page], per_page: 15)
+		@calification = Score.where(creador: @user, realizada: false).reorder(fecha: :desc, hora: :desc).paginate(page: params[:page], per_page: 15)
 	end
 
 	def showCalificaciones
 		@user= User.find(params[:id])
-		@calif_piloto = Score.where(calificado: @user, realizada: true, tipo_calificacion: 'p').reorder(fecha: :desc, hora: :desc).paginate(page: params[:page], per_page: 8)
-		@calif_copiloto = Score.where(calificado: @user, realizada: true, tipo_calificacion: 'c').reorder(fecha: :desc, hora: :desc).paginate(page: params[:page], per_page: 8)
-		 
+		@calif_piloto = Score.where(calificado: @user, realizada: true, tipo_calificacion: 'p').reorder(fecha: :desc, hora: :desc).paginate(page: params[:pi_page], per_page: 8)
+		@calif_copiloto = Score.where(calificado: @user, realizada: true, tipo_calificacion: 'c').reorder(fecha: :desc, hora: :desc).paginate(page: params[:co_page], per_page: 8)
+
 	end
 
 	private

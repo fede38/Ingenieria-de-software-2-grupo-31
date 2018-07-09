@@ -12,15 +12,22 @@
         <div class="col-md-10">
           <div class="row">
             <div class="col-md-2">
-              <% provide(:titulo, 'Postulaciones de '+@user.nombre+' '+@user.apellido) %>
+              <% provide(:titulo, @user.nombre+' '+@user.apellido) %>
               <%= render 'partials/partialsUser/informacionUser' %>
               <%= render 'partials/partialsUser/botonesPerfilNav' %>
             </div>
-            <%= render 'partials/partialsUser/mostrarPostulaciones' %>
+            <div class="col-md-10">
+            	<%= render 'partials/partialsUser/cuentaPersonal' %>
+            </div>
           </div>
+        <div class="col-md-1">
+        </div>
         </div>
       </div>
     <% end %>
   </div>
 </div>
 <br><br><br>
+
+
+

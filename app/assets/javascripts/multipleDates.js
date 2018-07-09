@@ -11,11 +11,6 @@ function addPeriodicField() {
 	nameAttributFecha = 
 		"trip[periodics_attributes][0][fecha]".replace("0",mSec);
 
-	idAttributHora =
-		"trip_periodics_attributes_0_hora".replace("0",mSec);
-	nameAttributHora = 
-		"trip[periodics_attributes][0][hora]".replace("0",mSec);
-
 	//creo la tag <li>
 	var li = document.createElement("li");
 
@@ -35,26 +30,9 @@ function addPeriodicField() {
     inputFecha.setAttribute("name", nameAttributFecha);
     li.appendChild(inputFecha);
  
-    //create label for Hora, set it's for attribute, 
-    //and append it to <li> element
-    var labelHora = document.createElement("label");
-    labelHora.setAttribute("for", idAttributHora);
-    var horaLabelText = document.createTextNode("Hora");
-    labelHora.appendChild(horaLabelText);
-    li.appendChild(labelHora);
- 
-    //create input for Hora, set it's type, id and name attribute, 
-    //and append it to <li> element
-    var inputHora = document.createElement("INPUT");
-    inputHora.setAttribute("type", "time");
-    inputHora.setAttribute("id", idAttributHora);
-    inputHora.setAttribute("name", nameAttributHora);
-    li.appendChild(inputHora);
- 
     //add created <li> element with its child elements 
     //(label and input) to myList (<ul>) element
     document.getElementById("myList").appendChild(li);
- 
     //show multipleDates header
     $("#periodicHeader").show();
 

@@ -1,7 +1,0 @@
-<% if @user == current_user %>
-  <%= link_to 'Mis Viajes', {controller: :trips, action: 'showMisViajes', id: @user.id}, :class => "btn btn-block btn-sm my-button-color my-link-button" %>
-  <%= link_to 'Mis Vehiculos', user_vehicles_path(@user),:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-  <%= link_to 'Mis Calificaciones',  {controller: :scores, action: 'showCalificaciones', id: @user.id}, :class => "btn btn-block btn-sm my-button-color my-link-button" %>
-  <%= link_to 'Calificaciones Pendientes',  {controller: :scores, action: 'showCalifARealizar', id: @user.id}, :class => "btn btn-block btn-sm my-button-color my-link-button" %>
-  <%= link_to 'Mi Perfil',users_path,:class => "btn btn-block btn-sm my-button-color my-link-button" %>
-<% end %>

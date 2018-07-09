@@ -4,10 +4,10 @@ class TripsController < ApplicationController
 	def index
 		if user_signed_in?
 			@user = current_user
-		end 
-    	@q = Trip.ransack(params[:q])
-    	@trips = @q.result.paginate(page: params[:page], per_page: 5)
-  	end
+		end
+    @q = Trip.ransack(params[:q])
+    @trips = @q.result.where(activo: true).paginate(page: params[:page], per_page: 5)
+  end
 
   	def edit
   		@trip = Trip.find(params[:id])
@@ -16,22 +16,18 @@ class TripsController < ApplicationController
 
   	def update
   		@trip = Trip.find(params[:id])
-  		
-  		if Embarkment.where('trip_id = ? AND estado != ?', @trip.id, 'r')
-  			flash[:danger] = []	
-      		flash[:danger] << 'Para modificar el viaje, no puede haber postulantes o copilotos.'
-      		redirect_to root_path
-      		return
-  		end
-
-	  	if @trip.update(parametros_viaje)
-  			redirect_to root_path
-  			flash[:success] = 'Viaje modificado existosamente.'    	
+      	@user = @trip.piloto
+  		if Embarkment.where('trip_id = ? AND estado != ?', @trip.id, 'r').present?
+      		flash[:danger] = "No se pudo modificar el viaje. Para modificar el viaje, 
+      							no puede haber postulantes o copilotos."
+      		redirect_to :back
+	  	elsif @trip.update(parametros_viaje)
+        	redirect_to "/users/#{current_user.id}/showMisViajes"
+  			flash[:success] = 'Viaje modificado existosamente.'
 		else
 			render 'edit'
 		end
   	end
-
 
 	def new
 		@trip = Trip.new
@@ -46,15 +42,19 @@ class TripsController < ApplicationController
 
 	def showMisViajes
 		@user = User.find(params[:id])
-    	@creado_activo = Trip.where(piloto: @user, activo: true).reorder(:fecha_inicio, :hora_inicio).paginate(page: params[:page], per_page:5 )
-	end
+	    act_ord = Trip.where(piloto: @user, activo: true).reorder(:fecha_inicio, :hora_inicio)
+	    @creado_activo = act_ord.paginate(page: params[:act_page], per_page: 5)
+	    q = Embarkment.where(user_id: @user, estado: 'a').select(:trip_id)
+	    re = Trip.where(activo: false, piloto: @user).or(Trip.where(activo: false, id: q))
+	    rea_ord = re.order(:fecha_inicio, :hora_inicio)
+	    @realizado = rea_ord.paginate(page: params[:rea_page], per_page: 5)
+   end
 
 	def create
 		@trip = Trip.new(parametros_viaje)
 		@user= User.find(params[:user_id])
 		@trip.user_id = @user.id
 		if @trip.save
-			@user.account.update_attribute(:deuda, (@user.account.deuda + @trip.costo* 0.05))
 			current_user.viajesPiloto << @trip
 			redirect_to root_path
 			flash[:success] = 'Viaje creado existosamente!'
@@ -66,7 +66,7 @@ class TripsController < ApplicationController
 	def destroy
 		@user = User.find(params[:user_id])
 		@trip = Trip.find(params[:id])
-		
+
 		fecha = Time.now.year.to_s+'-'+Time.now.month.to_s+'-'+Time.now.day.to_s
 		hora = Time.now.hour.to_s+':'+Time.now.min.to_s
  		Embarkment.where(trip_id: @trip.id).each do |rel|
@@ -83,9 +83,10 @@ class TripsController < ApplicationController
 				@trip.postulantes.delete(rel.user_id)
 			end
 		end
+    	@user.account.update_attribute(:deuda, ((@trip.costo * 0.05)+@user.account.deuda))
 		Trip.delete(@trip.id)
 		flash[:success] = 'Viaje cancelado existosamente.'
-		redirect_to root_path
+		redirect_to "/users/#{@user.id}/showMisViajes"
 	end
 
 	def postularse
@@ -176,8 +177,8 @@ class TripsController < ApplicationController
 		viaje = Trip.find(params[:idT])
 		if Embarkment.find_by(user_id: usuario.id, trip_id: viaje.id).estado == 'a'
 			TripMailer.sendMail(viaje, 'c', viaje.piloto).deliver
-			fecha = Time.now.year+'-'+Time.now.month+'-'+Time.now.day
-			hora = Time.now.hour+':'+Time.now.minutes
+			fecha = Time.now.year.to_s+'-'+Time.now.month.to_s+'-'+Time.now.day.to_s
+			hora = Time.now.hour.to_s+':'+Time.now.min.to_s
 			cal = Score.create(calificado: usuario, realizada: true,
 			                 tipo_calificacion: 'c', calificacion: -1,
 			                 descripcion: 'Cancelo la postulación a un viaje en el que ya habia sido aceptado.',
@@ -194,7 +195,7 @@ private
 
 	def parametros_viaje
 		params.require(:trip).permit(:fecha_inicio, :hora_inicio, :costo, :origen, 
-										:destino, :descripcion, :vehicle_id, :user_id,
+										:destino, :descripcion,:duracion , :vehicle_id, :user_id,
 										 periodics_attributes: [:id, :fecha, :hora])
 	end
 

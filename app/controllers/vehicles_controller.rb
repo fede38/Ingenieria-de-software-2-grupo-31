@@ -8,12 +8,12 @@ class VehiclesController < ApplicationController
 	def create
 		@vehicle = Vehicle.new(parametros)
 		@user = User.find(params[:user_id])
-		if Vehicle.exists?(:patente => parametros[:patente])
-			if @user.vehicles.exists?(:patente => parametros[:patente])
+		if Vehicle.exists?(:patente => parametros[:patente].upcase)
+			if @user.vehicles.exists?(:patente => parametros[:patente].upcase)
 				@vehicle.errors.add("El vehiculo ", 'ya esta agregado.')
 				render 'new'
 			else
-				@user.vehicles << Vehicle.find_by(patente: parametros[:patente])
+				@user.vehicles << Vehicle.find_by(patente: parametros[:patente].upcase)
 				redirect_to user_vehicles_url
 			end
 		else

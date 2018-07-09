@@ -1,0 +1,97 @@
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-10" style="background-color: #fafafa">
+		<h1 style="text-align: center;"> Cuenta Interna<br><br> </h1>
+		<div class="row">
+			<div class="col-md-6">
+				<h3 style="text-align: left; margin-left: 15px"> Saldo: $  <%= @cuenta.saldo %> </h4><br>
+			</div>
+			<div class="col-md-6">
+				<h3 style="text-align: right; margin-right: 15px; color: red;"> Deuda: $ <%= @cuenta.deuda %> </h4><br>
+			</div>
+		</div>
+		<% if @cuenta.deuda > 0 %>
+			<div class=" row">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<%= link_to 'Pagar deuda total con saldo', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+	        		<%= link_to 'Pagar deuda total con tarjeta', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+					<!-- <button type="button" class="btn btn-block btn-lg colapso my-link-button" data-toggle="modal" data-target="#myModal">Pagar deuda total</button> -->
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div class="row" >
+				<br>
+				<br>
+				<h2 style="text-align: center;"> Deudas </h2>
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					 <ul class="nav nav-pills nav-pills-calif nav-justified" data-tab data-options="deep_linking: true">
+					<li class="active"><a class="acalif" data-toggle="tab" href="#home">A UnAventon!</a></li>
+					<li><a class="acalif" data-toggle="tab" href="#menu1">A Pilotos</a></li>
+				  </ul>
+				  <div class="tab-content">
+					<div id="home" class="tab-pane fade in active">
+						<br>
+						<%= render 'partials/partialsUser/deudaPiloto' %>
+					</div>
+					<div id="menu1" class="tab-pane fade">
+					  <div style="text-align: center;">
+						<br>
+						<%= render 'partials/partialsUser/deudaCopiloto' %>
+						<br>
+					  </div>
+					</div>
+				  </div>  
+				  <script type="text/javascript">
+					if (location.hash) {
+					  $('a[href=\'' + location.hash + '\']').tab('show');
+					}
+					var activeTab = localStorage.getItem('activeTab');
+					if (activeTab) {
+					  $('a[href="' + activeTab + '"]').tab('show');
+					}
+
+					$('body').on('click', 'a[data-toggle=\'tab\']', function (e) {
+					e.preventDefault()
+					var tab_name = this.getAttribute('href')
+					if (history.pushState) {
+					  history.pushState(null, null, tab_name)
+					}
+					else {
+					  location.hash = tab_name
+					}
+					localStorage.setItem('activeTab', tab_name)
+
+					$(this).tab('show');
+					 return false;
+					});
+					$(window).on('popstate', function () {
+						var anchor = location.hash ||
+						$('a[data-toggle=\'tab\']').first().attr('href');
+						$('a[href=\'' + anchor + '\']').tab('show');
+					});
+				  $('#myTab a[href="' + hash + '"]').tab('show');
+				  </script> 
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+		<% end %>
+	</div>
+	<div class="col-md-1"></div>
+</div>
+
+<!-- <div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+	<div class="modal-content">
+	      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Pagar</h4>
+	      </div>
+	      <div class="modal-body">
+	        <%= link_to 'Pagar con saldo', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+	        <%= link_to 'Pagar con tarjeta', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+	      </div>
+	    </div>
+	</div> 
+</div> -->

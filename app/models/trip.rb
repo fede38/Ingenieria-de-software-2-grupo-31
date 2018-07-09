@@ -1,6 +1,6 @@
 class Trip < ApplicationRecord
   default_scope { order(origen: :asc, destino: :asc) }
-
+  
   belongs_to :piloto, class_name: 'User', foreign_key: 'user_id'
   belongs_to :vehicle
   
@@ -10,9 +10,10 @@ class Trip < ApplicationRecord
   has_many :embarkment
   has_many :postulantes, source: :user, through: :embarkment, class_name: 'User', foreign_key: 'user_id'
 
-  validates :destino, :origen, :vehicle_id, :costo, :fecha_inicio, :hora_inicio, presence: true
+  validates :destino, :origen, :vehicle_id, :costo, :duracion, :fecha_inicio, :hora_inicio, presence: true
   
   validate :costo_mayor_a_cero
+  validate :duracion_mayor_a_cero
   validate :fecha_mayor_a_hoy
   validate :hora_mayor_a_ahora
 
@@ -71,10 +72,7 @@ class Trip < ApplicationRecord
     if respuesta
       errors.add("La fecha, ", 'debe ser de un máximo de 30 dias a partir del inicio')
     end
-
-
   end
-
 
   def posteriores_a_inicio
     if self.periodics
@@ -142,49 +140,59 @@ class Trip < ApplicationRecord
   end
 
   def hora_mayor_a_ahora
-  	if (self.fecha_inicio == Date.today) and (self.hora_inicio.strftime('%H:%M') < 
+  	if (self.fecha_inicio == Date.today) and (self.hora_inicio.strftime('%H:%M') <
                   Time.now.strftime('%H:%M'))
-  			errors.add("La fecha y hora defeben ser ", 'posteriores a ahora.')
+  			errors.add("La fecha y hora deben ser ", 'posteriores a ahora.')
   	end
   end
-  
+
   def viajePostulado_a_la_misma_hora
-  	if self.piloto.viajesPostulado.detect{ |t| t.id != self.id and t.fecha_inicio == self.fecha_inicio and 
+  	if self.piloto.viajesPostulado.detect{ |t| t.id != self.id and t.fecha_inicio == self.fecha_inicio and
   											t.hora_inicio == self.hora_inicio }
   		errors.add("Estas postulado a un viaje,", ' a la misma hora, el mismo día que éste.')
   	end
   end
-  
+
   def viajePiloto_a_la_misma_hora
-  	if self.piloto.viajesPiloto.detect{ |t| t.id != self.id and t.fecha_inicio == self.fecha_inicio and 
+  	if self.piloto.viajesPiloto.detect{ |t| t.id != self.id and t.fecha_inicio == self.fecha_inicio and
   											t.hora_inicio == self.hora_inicio }
   		errors.add("Tienes un viaje pendiente,", ' a la misma hora, el mismo día que éste.')
   	end
   end
 
   def saldo_en_contra
-  	if self.piloto.account.deuda? or self.piloto.account.saldo != 0
+  	if self.piloto.account.deuda? or self.piloto.account.saldo < 0
   		errors.add("No puedes crear un viaje ", 'si tienes deuda pendiente')
   	end
   end
 
   def vehiculo_no_en_viaje
-  	if Trip.where(:vehicle_id => self.vehicle_id).detect{ |t| t.id != self.id and 
+  	if Trip.where(:vehicle_id => self.vehicle_id).detect{ |t| t.id != self.id and
   				t.fecha_inicio == self.fecha_inicio and t.hora_inicio == self.hora_inicio }
-  		errors.add("El vehículo elegido", 
+  		errors.add("El vehículo elegido",
   					' tiene un viaje asignado a la misma hora, el mismo día')
   	end
   end
 
   def calificaciones_pendientes
   	if self.piloto.calif_creadas.detect{ |c| !c.realizada }
-  		errors.add("No puedes crear un viaje, ", 'si tienes calificaciones pendientes')
+  		errors.add("No puedes crear un viaje ", 'si tienes calificaciones pendientes')
   	end
   end
 
   def costo_mayor_a_cero
-    if self.costo and self.costo <= 0
-      errors.add("El costo", 'debe ser mayor a (0) cero')
+    if self.costo
+      if self.costo <= 0
+        errors.add("El costo", ' debe ser mayor a (0) cero')
+      end
+    end
+  end
+
+  def duracion_mayor_a_cero
+    if self.duracion
+      if self.duracion <= 0
+        errors.add("La duración", ' debe ser mayor a (0) cero')
+      end
     end
   end
 

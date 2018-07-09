@@ -3,7 +3,7 @@
 		<br>
 		<%if @creado_activo.empty? %>
 			<div>
-				<h4> No tiene viajes creados activos </h4>	
+				<h4> No tiene viajes creados activos </h4>
 			</div>
 		<% else %>
 			<% @creado_activo.each do |t| %>
@@ -70,7 +70,7 @@
 		<% end %>
 		<div class="pagination-wrapper">
         <div class="pagination">
-          <%= will_paginate @creado_activo, previous_label: 'Página anterior', next_label: 'Página siguiente' %>
+          <%= will_paginate @creado_activo, param_name: 'act_page', previous_label: 'Página anterior', next_label: 'Página siguiente' %>
         </div>
       </div>
 	</div>
