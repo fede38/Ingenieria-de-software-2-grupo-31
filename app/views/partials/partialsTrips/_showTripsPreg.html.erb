@@ -1,0 +1,59 @@
+<div class="row">
+	<div class="well my-jumbotron">
+		<% if current_user != @trip.piloto %>
+			<div class="row">
+				<div class="col-md-3"></div>
+				<div class="col-md-6">
+					<%= link_to 'Realizar Pregunta', '#',:class => "btn btn-block btn-md colapso my-link-button" %>
+					<br>
+				</div>
+				<div class="col-md-3"></div>
+			</div>
+		<% end %>
+
+		<% if @trip.questions.empty? %>
+			<div style="text-align: center; font-size: 18px">
+				<b>No hay Preguntas al viaje</b>
+			</div>
+		<% else %>
+			<% @trip.questions.each do |q| %>
+				<div class="media my-jumbotron2">
+					<!-- PREGUNTA EXISTENTE AL VIAJE -->
+					<div class="media-left">
+						<%= image_tag(q.comentador.avatar,:class=>"circular-image post-image", :alt=>'Avatar')%>
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading"> <%= link_to usernameOf(q.comentador), user_path(q.comentador) %>
+							<small><i> <span class="glyphicon glyphicon-calendar"></span> 
+								<%= '  '+formato_fecha(q.created_at.to_date) %>  <%= q.created_at.to_time.strftime('%H:%M') %>
+							</i></small>
+						</h4>
+						<p> <%= q.pregunta %> </p>
+						<% if !q.answer %>
+							<% if current_user==@trip.piloto %>
+								<!-- SI NO TIENE RESPUESTA EL LUGAR PARA OFRECER RESPONDER -->
+								<%= link_to 'Responder', '#',:class => "btn btn-block btn-md colapso my-link-button" %>
+							<% end%>
+						<% else %>
+							<div class="media my-jumbotron2">
+								<!-- SI TIENE RESPUESTA LA RESPUESTA A LA PREGUNTA -->
+								<div class="media-left">
+									<%= image_tag(@trip.piloto.avatar,:class=>"circular-image post-image", :alt=>'Avatar')%>
+								</div>
+								<div class="media-body">
+									<h4 class="media-heading"> <%= link_to usernameOf(@trip.piloto), user_path(@trip.piloto) %> 
+										<small><i><span class="glyphicon glyphicon-calendar"></span>
+											<%= '  '+formato_fecha(q.answer.created_at.to_date) %>  <%= q.answer.created_at.to_time.strftime('%H:%M') %>
+										</i></small>
+									</h4>
+									<p> <%= q.answer.respuesta %> </p>
+								</div>
+								
+							</div>
+						<% end %>
+					</div>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
+</div>
