@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     end
     resources :accounts, only: [:index]
     resources :trips do
+      resources :questions do
+        resources :answers
+      end
       member do
         put :aceptar
         put :rechazar
