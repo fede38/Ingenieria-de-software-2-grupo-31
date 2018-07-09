@@ -4,7 +4,25 @@
 			<div class="row">
 				<div class="col-md-3"></div>
 				<div class="col-md-6">
-					<%= link_to 'Realizar Pregunta', '#',:class => "btn btn-block btn-md colapso my-link-button" %>
+					<div class="centering">
+						<%= form_for([@trip, @question]) do |q| %>
+							<% if @question.errors.any? %>
+								<div class="alert alert-danger alert-dismissable">
+									<button class="close" type="button" data-dismiss="alert">x</button>
+									<ul><% @question.errors.each do |e| %></ul>
+									<li><%= @question.errors[e][0] %></li>
+									<% end %>
+								</div>
+							<% end %>
+							<div class="form-group">
+								<%= q.label :pregunta %> <br>
+								<%= q.text_area :pregunta, class: "form-control" %>
+							</div>
+							<div class=" actions">
+								<%= q.submit "Realizar pregunta", class:"btn my-link-button my-button-color" %>
+							</div>
+						<% end %>
+					</div>
 					<br>
 				</div>
 				<div class="col-md-3"></div>
@@ -24,7 +42,7 @@
 					</div>
 					<div class="media-body">
 						<h4 class="media-heading"> <%= link_to usernameOf(q.comentador), user_path(q.comentador) %>
-							<small><i> <span class="glyphicon glyphicon-calendar"></span> 
+							<small><i> <span class="glyphicon glyphicon-calendar"></span>
 								<%= '  '+formato_fecha(q.created_at.to_date) %>  <%= q.created_at.to_time.strftime('%H:%M') %>
 							</i></small>
 						</h4>
@@ -41,14 +59,14 @@
 									<%= image_tag(@trip.piloto.avatar,:class=>"circular-image post-image", :alt=>'Avatar')%>
 								</div>
 								<div class="media-body">
-									<h4 class="media-heading"> <%= link_to usernameOf(@trip.piloto), user_path(@trip.piloto) %> 
+									<h4 class="media-heading"> <%= link_to usernameOf(@trip.piloto), user_path(@trip.piloto) %>
 										<small><i><span class="glyphicon glyphicon-calendar"></span>
 											<%= '  '+formato_fecha(q.answer.created_at.to_date) %>  <%= q.answer.created_at.to_time.strftime('%H:%M') %>
 										</i></small>
 									</h4>
 									<p> <%= q.answer.respuesta %> </p>
 								</div>
-								
+
 							</div>
 						<% end %>
 					</div>
