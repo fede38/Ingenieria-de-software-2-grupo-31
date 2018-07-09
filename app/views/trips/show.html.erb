@@ -7,14 +7,18 @@
     <%= render 'partials/partialsTrips/showTripsInfo' %>
     <br>
     <ul class="nav nav-pills nav-justified">
-      <li><a class="a1" data-toggle="tab" href="#home">Aceptados</a></li>
-      <li><a class="a2" data-toggle="tab" href="#menu1">Postulantes</a></li>
+      <li><a class="a0" data-toogle="tab" href="#preguntas">Preguntas</a></li>
+      <li><a class="a1" data-toggle="tab" href="#aceptados">Aceptados</a></li>
+      <li><a class="a2" data-toggle="tab" href="#postulantes">Postulantes</a></li>
     </ul>
     <div class="tab-content">
-      <div id="home" class="tab-pane fade in active">
+      <div id="preguntas" class="tab-pane fade in active">
+        <%= render 'partials/partialsTrips/showTripsPreg' %>
+      </div>
+      <div id="aceptados" class="tab-pane fade">
         <%= render 'partials/partialsTrips/showTripsAcept' %>
       </div>
-      <div id="menu1" class="tab-pane fade">
+      <div id="postulantes" class="tab-pane fade">
         <%= render 'partials/partialsTrips/showTripsPostul' %>
       </div>
     </div>

@@ -326,6 +326,28 @@ success {
 	font-size: 22px;
 }
 
+.a0{
+	background-color: #f173762e !important ;
+	color:black !important ;
+	font-weight: bold !important ;
+	text-decoration: none !important ;
+	&:hover {
+		background-color: #f173762e !important ;
+		color:black !important ;
+		text-decoration: none !important ;
+	}
+	&:active{
+		background-color: #f173762e !important ;
+		color: black !important;
+		text-decoration: none !important;
+	}
+	&:focus {
+		background-color: #f173762e !important ;
+		color: black !important;
+		text-decoration: none !important;
+	}
+}
+
 .a1{
 	background-color: #BDEDBA !important ;
 	color:black !important ;
