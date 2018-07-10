@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
     @trip = Trip.find(params[:trip_id])
     @question = Question.new(parametros)
     if @question.save
+      QuestionMailer.sendMail(@trip, 'q', @trip.piloto).deliver
       @question.update_attribute(:comentador, current_user)
       @question.update_attribute(:trip, @trip)
     else
