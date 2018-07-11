@@ -20,5 +20,8 @@
 	$(document).ready(function () {
   		$(".nav li").removeClass("active");
   		$('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
-	});
+  		if(! $('ul li').hasClass('active')){
+  			$('ul li').first().addClass('active');
+  		}
+  	});
 </script>
