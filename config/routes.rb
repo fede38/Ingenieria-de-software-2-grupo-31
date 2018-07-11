@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   get '/ayuda', to: 'static_pages#ayuda'
   get '/contactanos', to: 'static_pages#contacto'
 
+  resources :trips, only: [] do
+    resources :questions do
+      resources :answers
+    end
+  end
 	resources :users do
     collection do
       put :pagarTodoSaldo

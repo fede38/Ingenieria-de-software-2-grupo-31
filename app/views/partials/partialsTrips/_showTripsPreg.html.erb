@@ -4,7 +4,17 @@
 			<div class="row">
 				<div class="col-md-3"></div>
 				<div class="col-md-6">
-					<%= link_to 'Realizar Pregunta', '#',:class => "btn btn-block btn-md colapso my-link-button" %>
+					<div class="centering">
+						<%= form_for([@trip, @question]) do |q| %>
+							<div class="form-group">
+								<%= q.label :pregunta %> <br>
+								<%= q.text_area :pregunta, class: "form-control" %>
+							</div>
+							<div class=" actions">
+								<%= q.submit "Realizar pregunta", class:"btn my-link-button my-button-color" %>
+							</div>
+						<% end %>
+					</div>
 					<br>
 				</div>
 				<div class="col-md-3"></div>
@@ -24,16 +34,25 @@
 					</div>
 					<div class="media-body">
 						<h4 class="media-heading"> <%= link_to usernameOf(q.comentador), user_path(q.comentador) %>
-							<small><i> <span class="glyphicon glyphicon-calendar"></span> 
-								<%= '  '+formato_fecha(q.created_at.to_date) %>  <%= q.created_at.to_time.strftime('%H:%M') %>
+							<small><i> <span class="glyphicon glyphicon-calendar"></span>
+								<% fechaQ = q.created_at - 10800 %>
+								<%= '  '+formato_fecha(fechaQ.to_date) %>  <%= fechaQ.to_time.strftime('%H:%M') %>
 							</i></small>
 						</h4>
 						<p> <%= q.pregunta %> </p>
 						<% if !q.answer %>
-							<% if current_user==@trip.piloto %>
+							<% if current_user == @trip.piloto %>
 								<!-- SI NO TIENE RESPUESTA EL LUGAR PARA OFRECER RESPONDER -->
-								<%= link_to 'Responder', '#',:class => "btn btn-block btn-md colapso my-link-button" %>
-							<% end%>
+								<%= form_for([@trip, q, @answer]) do |a| %>
+									<div class="form-group">
+										<%= a.label :respuesta %> <br>
+										<%= a.text_area :respuesta, class: "form-control" %>
+									</div>
+									<div class=" actions">
+										<%= a.submit "Responder", class:"btn my-link-button my-button-color" %>
+									</div>
+								<% end %>
+							<% end %>
 						<% else %>
 							<div class="media my-jumbotron2">
 								<!-- SI TIENE RESPUESTA LA RESPUESTA A LA PREGUNTA -->
@@ -41,14 +60,15 @@
 									<%= image_tag(@trip.piloto.avatar,:class=>"circular-image post-image", :alt=>'Avatar')%>
 								</div>
 								<div class="media-body">
-									<h4 class="media-heading"> <%= link_to usernameOf(@trip.piloto), user_path(@trip.piloto) %> 
+									<h4 class="media-heading"> <%= link_to usernameOf(@trip.piloto), user_path(@trip.piloto) %>
 										<small><i><span class="glyphicon glyphicon-calendar"></span>
-											<%= '  '+formato_fecha(q.answer.created_at.to_date) %>  <%= q.answer.created_at.to_time.strftime('%H:%M') %>
+											<% fechaA = q.answer.created_at - 10800 %>
+											<%= '  '+formato_fecha(fechaA.to_date) %>  <%= fechaA.to_time.strftime('%H:%M') %>
 										</i></small>
 									</h4>
 									<p> <%= q.answer.respuesta %> </p>
 								</div>
-								
+
 							</div>
 						<% end %>
 					</div>
