@@ -60,6 +60,15 @@ class Trip < ApplicationRecord
     return false
   end
 
+  def fecha_inicio_exacta
+    return Time.at(self.fecha_inicio + self.hora_inicio.hour*3600 + self.hora_inicio.min*60 + 
+                    self.hora_inicio.sec)
+  end
+
+  def fecha_fin_exacta
+    return Time.at(self.fecha_inicio_exacta + self.duracion*3600)
+  end
+
   def inferior_a_treinta_dias
     respuesta = false
     if self.periodics

@@ -19,9 +19,11 @@ class ApplicationController < ActionController::Base
   end
 
   def mismaHora?(u, v)
-    emb = Embarkment.joins(:trip).where('trips.fecha_inicio': v.fecha_inicio,
-        'trips.hora_inicio': v.hora_inicio, estado: 'a',
-        'trips.activo': true)
+    #si éste viaje se cruza con algun otro para ese mismo usuario
+    emb = Embarkment.joins(:trip).where('trips.fecha_inicio_exacta BETWEEN ? AND ?', 
+            v.fecha_inicio_exacta, v.fecha_fin_exacta, 'trips.fecha_fin_exacta BETWEEN ? AND ?',
+            v.fecha_inicio_exacta, v.fecha_fin_exacta, estado: 'a', 'trips.activo': true)
+    viajesPeriodicos = Trip.where(!periodics.empty?)
     return false if emb.empty?
     emb.all.each do |e|
       return true if e.user == u
