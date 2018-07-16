@@ -60,7 +60,7 @@ end
     modelo: 1900+a*10,
     marca: marcas[a],
     sub_marca: rand(1..1000),
-    cantidad_asientos: rand(1..10),
+    cantidad_asientos: rand(2..10),
     color: colores[a],
     tipo: 'Auto',
   )

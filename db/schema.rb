@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180709213509) do
+=======
+ActiveRecord::Schema.define(version: 20180708192259) do
+>>>>>>> Proyecto
 
   create_table "accounts", force: :cascade do |t|
     t.float    "deuda",      default: 0.0
@@ -19,6 +23,14 @@ ActiveRecord::Schema.define(version: 20180709213509) do
     t.datetime "updated_at",               null: false
     t.integer  "user_id"
     t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.text     "respuesta"
+    t.integer  "question_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
   create_table "embarkments", force: :cascade do |t|
@@ -47,6 +59,16 @@ ActiveRecord::Schema.define(version: 20180709213509) do
     t.datetime "updated_at", null: false
     t.integer  "trip_id"
     t.index ["trip_id"], name: "index_periodics_on_trip_id"
+  end
+  
+  create_table "questions", force: :cascade do |t|
+    t.text     "pregunta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "trip_id"
+    t.integer  "user_id"
+    t.index ["trip_id"], name: "index_questions_on_trip_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "scores", force: :cascade do |t|

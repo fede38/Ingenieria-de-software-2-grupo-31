@@ -1,79 +1,79 @@
 <div class="row">
-  <div class="well my-jumbotron-green">
-    <% aceptados = Embarkment.where(estado: 'a', trip_id: @trip).all %>
-    <% if aceptados.empty? %>
-      <div style="text-align: center; font-size: 18px">
-      <b>No se ha aceptado a nadie en este viaje.</b>
-      </div>
-    <% else %>
-      <% aceptados.each do |ace| %>
-        <% usr = User.find(ace.user_id) %>
-        <% if current_user == @trip.piloto %>
-          <div class="well my-jumbotron2">
-            <div class="row">
-              <div class="col-md-3">
-                <div style="float: left; font-size: 18px;">
-                  <%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Avatar', size: '50x50')%>
-                  <%= link_to usernameOf(usr), user_path(usr) %><br>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <br>
-                <b>Reputacion  <%= image_tag('pasajeris.png', size: '20x20', class: 'logitos') %>:</b> <%= usr.calificacionCopiloto %>
-              </div>
-              <div class="col-md-5">
-                <b>Nombre:</b>
-                <%= usr.nombre + ' ' + usr.apellido %><br>
-                <b>Telefono:</b>
-                <% if usr.telefono %>
-                  <%= usr.telefono %>
-                <% else %>
-                  El usuario no tiene numero de telefono.
-                <% end %><br>
-                <b>Email:</b>
-                <%= usr.email %><br>
-              </div>
-              <div class="col-md-2">
-                <div class="boton-ace-rec" style="margin-top: 10px">
-                  <%= button_to "Eliminar", {controller: :trips,
-                                           action: 'eliminar',
-                                           idU: usr.id,
-                                           idT: @trip.id},
-                                           {class: 'btn btn-danger',
-                                           method: :delete} %>
-                </div>
-              </div>
-            </div>
-            <div style="clear:both;">
-            </div>
-          </div>
-        <% elsif usr == current_user %>
-          <div class="well-sm my-jumbotron2">
-            <div style="float: left; font-size: 18px;">
-              <%= image_tag(usr.avatar,:class=>"circular-image post-image", :alt=>'Avatar')%>
-              <%= link_to usernameOf(usr), user_path(usr) %>
-            </div>
-            <div class="boton-ace-rec">
-              <%= button_to "Cancelar postulacion", {controller: :trips,
-                                       action: 'cancelarPostulacion',
-                                       idU: current_user,
-                                       idT: @trip.id,},
-                                       {class: 'btn btn-danger',
-                                       method: :delete,
-                                       data: {confirm: '¿Estas seguro que queres cancelar la postulacion? Se te restara un punto de calificacion como acompañante.'}}
-                                        %>
-            </div>
-            <div style="clear:both;">
-            </div>
-          </div>
-        <% else %>
-          <div class="well-sm my-jumbotron2">
-            <div style="font-size: 18px;">
-              <%= link_to image_tag(usr.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+' '+usernameOf(usr), user_path(usr)%>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
+	<div class="well my-jumbotron-green">
+		<% aceptados = Embarkment.where(estado: 'a', trip_id: @trip).all %>
+		<% if aceptados.empty? %>
+			<div style="text-align: center; font-size: 18px">
+			<b>No se ha aceptado a nadie en este viaje.</b>
+			</div>
+		<% else %>
+			<% aceptados.each do |ace| %>
+				<% usr = User.find(ace.user_id) %>
+				<% if current_user == @trip.piloto %>
+					<div class="well my-jumbotron2">
+						<div class="row">
+							<div class="col-md-3">
+								<div style="float: left; font-size: 18px;">
+									<%= image_tag(usr.avatar,:class=>"circular-image", :alt=>'Avatar', size: '50x50')%>
+									<%= link_to usernameOf(usr), user_path(usr) %><br>
+								</div>
+							</div>
+							<div class="col-md-2">
+								<br>
+								<b>Reputacion  <%= image_tag('pasajeris.png', size: '20x20', class: 'logitos') %>:</b> <%= usr.calificacionCopiloto %>
+							</div>
+							<div class="col-md-5">
+								<b>Nombre:</b>
+								<%= usr.nombre + ' ' + usr.apellido %><br>
+								<b>Telefono:</b>
+								<% if usr.telefono %>
+									<%= usr.telefono %>
+								<% else %>
+									El usuario no tiene numero de telefono.
+								<% end %><br>
+								<b>Email:</b>
+								<%= usr.email %><br>
+							</div>
+							<div class="col-md-2">
+								<div class="boton-ace-rec" style="margin-top: 10px">
+									<%= button_to "Eliminar", {controller: :trips,
+																					 action: 'eliminar',
+																					 idU: usr.id,
+																					 idT: @trip.id},
+																					 {class: 'btn btn-danger',
+																					 method: :delete} %>
+								</div>
+							</div>
+						</div>
+						<div style="clear:both;">
+						</div>
+					</div>
+				<% elsif usr == current_user %>
+					<div class="well-sm my-jumbotron2">
+						<div style="float: left; font-size: 18px;">
+							<%= image_tag(usr.avatar,:class=>"circular-image post-image", :alt=>'Avatar')%>
+							<%= link_to usernameOf(usr), user_path(usr) %>
+						</div>
+						<div class="boton-ace-rec">
+							<%= button_to "Cancelar postulacion", {controller: :trips,
+																			 action: 'cancelarPostulacion',
+																			 idU: current_user,
+																			 idT: @trip.id,},
+																			 {class: 'btn btn-danger',
+																			 method: :delete,
+																			 data: {confirm: '¿Estas seguro que queres cancelar la postulacion? Se te restara un punto de calificacion como acompañante.'}}
+																				%>
+						</div>
+						<div style="clear:both;">
+						</div>
+					</div>
+				<% else %>
+					<div class="well-sm my-jumbotron2">
+						<div style="font-size: 18px;">
+							<%= link_to image_tag(usr.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+' '+usernameOf(usr), user_path(usr)%>
+						</div>
+					</div>
+				<% end %>
+			<% end %>
+		<% end %>
+	</div>
 </div>

@@ -9,10 +9,9 @@
 	 					<div class="col-md-8">
 	 					<h4> <b> <%= deuda.trip.origen %> - <%= deuda.trip.destino %> </b> </h4>
 	 					</div>
-	 					<div class="col-md-4"> 
-	 					<h5> <span class="glyphicon glyphicon-calendar"></span> <%= '  '+formato_fecha(deuda.trip.fecha_inicio) %>  <%= deuda.trip.hora_inicio.strftime('%H:%M') %> </h5>
-	 					
-	 					</div>	
+	 					<div class="col-md-4">
+						<h5> <span class="glyphicon glyphicon-calendar"></span> <%= '  '+formato_fecha(deuda.trip.fecha_inicio) %>  <%= deuda.trip.hora_inicio.strftime('%H:%M') %> </h5>
+	 					</div>
 	 				</div>
 	 				<div class="row">
 	 					<div class="col-md-8">
@@ -24,10 +23,10 @@
 	 				</div>
 	 			</div>
 	 			<div class="col-md-3" style="margin-top: 15px">
-	 				<%= link_to 'Pagar con saldo', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
-					<%= link_to 'Pagar con tarjeta', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+	 				<%= link_to 'Pagar con saldo', pagarViajeSaldo_users_path(id: @user, tipo: 'c', idT: deuda.trip), {class: "btn btn-block btn-sm colapso my-link-button", method: :put} %>
+					<%= link_to 'Pagar con tarjeta', pagarViajeTarjeta_users_path(id: @user, tipo: 'c', idT: deuda.trip), {class: "btn btn-block btn-sm colapso my-link-button", method: :put} %>
 	 			</div>
 	 		</div>
-		</div>	
+		</div>
 	<% end %>
 <% end %>
