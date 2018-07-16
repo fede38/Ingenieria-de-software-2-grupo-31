@@ -17,19 +17,65 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+#SI SE MODIFICA ACÁ, MODIFICAR EN TRIP.RB
+  def seleccionar_periodicos(lista_de_viajes)
+    lista_a_devolver = []
+    lista_de_viajes.each do |v|
+      if !v.periodics.empty?
+        lista_a_devolver.add(v)
+      end
+    end
+    return lista_a_devolver
+  end
 
   def mismaHora?(u, v)
     #si éste viaje se cruza con algun otro para ese mismo usuario
-    emb = Embarkment.joins(:trip).where('trips.fecha_inicio_exacta BETWEEN ? AND ?', 
-            v.fecha_inicio_exacta, v.fecha_fin_exacta, 'trips.fecha_fin_exacta BETWEEN ? AND ?',
-            v.fecha_inicio_exacta, v.fecha_fin_exacta, estado: 'a', 'trips.activo': true)
-    viajesPeriodicos = Trip.where(!periodics.empty?)
-    return false if emb.empty?
+    emb = Embarkment.joins(:trip).where('embarkments.user_id': u.id, estado: 'a', 
+                                        'trips.activo': true)
+    emb.delete(v)
     emb.all.each do |e|
-      return true if e.user == u
+        if e.fecha_inicio_exacta >= v.fecha_inicio_exacta and e.fecha_inicio_exacta <= 
+                                                                v.fecha_fin_exacta
+          return true
+        end
+    end
+    viajes_periodicos = seleccionar_periodicos(Trip.where(piloto: u.id, activo: true) + Trip.joins(emb))
+    viajes_periodicos.each do |vp|
+      vp.periodics.each do |fecha_periodica|
+        fecha_periodica_exacta = fecha_periodica.fecha.beginning_of_day() + 
+                                    vp.hora_inicio.seconds_since_midnight
+        if fecha_periodica_exacta >= v.fecha_inicio_exacta  and fecha_periodica_exacta <= 
+                                                                  v.fecha_fin_exacta
+          return true
+        end
+      end
     end
     return false
   end
+
+  def vehiculo_mismaHora?(vehiculo,viaje)
+    viajes = Trip.where(:vehicle_id => vehiculo)
+    viajes.delete(viaje)
+    return false if viajes.empty?
+    viajes.all.each do |v|
+        if v.fecha_inicio_exacta >= viaje.fecha_inicio_exacta and v.fecha_inicio_exacta <= 
+                                                                viaje.fecha_fin_exacta
+          return true
+        end
+    end
+    seleccionar_periodicos(viajes).each do |vp|
+      vp.periodics.all do |fecha_periodica|
+        fecha_periodica_exacta = fecha_periodica.fecha.beginning_of_day() + 
+                                    vp.hora_inicio.seconds_since_midnight
+        if fecha_periodica_exacta >= viaje.fecha_inicio_exacta  and fecha_periodica_exacta <= 
+                                                                  viaje.fecha_fin_exacta
+          return true
+        end
+      end
+    end
+    return false
+  end
+#<<<<<<<<<<<<
 
   def deuda?(user)
     user.account.deuda? || user.account.saldo < 0

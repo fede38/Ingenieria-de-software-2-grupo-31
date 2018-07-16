@@ -32,7 +32,7 @@ class TripsController < ApplicationController
 	def new
 		@trip = Trip.new
 		@user= User.find(params[:user_id])
-		1.times { @trip.periodics.build }
+		2.times { @trip.periodics.build }
 	end
 
 	def show

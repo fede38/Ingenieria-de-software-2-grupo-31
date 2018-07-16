@@ -90,6 +90,7 @@ end
     origen: origenes[v],
     destino: destinos[v],
     activo: true,
+    duracion: rand(1..72),
     user_id: $user.id,
     vehicle_id: $user.vehicles.all.sample.id
   )

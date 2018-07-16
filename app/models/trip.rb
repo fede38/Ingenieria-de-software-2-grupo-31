@@ -21,8 +21,9 @@ class Trip < ApplicationRecord
   validate :calificaciones_pendientes, on: :create
 
   validate :vehiculo_no_en_viaje
-  validate :viajePostulado_a_la_misma_hora
-  validate :viajePiloto_a_la_misma_hora
+  validate :viaje_a_la_misma_hora
+  # validate :viajePostulado_a_la_misma_hora
+  # validate :viajePiloto_a_la_misma_hora
   
   #Validaciones de viajes periódicos
   validate :fechas_que_no_se_crucen
@@ -32,41 +33,15 @@ class Trip < ApplicationRecord
   validate :posteriores_a_inicio
   validate :inferior_a_treinta_dias
 
-  def se_cruza_con(unViaje)
-    if self.fecha_inicio == unViaje.fecha_inicio && self.hora_inicio.strftime('%H:%M') == 
-                                                      unViaje.hora_inicio.strftime('%H:%M')
-      return true
-    end
-    if self.periodics
-      self.periodics do |periodica|
-        if periodica.fecha == unViaje.fecha_inicio && periodica.hora.strftime('%H:%M') ==
-                                                        unViaje.hora_inicio.strftime('%H:%M')
-          return true
-        end
-        unViaje.periodics do |unViajePeriodica|
-          if periodica.fecha == unViajePeriodica.fecha && periodica.hora.strftime('%H:%M') == 
-                                                            unViajePeriodica.hora.strftime('%H:%M')
-            return true
-          end
-        end
-      end
-      unViaje.periodics do |unViajePeriodica|
-        if unViajePeriodica.fecha == self.fecha_inicio && unViajePeriodica.hora.strftime('%H:%M') == 
-                                                            self.hora_inicio.strftime('%H:%M')
-          return true
-        end
-      end
-    end
-    return false
-  end
-
   def fecha_inicio_exacta
-    return Time.at(self.fecha_inicio + self.hora_inicio.hour*3600 + self.hora_inicio.min*60 + 
-                    self.hora_inicio.sec)
+    return self.fecha_inicio.beginning_of_day() + self.hora_inicio.seconds_since_midnight
+    #return Time.at(self.fecha_inicio + self.hora_inicio.hour*3600 + self.hora_inicio.min*60 + 
+     #               self.hora_inicio.sec)
   end
 
   def fecha_fin_exacta
-    return Time.at(self.fecha_inicio_exacta + self.duracion*3600)
+    return self.fecha_inicio_exacta + self.duracion*3600
+    #return Time.at(self.fecha_inicio_exacta + self.duracion*3600)
   end
 
   def inferior_a_treinta_dias
@@ -155,19 +130,25 @@ class Trip < ApplicationRecord
   	end
   end
 
-  def viajePostulado_a_la_misma_hora
-  	if self.piloto.viajesPostulado.detect{ |t| t.id != self.id and t.fecha_inicio == self.fecha_inicio and
-  											t.hora_inicio == self.hora_inicio }
-  		errors.add("Estas postulado a un viaje,", ' a la misma hora, el mismo día que éste.')
-  	end
+  def viaje_a_la_misma_hora
+    if self.fecha_inicio and self.hora_inicio and mismaHora?(self.piloto,self)
+      errors.add("Tienes un viaje ", 'pendiente que se cruza con éste viaje')
+    end
   end
 
-  def viajePiloto_a_la_misma_hora
-  	if self.piloto.viajesPiloto.detect{ |t| t.id != self.id and t.fecha_inicio == self.fecha_inicio and
-  											t.hora_inicio == self.hora_inicio }
-  		errors.add("Tienes un viaje pendiente,", ' a la misma hora, el mismo día que éste.')
-  	end
-  end
+  # def viajePostulado_a_la_misma_hora
+  # 	if self.piloto.viajesPostulado.detect{ |t| t.id != self.id and t.fecha_inicio == self.fecha_inicio and
+  # 											t.hora_inicio == self.hora_inicio }
+  # 		errors.add("Estas postulado a un viaje,", ' a la misma hora, el mismo día que éste.')
+  # 	end
+  # end
+
+  # def viajePiloto_a_la_misma_hora
+  # 	if self.piloto.viajesPiloto.detect{ |t| t.id != self.id and t.fecha_inicio == self.fecha_inicio and
+  # 											t.hora_inicio == self.hora_inicio }
+  # 		errors.add("Tienes un viaje pendiente,", ' a la misma hora, el mismo día que éste.')
+  # 	end
+  # end
 
   def saldo_en_contra
   	if self.piloto.account.deuda? or self.piloto.account.saldo < 0
@@ -176,10 +157,9 @@ class Trip < ApplicationRecord
   end
 
   def vehiculo_no_en_viaje
-  	if Trip.where(:vehicle_id => self.vehicle_id).detect{ |t| t.id != self.id and
-  				t.fecha_inicio == self.fecha_inicio and t.hora_inicio == self.hora_inicio }
+  	if self.fecha_inicio and self.hora_inicio and vehiculo_mismaHora?(self.vehicle_id,self)
   		errors.add("El vehículo elegido",
-  					' tiene un viaje asignado a la misma hora, el mismo día')
+  					' tiene un viaje asignado al mismo tiempo.')
   	end
   end
 
@@ -206,3 +186,64 @@ class Trip < ApplicationRecord
   end
 
 end
+
+  def seleccionar_periodicos(lista_de_viajes)
+    lista_a_devolver = []
+    lista_de_viajes.each do |v|
+      if !v.periodics.empty?
+        lista_a_devolver.add(v)
+      end
+    end
+    return lista_a_devolver
+  end
+
+
+#SI SE MODIFICA ACÁ, MODIFICAR EN APPLICATION_CONTROLLER.RB
+  def mismaHora?(u, v)
+    #si éste viaje se cruza con algun otro para ese mismo usuario
+    emb = Embarkment.joins(:trip).where('embarkments.user_id': u.id, estado: 'a', 
+                                        'trips.activo': true)
+    emb.delete(v)
+    emb.all.each do |e|
+        if e.fecha_inicio_exacta >= v.fecha_inicio_exacta and e.fecha_inicio_exacta <= 
+                                                                v.fecha_fin_exacta
+          return true
+        end
+    end
+    viajes_periodicos = seleccionar_periodicos(Trip.where(piloto: u.id, activo: true) + Trip.joins(emb))
+    viajes_periodicos.each do |vp|
+      vp.periodics.each do |fecha_periodica|
+        fecha_periodica_exacta = fecha_periodica.fecha.beginning_of_day() + 
+                                    vp.hora_inicio.seconds_since_midnight
+        if fecha_periodica_exacta >= v.fecha_inicio_exacta  and fecha_periodica_exacta <= 
+                                                                  v.fecha_fin_exacta
+          return true
+        end
+      end
+    end
+    return false
+  end
+
+  def vehiculo_mismaHora?(vehiculo,viaje)
+    viajes = Trip.where(:vehicle_id => vehiculo)
+    viajes.delete(viaje)
+    return false if viajes.empty?
+    viajes.all.each do |v|
+        if v.fecha_inicio_exacta >= viaje.fecha_inicio_exacta and v.fecha_inicio_exacta <= 
+                                                                viaje.fecha_fin_exacta
+          return true
+        end
+    end
+    seleccionar_periodicos(viajes).each do |vp|
+      vp.periodics.all do |fecha_periodica|
+        fecha_periodica_exacta = fecha_periodica.fecha.beginning_of_day() + 
+                                    vp.hora_inicio.seconds_since_midnight
+        if fecha_periodica_exacta >= viaje.fecha_inicio_exacta  and fecha_periodica_exacta <= 
+                                                                  viaje.fecha_fin_exacta
+          return true
+        end
+      end
+    end
+    return false
+  end
+#<<<<<<<<<<
