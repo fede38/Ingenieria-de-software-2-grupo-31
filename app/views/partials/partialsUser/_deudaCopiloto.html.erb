@@ -23,8 +23,7 @@
 	 				</div>
 	 			</div>
 	 			<div class="col-md-3" style="margin-top: 15px">
-	 				<%= link_to 'Pagar con saldo', pagarViajeSaldo_users_path(id: @user, tipo: 'c', idT: deuda.trip), {class: "btn btn-block btn-sm colapso my-link-button", method: :put} %>
-					<%= link_to 'Pagar con tarjeta', pagarViajeTarjeta_users_path(id: @user, tipo: 'c', idT: deuda.trip), {class: "btn btn-block btn-sm colapso my-link-button", method: :put} %>
+	 				<%= link_to 'Pagar', pagar_users_path(id: @user, idT: deuda.trip, tipo: 'c') , {class: "btn btn-block btn-sm colapso my-link-button"} %>
 	 			</div>
 	 		</div>
 		</div>

@@ -1,0 +1,4 @@
+ESTE ES EL PAGAR
+<%= @deuda %>
+<%= link_to 'Pagar con saldo', pagarViajeSaldo_users_path(id: @user, tipo: @tipo, idT: @viaje), {class: "btn btn-block btn-sm colapso my-link-button", method: :put} %>
+<%= link_to 'Pagar con tarjeta', pagarViajeTarjeta_users_path(id: @user, tipo: @tipo, idT: @viaje), {class: "btn btn-block btn-sm colapso my-link-button", method: :put} %>
