@@ -17,7 +17,8 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-#SI SE MODIFICA ACÁ, MODIFICAR EN TRIP.RB
+
+#SI SE MODIFICA ACÁ, MODIFICAR EN APPLICATION_CONTROLLER.RB
   def seleccionar_periodicos(lista_de_viajes)
     lista_a_devolver = []
     lista_de_viajes.each do |v|
@@ -80,16 +81,16 @@ class ApplicationController < ActionController::Base
       vp.periodics.each do |fp|
         fp_inicio = fp.fecha.beginning_of_day() + vp.hora_inicio.seconds_since_midnight
         fp_fin = fp_inicio + vp.duracion*3600
-        if (fp_inicio >= v.fecha_inicio_exacta  and fp_inicio <= 
-            v.fecha_fin_exacta) or (fp_fin >= v.fecha_inicio_exacta and 
-                                      fp_fin <= v.fecha_fin_exacta)
+        if (fp_inicio >= viaje.fecha_inicio_exacta  and fp_inicio <= 
+            viaje.fecha_fin_exacta) or (fp_fin >= viaje.fecha_inicio_exacta and 
+                                      fp_fin <= viaje.fecha_fin_exacta)
           return true
         end
-        if !v.periodics.empty?
-          v.periodics.all.each do |fp_prop|
+        if !viaje.periodics.empty?
+          viaje.periodics.all.each do |fp_prop|
             fp_prop_inicio = fp_prop.fecha.beginning_of_day() + 
                               vp.hora_inicio.seconds_since_midnight
-            fp_prop_fin = fp_prop_inicio + v.duracion*3600
+            fp_prop_fin = fp_prop_inicio + viaje.duracion*3600
             if (fp_inicio >= fp_prop_inicio  and fp_inicio <= fp_prop_fin) or 
               (fp_fin >= fp_prop_inicio and fp_fin <= fp_prop_fin)
               return true 
@@ -100,8 +101,7 @@ class ApplicationController < ActionController::Base
     end
     return false
   end
-#<<<<<<<<<<<<
-
+#<<<<<<<<<<
   def deuda?(user)
     user.account.deuda? || user.account.saldo < 0
   end
