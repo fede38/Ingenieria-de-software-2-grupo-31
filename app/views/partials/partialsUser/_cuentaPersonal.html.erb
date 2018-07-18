@@ -1,22 +1,34 @@
+<script>
+	function validar(){
+		var codigo = document.getElementById('codigo').value;
+		if (codigo.length == 3 && !isNaN(codigo)){
+			document.getElementById('sePuede').style.visibility = 'visible';
+		}
+		else{
+			document.getElementById('sePuede').style.visibility = 'hidden';
+			if (codigo.length == 3){
+				alert('El codigo de seguridad debe ser numerico');
+			}
+		}
+	}
+</script>
 <div class="row">
 	<div class="col-md-1"></div>
 	<div class="col-md-10" style="background-color: #fafafa">
 		<h1 style="text-align: center;"> Cuenta Interna<br><br> </h1>
 		<div class="row">
 			<div class="col-md-6">
-				<h3 style="text-align: left; margin-left: 15px"> Saldo: $  <%= @cuenta.saldo %> </h4><br>
+				<h3 style="text-align: left; margin-left: 15px"> Saldo: $  <%= @cuenta.saldo %> </h3><br>
 			</div>
 			<div class="col-md-6">
-				<h3 style="text-align: right; margin-right: 15px; color: red;"> Deuda: $ <%= @cuenta.deuda %> </h4><br>
+				<h3 style="text-align: right; margin-right: 15px; color: red;"> Deuda: $ <%= @cuenta.deuda %> </h3><br>
 			</div>
 		</div>
 		<% if @cuenta.deuda > 0 %>
 			<div class=" row">
 				<div class="col-md-1"></div>
 				<div class="col-md-10">
-					<%= link_to 'Pagar deuda total con saldo', pagarTodoSaldo_users_path(id: @user), {class: "btn btn-block btn-sm colapso my-link-button", method: :put} %>
-	        <%= link_to 'Pagar deuda total con tarjeta', pagarTodoTarjeta_users_path(id: @user), {class: "btn btn-block btn-sm colapso my-link-button", method: :put} %>
-					<!-- <button type="button" class="btn btn-block btn-lg colapso my-link-button" data-toggle="modal" data-target="#myModal">Pagar deuda total</button> -->
+					<button type="button" class="btn btn-block btn-lg colapso my-link-button" data-toggle="modal" data-target="#myModal">Pagar deuda total</button>
 				</div>
 				<div class="col-md-1"></div>
 			</div>
@@ -81,17 +93,99 @@
 	<div class="col-md-1"></div>
 </div>
 
-<!-- <div id="myModal" class="modal fade" role="dialog">
+<div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 	<div class="modal-content">
 	      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Pagar</h4>
+	        <h4 class="modal-title" style="text-align: center;">Pagar deuda total</h4>
 	      </div>
 	      <div class="modal-body">
-	        <%= link_to 'Pagar con saldo', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
-	        <%= link_to 'Pagar con tarjeta', '#', :class => "btn btn-block btn-sm colapso my-link-button" %>
+	      	<div class="row">
+	      		<div class="col-md-6">
+	      			<h3 style="text-align: left; margin-left: 15px"> <b> Saldo: </b> $  <%= @cuenta.saldo %> </h3><br> 
+	      		</div>
+	      		<div class="col-md-6">
+	      			<h3 style="text-align: right; margin-right: 15px; color: red;"><b> Deuda total: </b> $ <%= @cuenta.deuda %> </h3><br>
+	      		</div>
+	      	</div>
+	        <div class="row">
+				<ul class="nav nav-pills nav-pills-calif nav-justified" data-tab data-options="deep_linking: true">
+					<li class="active"><a class="acalif" data-toggle="tab" href="#saldo">Pagar con Saldo</a></li>
+					<li><a class="acalif" data-toggle="tab" href="#tarjeta">Pagar con Tarjeta</a></li>
+				</ul>
+				<div class="tab-content">
+					<div id="saldo" class="tab-pane fade in active">
+						<br>
+						<h4 style="margin-left: 15px;"><b> Saldo: </b> <%= @user.account.saldo %></h4>
+						<br>
+						<% if @cuenta.saldo  > @cuenta.deuda %>
+							<div class="row centering" style="text-align: center;">
+								<%= link_to 'Pagar deuda total', pagarTodoSaldo_users_path(id: @user), {class: "btn btn-sm colapso my-link-button my-button-with", method: :put} %>
+							</div>
+						<% else %>
+							<h4 style="text-align: center;"> No posee saldo suficiente para pagar la deuda total </h4>
+						<% end %>	
+					</div>
+					<div id="tarjeta" class="tab-pane fade">
+						<div style="text-align: center;">
+						<br>
+						<% if  !@user.tarjeta %>
+							<br><br>
+							<h4> No posee tarjeta de credito para poder pagar con tarjeta </h4>
+						<% else %>
+							<div class="row">
+								<div class="col-md-6">
+									<b> Tarjeta: </b> <%= @user.tarjeta %>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+											<input type="text" name="codigo" maxlength="3" id='codigo' value="xxx" onkeyup="validar();" />  	
+									</div>
+								</div>
+							</div>
+							<div class="row centering" id='sePuede' style="visibility: hidden;">
+								<%= link_to 'Pagar deuda total', pagarTodoTarjeta_users_path(id: @user), {class: "btn btn-sm colapso my-link-button my-button-with", method: :put} %>
+							</div>
+						<% end %>
+						<br>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br><br><br>	
+			<script type="text/javascript">
+				if (location.hash) {
+				  $('a[href=\'' + location.hash + '\']').tab('show');
+				}
+				var activeTab = localStorage.getItem('activeTab');
+				if (activeTab) {
+				  $('a[href="' + activeTab + '"]').tab('show');
+				}
+
+				$('body').on('click', 'a[data-toggle=\'tab\']', function (e) {
+				e.preventDefault()
+				var tab_name = this.getAttribute('href')
+				if (history.pushState) {
+				  history.pushState(null, null, tab_name)
+				}
+				else {
+				  location.hash = tab_name
+				}
+				localStorage.setItem('activeTab', tab_name)
+
+				$(this).tab('show');
+				 return false;
+				});
+				$(window).on('popstate', function () {
+					var anchor = location.hash ||
+					$('a[data-toggle=\'tab\']').first().attr('href');
+					$('a[href=\'' + anchor + '\']').tab('show');
+				});
+			  $('#myTab a[href="' + hash + '"]').tab('show');
+			</script>
+		</div>
 	      </div>
 	    </div>
 	</div>
-</div> -->
+</div>
