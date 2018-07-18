@@ -13,6 +13,14 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
+  def pagar
+    @tipo = params[:tipo]
+    @viaje = Trip.find(params[:idT])
+    @user = User.find(params[:id])
+    viajeEsp = Embarkment.find_by(user: @user, trip: @viaje)
+    @deuda = (params[:tipo] == 'p') ? (viaje.costo * 0.05).round(2) : (viajeEsp.deuda).round(2)
+  end
+
   def pagarTodoTarjeta
     @user = User.find(params[:id])
     cuenta = @user.account
