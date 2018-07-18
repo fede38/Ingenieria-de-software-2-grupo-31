@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20180709213509) do
-=======
-ActiveRecord::Schema.define(version: 20180708192259) do
->>>>>>> Proyecto
 
   create_table "accounts", force: :cascade do |t|
     t.float    "deuda",      default: 0.0
@@ -60,7 +56,7 @@ ActiveRecord::Schema.define(version: 20180708192259) do
     t.integer  "trip_id"
     t.index ["trip_id"], name: "index_periodics_on_trip_id"
   end
-  
+
   create_table "questions", force: :cascade do |t|
     t.text     "pregunta"
     t.datetime "created_at", null: false
@@ -100,7 +96,7 @@ ActiveRecord::Schema.define(version: 20180708192259) do
     t.integer  "cantidad_asientos_ocupados", default: 1
     t.string   "origen"
     t.boolean  "pagado",                     default: false
-    t.float    "duracion"
+    t.integer  "duracion"
     t.index ["user_id"], name: "index_trips_on_user_id"
     t.index ["vehicle_id"], name: "index_trips_on_vehicle_id"
   end

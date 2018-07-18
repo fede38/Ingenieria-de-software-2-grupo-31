@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
     lista_a_devolver = []
     lista_de_viajes.each do |v|
       if !v.periodics.empty?
-        lista_a_devolver.add(v)
+        lista_a_devolver << v
       end
     end
     return lista_a_devolver
@@ -30,16 +30,15 @@ class ApplicationController < ActionController::Base
 
   def mismaHora?(u, v)
     #si éste viaje se cruza con algun otro para ese mismo usuario
-    emb = Embarkment.joins(:trip).where('embarkments.user_id': u.id, estado: 'a', 
-                                        'trips.activo': true)
-    emb.delete(v)
-    emb.all.each do |e|
+    viajes = u.viajesPiloto + u.viajesPostulado
+    viajes = viajes - [v]
+    viajes.each do |e|
         if e.fecha_inicio_exacta >= v.fecha_inicio_exacta and e.fecha_inicio_exacta <= 
                                                                 v.fecha_fin_exacta
           return true
         end
     end
-    viajes_periodicos = seleccionar_periodicos(Trip.where(piloto: u.id, activo: true) + Trip.joins(emb))
+    viajes_periodicos = seleccionar_periodicos(viajes)
     viajes_periodicos.each do |vp|
       vp.periodics.each do |fecha_periodica|
         fecha_periodica_exacta = fecha_periodica.fecha.beginning_of_day() + 
@@ -53,11 +52,11 @@ class ApplicationController < ActionController::Base
     return false
   end
 
-  def vehiculo_mismaHora?(vehiculo,viaje)
-    viajes = Trip.where(:vehicle_id => vehiculo)
-    viajes.delete(viaje)
+  def vehiculo_mismaHora?(id_vehiculo,viaje)
+    viajes_totales = Trip.where(:vehicle_id => id_vehiculo)
+    viajes = viajes_totales - [viaje]
     return false if viajes.empty?
-    viajes.all.each do |v|
+    viajes.each do |v|
         if v.fecha_inicio_exacta >= viaje.fecha_inicio_exacta and v.fecha_inicio_exacta <= 
                                                                 viaje.fecha_fin_exacta
           return true

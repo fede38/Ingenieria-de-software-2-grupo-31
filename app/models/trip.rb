@@ -21,8 +21,8 @@ class Trip < ApplicationRecord
   validate :saldo_en_contra, on: :create
   validate :calificaciones_pendientes, on: :create
 
-  validate :vehiculo_no_en_viaje
   validate :viaje_a_la_misma_hora
+  validate :vehiculo_no_en_viaje
   # validate :viajePostulado_a_la_misma_hora
   # validate :viajePiloto_a_la_misma_hora
   
@@ -159,8 +159,7 @@ class Trip < ApplicationRecord
 
   def vehiculo_no_en_viaje
   	if self.fecha_inicio and self.hora_inicio and vehiculo_mismaHora?(self.vehicle_id,self)
-  		errors.add("El vehículo elegido",
-  					' tiene un viaje asignado al mismo tiempo.')
+  		errors.add("El vehículo elegido",' tiene un viaje asignado que se cruza con éste.')
   	end
   end
 
@@ -192,7 +191,7 @@ end
     lista_a_devolver = []
     lista_de_viajes.each do |v|
       if !v.periodics.empty?
-        lista_a_devolver.add(v)
+        lista_a_devolver << v
       end
     end
     return lista_a_devolver
@@ -202,16 +201,15 @@ end
 #SI SE MODIFICA ACÁ, MODIFICAR EN APPLICATION_CONTROLLER.RB
   def mismaHora?(u, v)
     #si éste viaje se cruza con algun otro para ese mismo usuario
-    emb = Embarkment.joins(:trip).where('embarkments.user_id': u.id, estado: 'a', 
-                                        'trips.activo': true)
-    emb.delete(v)
-    emb.all.each do |e|
+    viajes = u.viajesPiloto + u.viajesPostulado
+    viajes = viajes - [v]
+    viajes.each do |e|
         if e.fecha_inicio_exacta >= v.fecha_inicio_exacta and e.fecha_inicio_exacta <= 
                                                                 v.fecha_fin_exacta
           return true
         end
     end
-    viajes_periodicos = seleccionar_periodicos(Trip.where(piloto: u.id, activo: true) + Trip.joins(emb))
+    viajes_periodicos = seleccionar_periodicos(viajes)
     viajes_periodicos.each do |vp|
       vp.periodics.each do |fecha_periodica|
         fecha_periodica_exacta = fecha_periodica.fecha.beginning_of_day() + 
@@ -225,11 +223,11 @@ end
     return false
   end
 
-  def vehiculo_mismaHora?(vehiculo,viaje)
-    viajes = Trip.where(:vehicle_id => vehiculo)
-    viajes.delete(viaje)
+  def vehiculo_mismaHora?(id_vehiculo,viaje)
+    viajes_totales = Trip.where(:vehicle_id => id_vehiculo)
+    viajes = viajes_totales - [viaje]
     return false if viajes.empty?
-    viajes.all.each do |v|
+    viajes.each do |v|
         if v.fecha_inicio_exacta >= viaje.fecha_inicio_exacta and v.fecha_inicio_exacta <= 
                                                                 viaje.fecha_fin_exacta
           return true
