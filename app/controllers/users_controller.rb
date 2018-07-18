@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     else
       flash[:danger] = "No se tiene suficiente saldo para pagar la deuda."
     end
-    redirect_to :back
+    redirect_to current_user
   end
 
   def pagarViajeTarjeta
@@ -64,7 +64,7 @@ class UsersController < ApplicationController
       cuentaPiloto = viaje.piloto.account
       cuentaPiloto.update_attribute(:saldo, (cuentaPiloto.saldo + cantPagar).round(2))
     end
-    redirect_to :back
+    redirect_to current_user
   end
 
   def show
