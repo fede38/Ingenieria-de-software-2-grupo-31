@@ -204,19 +204,32 @@ end
     viajes = u.viajesPiloto + u.viajesPostulado
     viajes = viajes - [v]
     viajes.each do |e|
-        if e.fecha_inicio_exacta >= v.fecha_inicio_exacta and e.fecha_inicio_exacta <= 
-                                                                v.fecha_fin_exacta
+        if (e.fecha_inicio_exacta >= v.fecha_inicio_exacta and e.fecha_inicio_exacta <= 
+            v.fecha_fin_exacta) or (e.fecha_fin_exacta >= v.fecha_inicio_exacta and 
+                                      e.fecha_fin_exacta <= v.fecha_fin_exacta)
           return true
         end
     end
     viajes_periodicos = seleccionar_periodicos(viajes)
     viajes_periodicos.each do |vp|
-      vp.periodics.each do |fecha_periodica|
-        fecha_periodica_exacta = fecha_periodica.fecha.beginning_of_day() + 
-                                    vp.hora_inicio.seconds_since_midnight
-        if fecha_periodica_exacta >= v.fecha_inicio_exacta  and fecha_periodica_exacta <= 
-                                                                  v.fecha_fin_exacta
+      vp.periodics.each do |fp|
+        fp_inicio = fp.fecha.beginning_of_day() + vp.hora_inicio.seconds_since_midnight
+        fp_fin = fp_inicio + vp.duracion*3600
+        if (fp_inicio >= v.fecha_inicio_exacta  and fp_inicio <= 
+            v.fecha_fin_exacta) or (fp_fin >= v.fecha_inicio_exacta and 
+                                      fp_fin <= v.fecha_fin_exacta)
           return true
+        end
+        if !v.periodics.empty?
+          v.periodics.all.each do |fp_prop|
+            fp_prop_inicio = fp_prop.fecha.beginning_of_day() + 
+                              vp.hora_inicio.seconds_since_midnight
+            fp_prop_fin = fp_prop_inicio + v.duracion*3600
+            if (fp_inicio >= fp_prop_inicio  and fp_inicio <= fp_prop_fin) or 
+              (fp_fin >= fp_prop_inicio and fp_fin <= fp_prop_fin)
+              return true 
+            end
+          end
         end
       end
     end
@@ -228,18 +241,31 @@ end
     viajes = viajes_totales - [viaje]
     return false if viajes.empty?
     viajes.each do |v|
-        if v.fecha_inicio_exacta >= viaje.fecha_inicio_exacta and v.fecha_inicio_exacta <= 
-                                                                viaje.fecha_fin_exacta
+        if (v.fecha_inicio_exacta >= viaje.fecha_inicio_exacta and v.fecha_inicio_exacta <= 
+              viaje.fecha_fin_exacta) or (v.fecha_fin_exacta >= viaje.fecha_inicio_exacta and 
+                                            v.fecha_fin_exacta <= viaje.fecha_fin_exacta)
           return true
         end
     end
     seleccionar_periodicos(viajes).each do |vp|
-      vp.periodics.all do |fecha_periodica|
-        fecha_periodica_exacta = fecha_periodica.fecha.beginning_of_day() + 
-                                    vp.hora_inicio.seconds_since_midnight
-        if fecha_periodica_exacta >= viaje.fecha_inicio_exacta  and fecha_periodica_exacta <= 
-                                                                  viaje.fecha_fin_exacta
+      vp.periodics.each do |fp|
+        fp_inicio = fp.fecha.beginning_of_day() + vp.hora_inicio.seconds_since_midnight
+        fp_fin = fp_inicio + vp.duracion*3600
+        if (fp_inicio >= v.fecha_inicio_exacta  and fp_inicio <= 
+            v.fecha_fin_exacta) or (fp_fin >= v.fecha_inicio_exacta and 
+                                      fp_fin <= v.fecha_fin_exacta)
           return true
+        end
+        if !v.periodics.empty?
+          v.periodics.all.each do |fp_prop|
+            fp_prop_inicio = fp_prop.fecha.beginning_of_day() + 
+                              vp.hora_inicio.seconds_since_midnight
+            fp_prop_fin = fp_prop_inicio + v.duracion*3600
+            if (fp_inicio >= fp_prop_inicio  and fp_inicio <= fp_prop_fin) or 
+              (fp_fin >= fp_prop_inicio and fp_fin <= fp_prop_fin)
+              return true 
+            end
+          end
         end
       end
     end
