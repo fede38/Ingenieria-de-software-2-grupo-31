@@ -52,7 +52,8 @@
 					<div style="text-align: center;">
 					<br>
 					<% if  !@user.tarjeta %>
-						<h3> No posee tarjeta de credito para poder pagar con tarjeta </h3>
+						<br><br>
+						<h4> No posee tarjeta de credito para poder pagar con tarjeta </h4>
 					<% else %>
 						<div class="row">
 							<div class="col-md-6">
@@ -103,6 +104,8 @@
 			  $('#myTab a[href="' + hash + '"]').tab('show');
 			</script>
 		</div>
+		<br><br><br> <hr class="my-hr">
+		<%= link_to "Volver",  user_accounts_path(@user) %>
 	</div>
 	<div class="col-md-4"></div>
 	
