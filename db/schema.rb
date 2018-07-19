@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180709213509) do
+ActiveRecord::Schema.define(version: 20180714222447) do
 
   create_table "accounts", force: :cascade do |t|
     t.float    "deuda",      default: 0.0
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 20180709213509) do
     t.date     "fecha_vencimiento"
     t.integer  "calificacionPiloto",     default: 0
     t.integer  "calificacionCopiloto",   default: 0
+    t.integer  "codigoSeguridad"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
