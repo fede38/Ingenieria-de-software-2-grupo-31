@@ -202,6 +202,7 @@ end
     #si éste viaje se cruza con algun otro para ese mismo usuario
     viajes = u.viajesPiloto + u.viajesPostulado
     viajes = viajes - [v]
+    viajes = viajes.select{ |trip| trip.activo }
     viajes.each do |e|
         if (e.fecha_inicio_exacta >= v.fecha_inicio_exacta and e.fecha_inicio_exacta <= 
             v.fecha_fin_exacta) or (e.fecha_fin_exacta >= v.fecha_inicio_exacta and 
@@ -220,12 +221,12 @@ end
           return true
         end
         if !v.periodics.empty?
-          v.periodics.all.each do |fp_prop|
+          v.periodics.each do |fp_prop| #sacado el .all
             fp_prop_inicio = fp_prop.fecha.beginning_of_day() + 
                               vp.hora_inicio.seconds_since_midnight
             fp_prop_fin = fp_prop_inicio + v.duracion*3600
             if (fp_inicio >= fp_prop_inicio  and fp_inicio <= fp_prop_fin) or 
-              (fp_fin >= fp_prop_inicio and fp_fin <= fp_prop_fin)
+                            (fp_fin >= fp_prop_inicio and fp_fin <= fp_prop_fin)
               return true 
             end
           end
@@ -238,6 +239,7 @@ end
   def vehiculo_mismaHora?(id_vehiculo,viaje)
     viajes_totales = Trip.where(:vehicle_id => id_vehiculo)
     viajes = viajes_totales - [viaje]
+    viajes = viajes.select{ |trip| trip.activo }
     return false if viajes.empty?
     viajes.each do |v|
         if (v.fecha_inicio_exacta >= viaje.fecha_inicio_exacta and v.fecha_inicio_exacta <= 

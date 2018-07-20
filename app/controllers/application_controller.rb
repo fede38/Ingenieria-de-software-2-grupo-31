@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
     #si éste viaje se cruza con algun otro para ese mismo usuario
     viajes = u.viajesPiloto + u.viajesPostulado
     viajes = viajes - [v]
+    viajes = viajes.select{ |trip| trip.activo }
     viajes.each do |e|
         if (e.fecha_inicio_exacta >= v.fecha_inicio_exacta and e.fecha_inicio_exacta <= 
             v.fecha_fin_exacta) or (e.fecha_fin_exacta >= v.fecha_inicio_exacta and 
@@ -69,6 +70,7 @@ class ApplicationController < ActionController::Base
   def vehiculo_mismaHora?(id_vehiculo,viaje)
     viajes_totales = Trip.where(:vehicle_id => id_vehiculo)
     viajes = viajes_totales - [viaje]
+    viajes = viajes.select{ |trip| trip.activo }
     return false if viajes.empty?
     viajes.each do |v|
         if (v.fecha_inicio_exacta >= viaje.fecha_inicio_exacta and v.fecha_inicio_exacta <= 
