@@ -32,44 +32,48 @@ class ApplicationController < ActionController::Base
   def mismaHora?(u, v)
     #si éste viaje se cruza con algun otro para ese mismo usuario
     viajes = u.viajesPiloto + u.viajesPostulado
-    viajes = viajes - [v]
-    viajes = viajes.select{ |trip| trip.activo }
     return se_cruzan?(viajes,v)
   end
 
   def vehiculo_mismaHora?(id_vehiculo,viaje)
     viajes_totales = Trip.where(:vehicle_id => id_vehiculo)
-    viajes = viajes_totales - [viaje]
-    viajes = viajes.select{ |trip| trip.activo }
-    return se_cruzan?(viajes,viaje)
+    return se_cruzan?(viajes_totales,viaje)
   end
 
-  def se_cruzan?(viajes,v) #recibe un array de viajes y un un viaje especifico
-    return false if viajes.empty?
+  def fechas_se_cruzan?(inicio, fin, inicio2, fin2)
+    return (inicio.between?(inicio2, fin2) || fin.between?(inicio2, fin2)) || 
+            ((inicio < inicio2  && fin > fin2) || (inicio2 < inicio && fin2 > fin))
+  end
+
+  def se_cruzan?(todos_viajes,v) #recibe una lista de viajes y un un viaje especifico
+    viajes = todos_viajes - [v]
+    viajes = viajes.select{ |trip| trip.activo }
+    return raise if viajes.empty?
+    #checkea fija de v contra fijas del resto
     viajes.each do |t|
-        if t.fecha_inicio_exacta.between?(v.fecha_inicio_exacta,v.fecha_fin_exacta) or 
-              t.fecha_fin_exacta.between?(v.fecha_inicio_exacta,v.fecha_fin_exacta)
+      if fechas_se_cruzan?(t.fecha_inicio_exacta, t.fecha_fin_exacta, 
+                            v.fecha_inicio_exacta, v.fecha_fin_exacta)
+        return true
+      end 
+      t.periodics.each do |fp|
+        fp_inicio = fp.fecha.beginning_of_day() + t.hora_inicio.seconds_since_midnight
+        fp_fin = fp_inicio + t.duracion*3600
+        #checkea fija de v contra periodicas del resto
+        if fechas_se_cruzan?(v.fecha_inicio_exacta, v.fecha_fin_exacta, fp_inicio, fp_fin)
           return true
         end
-    end
-    seleccionar_periodicos(viajes).each do |vp|
-      vp.periodics.each do |fp|
-        fp_inicio = fp.fecha.beginning_of_day() + vp.hora_inicio.seconds_since_midnight
-        fp_fin = fp_inicio + vp.duracion*3600
-        #checkea contra la fecha fija
-        if fp_inicio.between?(v.fecha_inicio_exacta,v.fecha_fin_exacta) or 
-          fp_fin.between?(v.fecha_inicio_exacta,v.fecha_fin_exacta) 
-          return true
-        end
-        #checkea contra las fechas periodcas
-        if !v.periodics.empty?
-          v.periodics.each do |fp_de_v| #sacado el .all
+        #checkea periodicas de v contra periodcas del resto
+        v.periodics.each do |fp_de_v|
+          if fp_de_v
             fp_de_v_inicio = fp_de_v.fecha.beginning_of_day() + 
                               v.hora_inicio.seconds_since_midnight
             fp_de_v_fin = fp_de_v_inicio + v.duracion*3600
-            if fp_de_v_inicio.between?(fp_inicio,fp_fin) or 
-                fp_de_v_fin.between?(fp_inicio,fp_fin)
+            if fechas_se_cruzan?(fp_de_v_inicio,fp_de_v_fin,fp_inicio,fp_fin)
                 return true
+            end
+        #checkea periodicas de v contra fijas del resto
+            if fechas_se_cruzan?(fp_de_v_inicio,fp_de_v_fin, t.fecha_inicio_exacta, t.fecha_fin_exacta)
+              return true
             end
           end
         end
