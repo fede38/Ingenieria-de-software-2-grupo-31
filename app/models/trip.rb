@@ -203,48 +203,22 @@ end
     viajes = u.viajesPiloto + u.viajesPostulado
     viajes = viajes - [v]
     viajes = viajes.select{ |trip| trip.activo }
-    viajes.each do |e|
-        if (e.fecha_inicio_exacta >= v.fecha_inicio_exacta and e.fecha_inicio_exacta <= 
-            v.fecha_fin_exacta) or (e.fecha_fin_exacta >= v.fecha_inicio_exacta and 
-                                      e.fecha_fin_exacta <= v.fecha_fin_exacta)
-          return true
-        end
-    end
-    viajes_periodicos = seleccionar_periodicos(viajes)
-    viajes_periodicos.each do |vp|
-      vp.periodics.each do |fp|
-        fp_inicio = fp.fecha.beginning_of_day() + vp.hora_inicio.seconds_since_midnight
-        fp_fin = fp_inicio + vp.duracion*3600
-        if (fp_inicio >= v.fecha_inicio_exacta  and fp_inicio <= 
-            v.fecha_fin_exacta) or (fp_fin >= v.fecha_inicio_exacta and 
-                                      fp_fin <= v.fecha_fin_exacta)
-          return true
-        end
-        if !v.periodics.empty?
-          v.periodics.each do |fp_prop| #sacado el .all
-            fp_prop_inicio = fp_prop.fecha.beginning_of_day() + 
-                              vp.hora_inicio.seconds_since_midnight
-            fp_prop_fin = fp_prop_inicio + v.duracion*3600
-            if (fp_inicio >= fp_prop_inicio  and fp_inicio <= fp_prop_fin) or 
-                            (fp_fin >= fp_prop_inicio and fp_fin <= fp_prop_fin)
-              return true 
-            end
-          end
-        end
-      end
-    end
-    return false
+    return se_cruzan?(viajes,v)
   end
 
   def vehiculo_mismaHora?(id_vehiculo,viaje)
     viajes_totales = Trip.where(:vehicle_id => id_vehiculo)
     viajes = viajes_totales - [viaje]
     viajes = viajes.select{ |trip| trip.activo }
+    return se_cruzan?(viajes,viaje)
+  end
+
+  def se_cruzan?(viajes,v) #recibe un array de viajes y un un viaje especifico
     return false if viajes.empty?
-    viajes.each do |v|
-        if (v.fecha_inicio_exacta >= viaje.fecha_inicio_exacta and v.fecha_inicio_exacta <= 
-              viaje.fecha_fin_exacta) or (v.fecha_fin_exacta >= viaje.fecha_inicio_exacta and 
-                                            v.fecha_fin_exacta <= viaje.fecha_fin_exacta)
+    #checkea fijas de viajes contra fija de v
+    viajes.each do |t|
+        if t.fecha_inicio_exacta.between?(v.fecha_inicio_exacta,v.fecha_fin_exacta) or 
+              t.fecha_fin_exacta.between?(v.fecha_inicio_exacta,v.fecha_fin_exacta)
           return true
         end
     end
@@ -252,19 +226,20 @@ end
       vp.periodics.each do |fp|
         fp_inicio = fp.fecha.beginning_of_day() + vp.hora_inicio.seconds_since_midnight
         fp_fin = fp_inicio + vp.duracion*3600
-        if (fp_inicio >= viaje.fecha_inicio_exacta  and fp_inicio <= 
-            viaje.fecha_fin_exacta) or (fp_fin >= viaje.fecha_inicio_exacta and 
-                                      fp_fin <= viaje.fecha_fin_exacta)
+        #checkea periodicas contra la fecha fija de v
+        if fp_inicio.between?(v.fecha_inicio_exacta,v.fecha_fin_exacta) or 
+          fp_fin.between?(v.fecha_inicio_exacta,v.fecha_fin_exacta) 
           return true
         end
-        if !viaje.periodics.empty?
-          viaje.periodics.all.each do |fp_prop|
-            fp_prop_inicio = fp_prop.fecha.beginning_of_day() + 
-                              vp.hora_inicio.seconds_since_midnight
-            fp_prop_fin = fp_prop_inicio + viaje.duracion*3600
-            if (fp_inicio >= fp_prop_inicio  and fp_inicio <= fp_prop_fin) or 
-              (fp_fin >= fp_prop_inicio and fp_fin <= fp_prop_fin)
-              return true 
+        #checkea periodicas de v contra las fechas periodcas
+        if !v.periodics.empty?
+          v.periodics.each do |fp_de_v| #sacado el .all
+            fp_de_v_inicio = fp_de_v.fecha.beginning_of_day() + 
+                              v.hora_inicio.seconds_since_midnight
+            fp_de_v_fin = fp_de_v_inicio + v.duracion*3600
+            if fp_de_v_inicio.between?(fp_inicio,fp_fin) or 
+                fp_de_v_fin.between?(fp_inicio,fp_fin)
+                return true
             end
           end
         end
