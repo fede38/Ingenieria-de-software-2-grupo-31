@@ -52,29 +52,29 @@ class Trip < ApplicationRecord
       end
     end
     if resp
-      errors.add("Las fechas, ", 'no pueden quedar en blanco')
+      errors.add("Las fechas, ", 'no pueden quedar en blanco.')
     end
     
   end
 
   def inferior_a_treinta_dias
     respuesta = false
-    if self.periodics
-      self.periodics do |periodica|
-        if periodica.fecha > self.fecha_inicio + 30.days
-          respuesta = true
+      self.periodics.each do |periodica|
+        if periodica && self.fecha_inicio
+          if periodica.fecha > self.fecha_inicio + 30.days
+            respuesta = true
+          end
         end
       end
-    end
     if respuesta
-      errors.add("La fecha, ", 'debe ser de un máximo de 30 dias a partir del inicio')
+      errors.add("Las fechas periodicas, ", 'debe ser de un máximo de 30 dias a partir del inicio')
     end
   end
 
   def posteriores_a_inicio
     resp = false
     self.periodics.each do |periodica|
-      if periodica
+      if !periodica && self.fecha_inicio
         if periodica.fecha < self.fecha_inicio
           resp = true
         end
