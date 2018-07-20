@@ -29,8 +29,16 @@
 			<br>
 			<div class="row">
 				<div class="col-md-6">
-					<b>Fecha de salida:</b>
+					<% if !@trip.periodics.empty? %>
+						<b>Fechas de salida:</b><br>
+						<%= formato_fecha(@trip.fecha_inicio) %><br>
+						<% @trip.periodics.each do |t| %>
+							<%= formato_fecha(t.fecha) %> <br>
+						<% end %>
+					<% else %>
+						<b>Fecha de salida:</b>
 						<%= formato_fecha(@trip.fecha_inicio) %> <br>
+					<% end %>
 				</div>
 				<div class="col-md-6">
 					<b>Hora de salida:</b>
