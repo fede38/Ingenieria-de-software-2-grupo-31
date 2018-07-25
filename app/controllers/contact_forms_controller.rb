@@ -1,5 +1,6 @@
 class ContactFormsController < ApplicationController
   def new
+    @user = current_user
     @contact_form = ContactForm.new
   end
 
