@@ -9,11 +9,15 @@
 	<div class="col-md-10">
 	  <% if @realizado.empty? %>
 		<div>
-		  <h3> No has realizado viajes todavia :( </h3>
-		  <p>
-			<ul> <%= link_to 'Crea un viaje', new_user_trip_path(current_user) %> </ul>
-			<ul> <%= link_to 'Mira los viajes disponibles', root_path %> </ul>
-		  </p>
+			<% if @user == current_user %>
+				<h3> No has realizado viajes todavia :( </h3>		  
+				<p>
+					<ul> <%= link_to 'Crea un viaje', new_user_trip_path(current_user) %> </ul>
+					<ul> <%= link_to 'Mira los viajes disponibles', root_path %> </ul>
+				</p>
+			<% else %>
+				<h3> El usuario no ha realizado viajes todavia :( </h3>
+		  	<% end %>
 		</div>
 	  <% else %>
 		<% @realizado.each do |t| %>
