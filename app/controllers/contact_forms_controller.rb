@@ -11,7 +11,8 @@ class ContactFormsController < ApplicationController
     @contact_form.email = @user.email
     @contact_form.request = request
     if @contact_form.deliver
-      flash[:success] = 'Gracias por tu mensaje!'
+      flash[:success] = 'Tu mensaje ha sido enviado correctamente.'
+      redirect_to root_path
     else
       flash[:danger] = 'El mensaje no puede estar vacio.'
       render :new
