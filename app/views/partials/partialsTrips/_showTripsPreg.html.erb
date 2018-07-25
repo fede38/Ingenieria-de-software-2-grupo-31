@@ -1,33 +1,12 @@
 <div class="row">
 	<div class="well my-jumbotron">
-		<% if current_user != @trip.piloto %>
-			<div class="row">
-				<div class="col-md-3"></div>
-				<div class="col-md-6">
-					<div class="centering">
-						<%= form_for([@trip, @question]) do |q| %>
-							<div class="form-group">
-								<%= q.label :pregunta %> <br>
-								<%= q.text_area :pregunta, class: "form-control" %>
-							</div>
-							<div class=" actions">
-								<%= q.submit "Realizar pregunta", class:"btn my-link-button my-button-color" %>
-							</div>
-						<% end %>
-					</div>
-					<br>
-				</div>
-				<div class="col-md-3"></div>
-			</div>
-		<% end %>
-
 		<% if @trip.questions.empty? %>
 			<div style="text-align: center; font-size: 18px">
 				<b>No hay Preguntas al viaje</b>
 			</div>
 		<% else %>
 			<% @trip.questions.each do |q| %>
-				<div class="media my-jumbotron2">
+				<div class="media well-sm my-jumbotron2">
 					<!-- PREGUNTA EXISTENTE AL VIAJE -->
 					<div class="media-left">
 						<%= image_tag(q.comentador.avatar,:class=>"circular-image post-image", :alt=>'Avatar')%>
@@ -54,7 +33,7 @@
 								<% end %>
 							<% end %>
 						<% else %>
-							<div class="media my-jumbotron2">
+							<div class="media well-sm my-jumbotron2">
 								<!-- SI TIENE RESPUESTA LA RESPUESTA A LA PREGUNTA -->
 								<div class="media-left">
 									<%= image_tag(@trip.piloto.avatar,:class=>"circular-image post-image", :alt=>'Avatar')%>
@@ -75,5 +54,27 @@
 				</div>
 			<% end %>
 		<% end %>
+
+		<% if current_user != @trip.piloto %>
+		<br><br>
+			<div class="row">
+				<!-- <div class="col-md-1"></div> -->
+				<div class="col-md-12">
+					<div >
+						<%= form_for([@trip, @question]) do |q| %>
+							<div class="form-group">
+								<%= q.label :pregunta %> <br>
+								<%= q.text_area :pregunta, class: "form-control" %>
+							</div>
+							<div class=" actions">
+								<%= q.submit "Realizar pregunta", class:"btn my-link-button my-button-color" %>
+							</div>
+						<% end %>
+					</div>
+					<br>
+				</div>
+				<!-- <div class="col-md-1"></div> -->
+			</div>
+		<% end %>	
 	</div>
 </div>
