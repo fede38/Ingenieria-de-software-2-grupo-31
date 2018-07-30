@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'contact_form/new'
+
+  get 'contact_form/create'
+
 	root 'trips#index'
 	devise_for :users, :controllers => {:registrations => "my_devise/registrations"}
 
@@ -7,15 +11,16 @@ Rails.application.routes.draw do
   get '/users/:id/postulaciones', to: 'users#postulaciones'
   get '/users/:id/showMisViajes', to: 'trips#showMisViajes'
   get '/ayuda', to: 'static_pages#ayuda'
-  get '/contactanos', to: 'static_pages#contacto'
 
   resources :trips, only: [] do
     resources :questions do
       resources :answers
     end
   end
+  resources :contact_forms, only: [:new, :create]
 	resources :users do
     collection do
+      get :pagar
       put :pagarTodoSaldo
       put :pagarTodoTarjeta
       put :pagarViajeSaldo

@@ -1,0 +1,21 @@
+<h1 style="text-align: center;">Contactanos!</h1><br><br><br>
+<div class="centering">
+	<%= form_for (@contact_form) do |f| %>
+		<div class="form-group">
+			<%= f.label :email %><br />
+      		<%= f.email_field :email, value: @user.email, :readonly => true, class:"form-control" %>
+		</div>
+		<div class="form-group">
+			<%= f.label :name, "Nombre y Apellido" %><br/>
+      		<%= f.text_field :name, value: @user.nombre+' '+@user.apellido, :readonly => true, class: "form-control" %>
+		</div>
+    	<div class="form-group">
+      		<%= f.label :message, "Mensaje" %> <br>
+      		<%= f.text_area :message, class: "form-control" %>
+    	</div>
+    	<div class=" actions">
+      		<%= f.submit "Enviar", class:"btn my-link-button my-button-color" %>
+    	</div>
+	<% end %>
+</div>
+

@@ -1,7 +1,6 @@
 class StaticPagesController < ApplicationController
-  def ayuda
-  end
+  skip_before_action :authenticate_user!
 
-  def contacto
+  def ayuda
   end
 end

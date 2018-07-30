@@ -1,6 +1,18 @@
 ---
 es:
   activerecord:
+    mail_form:
+      models:
+        contact_form: "Forma de contacto"
+      attributes:
+        contact_form:
+          name: 'Nombre'
+          email: "Email"
+          message: "Mensaje"
+      request:
+        title: "Información tecnica sobre el usuario"
+        remote_ip: "IP Address"
+        user_agent: "Browser"
     attributes:
       user:
         encrypted_password: "Contraseña encriptada"

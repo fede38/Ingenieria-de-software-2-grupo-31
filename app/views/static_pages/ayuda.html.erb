@@ -1,1 +1,74 @@
-<h1>Ayuda</h1>
+<h1 style="text-align: center;">Preguntas Frecuentes</h1>
+<br><br>
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<div id='Pregunta-1'>
+			<h3> <a data-toggle="collapse" data-target="#preg-1" default="hide"> 1- ¿Qué puedo hacer en esta aplicacion? </a></h3>
+			<div class="collapse" id="preg-1">
+				<br> <h4 style="margin-left: 35px; margin-top: -7px">
+					&nbsp &nbsp &nbsp &nbsp Esta aplicacion esta dedicada a realizar viajes compartidos y de esta forma poder repartir los gastos del viaje entre todos los participantes del mismo. Para ello puedes sumarte a un viaje ya existente como copiloto, o crear uno nuevo como piloto, ofreciendo el vehiculo en el cual van a viajar.
+				</h4>
+				<hr class="my-hr">
+			</div>
+		</div>
+
+		<div id='Pregunta-2'>
+			<h3> <a data-toggle="collapse" data-target="#preg-2" default="hide"> 2- ¿Cómo funciona el sistema de reputacion? </a></h3>
+			<div class="collapse" id="preg-2">
+				<br> <h4 style="margin-left: 35px; margin-top: -7px; text-align: justify;">
+					&nbsp &nbsp &nbsp &nbsp El sistema de reputacion de la pagina esta creado con la intención de poder elegir de forma confiable al piloto con el cual uno decide viajar, y a los copilotos que uno decide aceptar para realizar un viaje.<br><br>
+					&nbsp &nbsp &nbsp &nbsp Cada usuario posee una reputacion como <b>piloto</b> ( <%= image_tag('autis.png', size: '20x20', class: 'logitos') %> ), y otra reputacion como <b>copiloto</b> ( <%= image_tag('pasajeris.png', size: '17x17', class: 'logitos') %> ). Las reputaciones estan dadas por las calificaciones que realiza un usuario a otro, o la aplicacion a un usuario. <br><br>
+					&nbsp &nbsp &nbsp &nbsp La reputacion nunca es menor a 0 (cero), no obstante, al ver las calificaciones que posee un usuario, se informa el total de calificaciones que le han realizado, además de su reputación.<br><br>
+					&nbsp &nbsp &nbsp &nbsp Al ser realizado un viaje (ya pasada la fecha y hora del viaje) los copilotos están habilitados a calificar al piloto con el que viajaron, así como el piloto está habilitado a calificar a los copilotos que acepto en su viaje.<br><br>
+					&nbsp &nbsp &nbsp Las calificaciones pueden ser positivas (suman un punto a la reputación), neutrales (no suman ni restan puntaje a la reputación) o negativas (restan un punto a la reputación).<br><br>
+					&nbsp &nbsp &nbsp En determinados casos la aplicación será quien califique a un usuario de forma negativa. Esto es cuando:<br>
+					<UL style='margin-left: 25px'>
+						<LI style='margin-top: 10px'> Un usuario que se postulo a un viaje y fue aceptado por el piloto, cancela su postulación. </LI>
+						<LI style='margin-top: 10px'> Un usuario que creo un viaje, acepta un postulante como copiloto, y luego lo elimina. </LI>
+						<LI style='margin-top: 10px'> Un usuario que creo un viaje, acepta postulantes al mismo, y luego elimina ese mismo viaje. En este caso, la reputación negativa que reciba será una por cada usuario aceptado. </LI>
+					</UL>
+				</h4>
+				<hr class="my-hr">
+			</div>
+		</div>
+
+		<div id='Pregunta-3'>
+			<h3> <a data-toggle="collapse" data-target="#preg-3" default="hide"> 3- ¿Qué métodos de pago tengo? </a></h3>
+			<div class="collapse" id="preg-3">
+				<br> <h4 style="margin-left: 35px; margin-top: -7px; text-align: justify;">
+					&nbsp &nbsp &nbsp &nbsp Se puede pagar deudas tanto con <b>saldo interno</b> de la aplicacion como con <b>tarjeta de crédito</b>.<br><br>
+					&nbsp &nbsp &nbsp &nbsp El saldo interno en la aplicación se obtiene de los pagos que realizan los copilotos a los pilotos. No se puede cargar saldo a la aplicación, como tampoco existe, por ahora, manera de extraer el saldo de la misma.<br><br>
+					&nbsp &nbsp &nbsp &nbsp Sólo se podrá pagar con saldo una deuda que sea menor o igual al saldo que posea el usuario, en caso contrario, sólo se podrá pagar con tarjeta de crédito.<br><br>
+					&nbsp &nbsp &nbsp &nbsp Para poder pagar con tarjeta de crédito se debe cargar una, previamente, en la opción <b>"Editar perfil"</b> que se ecuentra dentro del Perfil del usuario.<br><br>
+					&nbsp &nbsp &nbsp &nbsp Para que un usuario pueda ver el saldo, la deuda total, y las deudas parciales que posee, debe ingresar a la opción <b>"Mi Cuenta"</b> dentro de su perfil. Allí podrá pagar la deuda total, como así también, cada una de las deudas parciales que posea, de manera individual.
+				</h4>
+				<hr class="my-hr">
+			</div>
+		</div>
+
+		<div id='Pregunta-4'>
+			<h3> <a data-toggle="collapse" data-target="#preg-4" default="hide"> 4- ¿Cuándo recibo el pago del viaje que realicé como piloto? </a></h3>
+			<div class="collapse" id="preg-4">
+				<br> <h4 style="margin-left: 35px; margin-top: -7px; text-align: justify;">
+					&nbsp &nbsp &nbsp &nbsp El pago de un viaje realizado como piloto, se acreditará en el saldo del usuario a medida que los copilotos realicen el pago de su deuda.<br><br>
+					&nbsp &nbsp &nbsp &nbsp Un Aventon! no se responsabiliza del tiempo que tarde un copiloto en pagar sus deudas, aunque tampoco permitirá a los usuarios realizar nuevos viajes ni eliminar su cuenta hasta no haber saldado las deudas que posea.
+				</h4>
+				<hr class="my-hr">
+			</div>
+		</div>
+
+		<div id='Pregunta-5'>
+			<h3> <a data-toggle="collapse" data-target="#preg-5" default="hide"> 5- ¿Cómo creo un viaje periodico? </a></h3>
+			<div class="collapse" id="preg-5">
+				<br> <h4 style="margin-left: 35px; margin-top: -7px; text-align: justify;">
+					&nbsp &nbsp &nbsp &nbsp . 
+				</h4>
+				<hr class="my-hr">
+			</div>
+		</div>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+<br><br><br>
+<br><br><br>

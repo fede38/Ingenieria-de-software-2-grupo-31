@@ -18,6 +18,7 @@ gem 'bootstrap-will_paginate'
 gem 'paperclip', '~> 6.0.0'
 gem 'whenever', require: false
 gem 'ransack'
+gem 'mail_form'
 
 group :development, :test do
   gem 'byebug', platform: :mri

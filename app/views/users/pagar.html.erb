@@ -1,0 +1,112 @@
+<script>
+	function validar(){
+		var codigo = document.getElementById('codigo').value;
+		if (codigo.length == 3 && !isNaN(codigo)){
+			document.getElementById('sePuede').style.visibility = 'visible';
+		}
+		else{
+			document.getElementById('sePuede').style.visibility = 'hidden';
+			if (codigo.length == 3){
+				alert('El codigo de seguridad debe ser numerico');
+			}
+		}
+	}
+</script>
+<div class="row">
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+		<div class="row">
+			<h1 style="text-align: center;"> <%= @viaje.origen+' - '+@viaje.destino %> </h1>
+		</div>
+		<br><br>
+		<div class="row">
+			<div class="col-md-6" style="margin-top: 5px">
+				<span class="glyphicon glyphicon-calendar"></span> <%= '  '+formato_fecha(@viaje.fecha_inicio) %>  <%= @viaje.hora_inicio.strftime('%H:%M') %>
+				
+			</div>
+			<div class="col-md-6">
+				<b>Piloto: </b> </b> <%= link_to image_tag(@viaje.piloto.avatar,:class=>"circular-image post-image", :alt=>'Avatar')+'  '+ usernameOf(@viaje.piloto), user_path(@viaje.piloto) %>
+			</div>
+		</div>
+		<br>
+		<div class="row"><h4> <b> Deuda: </b> $ <%= @deuda %> </h4><br><br></div>
+		<div class="row">
+			<ul class="nav nav-pills nav-pills-calif nav-justified" data-tab data-options="deep_linking: true">
+				<li class="active"><a class="acalif" data-toggle="tab" href="#saldo">Pagar con Saldo</a></li>
+				<li><a class="acalif" data-toggle="tab" href="#tarjeta">Pagar con Tarjeta</a></li>
+			</ul>
+			<div class="tab-content">
+				<div id="saldo" class="tab-pane fade in active">
+					<br>
+					<h4><b> Saldo: </b> <%= @user.account.saldo %></h4>
+					<br>
+					<% if @user.account.saldo > @deuda %>
+						<div class="row centering" style="text-align: center;">
+							<%= link_to 'Pagar', pagarViajeSaldo_users_path(id: @user, tipo: @tipo, idT: @viaje), {class: "btn btn-sm colapso my-link-button my-button-with", method: :put} %>
+						</div>
+					<% else %>
+						<h4 style="text-align: center;"> No posee saldo suficiente para pagar esta deuda </h4>
+					<% end %>	
+				</div>
+				<div id="tarjeta" class="tab-pane fade">
+					<div style="text-align: center;">
+					<br>
+					<% if  !@user.tarjeta %>
+						<br><br>
+						<h4> No posee tarjeta de credito para poder pagar con tarjeta </h4>
+					<% else %>
+						<div class="row">
+							<div class="col-md-6">
+								<b> Tarjeta: </b> <%= @user.tarjeta %>
+							</div>
+							<div class="col-md-6">
+								<div class="form-group">
+										<input type="text" name="codigo" maxlength="3" id='codigo' value="xxx" onkeyup="validar();" />  	
+								</div>
+							</div>
+						</div>
+						<div class="row centering" id='sePuede' style="visibility: hidden;">
+							<%= link_to 'Pagar', pagarViajeTarjeta_users_path(id: @user, tipo: @tipo, idT: @viaje), {class: "btn btn-sm colapso my-link-button my-button-with", method: :put} %>
+						</div>
+					<% end %>
+					<br>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				if (location.hash) {
+				  $('a[href=\'' + location.hash + '\']').tab('show');
+				}
+				var activeTab = localStorage.getItem('activeTab');
+				if (activeTab) {
+				  $('a[href="' + activeTab + '"]').tab('show');
+				}
+
+				$('body').on('click', 'a[data-toggle=\'tab\']', function (e) {
+				e.preventDefault()
+				var tab_name = this.getAttribute('href')
+				if (history.pushState) {
+				  history.pushState(null, null, tab_name)
+				}
+				else {
+				  location.hash = tab_name
+				}
+				localStorage.setItem('activeTab', tab_name)
+
+				$(this).tab('show');
+				 return false;
+				});
+				$(window).on('popstate', function () {
+					var anchor = location.hash ||
+					$('a[data-toggle=\'tab\']').first().attr('href');
+					$('a[href=\'' + anchor + '\']').tab('show');
+				});
+			  $('#myTab a[href="' + hash + '"]').tab('show');
+			</script>
+		</div>
+		<br><br><br> <hr class="my-hr">
+		<%= link_to "Volver",  user_accounts_path(@user) %>
+	</div>
+	<div class="col-md-4"></div>
+	<br><br><br>
+</div>

@@ -13,6 +13,14 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
+  def pagar
+    @tipo = params[:tipo]
+    @viaje = Trip.find(params[:idT])
+    @user = User.find(params[:id])
+    viajeEsp = Embarkment.find_by(user: @user, trip: @viaje)
+    @deuda = (params[:tipo] == 'p') ? (@viaje.costo * 0.05).round(2) : (viajeEsp.deuda).round(2)
+  end
+
   def pagarTodoTarjeta
     @user = User.find(params[:id])
     cuenta = @user.account
@@ -39,7 +47,7 @@ class UsersController < ApplicationController
     else
       flash[:danger] = "No se tiene suficiente saldo para pagar la deuda."
     end
-    redirect_to :back
+    redirect_to user_accounts_path(user)
   end
 
   def pagarViajeTarjeta
@@ -56,7 +64,7 @@ class UsersController < ApplicationController
       cuentaPiloto = viaje.piloto.account
       cuentaPiloto.update_attribute(:saldo, (cuentaPiloto.saldo + cantPagar).round(2))
     end
-    redirect_to :back
+    redirect_to user_accounts_path(user)
   end
 
   def show

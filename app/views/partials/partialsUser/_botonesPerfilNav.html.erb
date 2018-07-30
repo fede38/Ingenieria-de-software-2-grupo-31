@@ -1,13 +1,13 @@
 <ul class="nav nav-pills nav-stacked nav-pills-perf" id="myDIV">
 	<% if @user == current_user %>
-		<li class="pri"> <%= link_to 'Mi Perfil',users_path,:class => "aperf" %> </li>
+		<li class="pri"> <%= link_to 'Mi Perfil',user_path(@user),:class => "aperf" %> </li>
 		<li><%= link_to 'Mis Viajes', {controller: :trips, action: 'showMisViajes', id: @user.id},:class => "aperf" %></li>  
 		<li><%= link_to 'Mis Vehiculos', user_vehicles_path(@user),:class => "aperf" %></li>
 		<li><%= link_to 'Mis Postulaciones', '/users/'+@user.id.to_s+'/postulaciones',:class => "aperf" %></li>
 		<li><%= link_to 'Mis Calificaciones', {controller: :scores, action: 'showCalificaciones', id: @user.id},:class => "aperf" %></li>
 		<li><%= link_to 'Calificaciones Pendientes', {controller: :scores, action: 'showCalifARealizar', id: @user.id},:class => "aperf" %></li>
+		<li><%= link_to 'Mi Cuenta', user_accounts_path(@user),:class => "aperf" %></li>
 		<li><%= link_to 'Editar Perfil', edit_user_registration_path,:class => "aperf" %></li>
-		<li><%= link_to 'Cuenta', user_accounts_path(@user),:class => "aperf" %></li>
 	<% else %>
 		<br><br>
 		<li><%= link_to 'Perfil', user_path(@user),:class => "aperf" %></li>
@@ -20,5 +20,8 @@
 	$(document).ready(function () {
   		$(".nav li").removeClass("active");
   		$('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
-	});
+  		if(! $('ul li').hasClass('active')){
+  			$('ul li').first().addClass('active');
+  		}
+  	});
 </script>
