@@ -198,7 +198,7 @@ private
 	def parametros_viaje
 		params.require(:trip).permit(:fecha_inicio, :hora_inicio, :costo, :origen, 
 										:destino, :descripcion,:duracion , :vehicle_id, :user_id,
-										 periodics_attributes: [:id, :fecha, :hora])
+										 periodics_attributes: [:id, :fecha, :_destroy])
 	end
 
 end

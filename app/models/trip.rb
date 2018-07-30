@@ -4,8 +4,8 @@ class Trip < ApplicationRecord
   belongs_to :piloto, class_name: 'User', foreign_key: 'user_id'
   belongs_to :vehicle
   
-  has_many :periodics, inverse_of: :trip
-  accepts_nested_attributes_for :periodics
+  has_many :periodics, inverse_of: :trip, dependent: :destroy
+  accepts_nested_attributes_for(:periodics, allow_destroy: true)
 
   has_many :embarkment
   has_many :postulantes, source: :user, through: :embarkment, class_name: 'User', foreign_key: 'user_id'
@@ -23,16 +23,27 @@ class Trip < ApplicationRecord
 
   validate :viaje_a_la_misma_hora
   validate :vehiculo_no_en_viaje
-  # validate :viajePostulado_a_la_misma_hora
-  # validate :viajePiloto_a_la_misma_hora
   
-  #Validaciones de viajes periódicos
+  #  Validaciones de viajes periódicos
   validate :fechas_que_no_se_crucen
   validate :fechas_mayores_a_hoy
   validate :posteriores_a_inicio
   validate :inferior_a_treinta_dias
   validate :no_dejar_fechas_en_blanco
+  validate :fechas_validas
 
+  def fechas_validas
+    resp = false
+    self.periodics.each do |per|
+      if !per or !per.fecha
+        resp = true
+      end
+    end
+    if resp
+      errors.add("No puedes dejar ",'fechas en blanco')
+    end
+
+  end
   def fecha_inicio_exacta
     return self.fecha_inicio.beginning_of_day() + self.hora_inicio.seconds_since_midnight
     #return Time.at(self.fecha_inicio + self.hora_inicio.hour*3600 + self.hora_inicio.min*60 + 
@@ -60,7 +71,7 @@ class Trip < ApplicationRecord
   def inferior_a_treinta_dias
     respuesta = false
       self.periodics.each do |periodica|
-        if periodica && self.fecha_inicio
+        if periodica && self.fecha_inicio && periodica.fecha
           if periodica.fecha > self.fecha_inicio + 30.days
             respuesta = true
           end
@@ -99,15 +110,16 @@ class Trip < ApplicationRecord
     if self.fecha_inicio && self.hora_inicio
       x = false
       self.periodics.each do |fp|
-        if fp
-          fp_inicio = fp.fecha.beginning_of_day() + self.hora_inicio.seconds_since_midnight
+        if fp && fp.fecha
+          fp_inicio = fp.fecha.beginning_of_day + self.hora_inicio.seconds_since_midnight
           fp_fin = fp_inicio + self.duracion*3600
-          (x = true) if fechas_se_cruzan?(fp_inicio, fp_fin, self.fecha_inicio_exacta, self.fecha_fin_exacta)
-          arr = self.periodics - [fp]
+          arr = self.periodics.to_a - [fp]
           arr.each do |fp2|
-            fp2_inicio = fp2.fecha.beginning_of_day() + self.hora_inicio.seconds_since_midnight
-            fp2_fin = fp_inicio + self.duracion*3600
-            (x = true) if fechas_se_cruzan?(fp_inicio,fp_fin,fp2_inicio,fp2_fin)
+            if fp2 && fp2.fecha
+              fp2_inicio = fp2.fecha.beginning_of_day + self.hora_inicio.seconds_since_midnight
+              fp2_fin = fp2_inicio + self.duracion*3600
+              (x = true) if fechas_se_cruzan?(fp_inicio,fp_fin,fp2_inicio,fp2_fin)
+            end
           end
         end
       end
@@ -214,9 +226,9 @@ end
   end
 
   def se_cruzan?(todos_viajes,v) #recibe una lista de viajes y un un viaje especifico
-    viajes = todos_viajes - [v]
+    viajes = todos_viajes.to_a - [v]
     viajes = viajes.select{ |trip| trip.activo }
-    return raise if viajes.empty?
+    return false if viajes.empty?
     #checkea fija de v contra fijas del resto
     viajes.each do |t|
       if fechas_se_cruzan?(t.fecha_inicio_exacta, t.fecha_fin_exacta, 

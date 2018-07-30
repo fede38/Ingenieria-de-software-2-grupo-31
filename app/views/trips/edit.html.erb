@@ -18,6 +18,11 @@
 		<% end %>
 
 		<div class="form-group">
+			<%=	form.label :costo %> <br>
+			<%= form.text_field :costo, class: "form-control" %><br>
+		</div>	
+
+		<div class="form-group">
 			<%=	form.label :fecha_inicio, 'Fecha de inicio' %> <br>
 			<%= form.date_field :fecha_inicio, class: "form-control" %><br>
 		</div>
@@ -25,6 +30,11 @@
 		<div class="form-group">
 			<%=	form.label :hora_inicio, 'Hora de inicio' %> <br>
 			<%= form.time_field :hora_inicio, class: "form-control" %><br>
+		</div>
+
+		<div class="form-group">
+			<%=	form.label :duracion, 'Duración (en horas)' %> <br>
+			<%= form.number_field :duracion, class: "form-control" %><br>
 		</div>
 
 		<div class="form-group">
@@ -47,9 +57,28 @@
 			<%= form.select(:vehicle_id, @user.vehicles.map{|v| [v.patente, v.id]},{}, {class: 'form-control'}) %> <br>
 		</div>
 
+		Fechas Periodicas: <br>
+
+		<%= form.fields_for :periodics do |stuff|  %>
+			<%= stuff.date_field :fecha %>
+		Eliminar:	<%= stuff.check_box :_destroy %> <br>
+		<% end %>
+
+		Agregar Fechas: <br>
+
+		<%= submit_tag "Agregar fecha", :type => 'button', :id => 'addPeriodic', 
+          :onclick => 'addPeriodicField()', class: "btn my-link-button my-button-color" %>
+
+			  <br><div id="periodicHeader" style="display:none">Información de la fecha:  </div>
+
+			  <ul id="myList"> 
+			  </ul>
+
+
 		<div class=" actions">
 			<%= form.submit "Modificar", class:"btn my-link-button my-button-color" %>
 		</div>
 
 	<% end %>
 </div>
+<br>

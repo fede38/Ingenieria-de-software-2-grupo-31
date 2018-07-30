@@ -48,7 +48,7 @@ class ApplicationController < ActionController::Base
   def se_cruzan?(todos_viajes,v) #recibe una lista de viajes y un un viaje especifico
     viajes = todos_viajes - [v]
     viajes = viajes.select{ |trip| trip.activo }
-    return raise if viajes.empty?
+    return false if viajes.empty?
     #checkea fija de v contra fijas del resto
     viajes.each do |t|
       if fechas_se_cruzan?(t.fecha_inicio_exacta, t.fecha_fin_exacta, 
