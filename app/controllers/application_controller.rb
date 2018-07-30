@@ -31,7 +31,9 @@ class ApplicationController < ActionController::Base
 
   def mismaHora?(u, v)
     #si éste viaje se cruza con algun otro para ese mismo usuario
-    viajes = u.viajesPiloto + u.viajesPostulado
+    q = Embarkment.where(user_id: u, estado: 'a').select(:trip_id)
+    post = Trip.where(id: q)
+    viajes = u.viajesPiloto + post
     return se_cruzan?(viajes,v)
   end
 

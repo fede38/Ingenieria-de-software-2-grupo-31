@@ -198,7 +198,7 @@ class Trip < ApplicationRecord
 
 end
 
-#SI SE MODIFICA ACÁ, MODIFICAR EN APPLICATION_CONTROLLER.RB
+#SI SE MODIFICA ACÁ, MODIFICAR EN TRIP.RB
   def seleccionar_periodicos(lista_de_viajes)
     lista_a_devolver = []
     lista_de_viajes.each do |v|
@@ -211,7 +211,9 @@ end
 
   def mismaHora?(u, v)
     #si éste viaje se cruza con algun otro para ese mismo usuario
-    viajes = u.viajesPiloto + u.viajesPostulado
+    q = Embarkment.where(user_id: u, estado: 'a').select(:trip_id)
+    post = Trip.where(id: q)
+    viajes = u.viajesPiloto + post
     return se_cruzan?(viajes,v)
   end
 
@@ -226,7 +228,7 @@ end
   end
 
   def se_cruzan?(todos_viajes,v) #recibe una lista de viajes y un un viaje especifico
-    viajes = todos_viajes.to_a - [v]
+    viajes = todos_viajes - [v]
     viajes = viajes.select{ |trip| trip.activo }
     return false if viajes.empty?
     #checkea fija de v contra fijas del resto

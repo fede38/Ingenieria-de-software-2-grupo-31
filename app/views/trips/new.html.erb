@@ -79,7 +79,10 @@
 		<b>Si el viaje es periódico agrega las nuevas fechas debajo.  </b> 
 		<br>
 		<br>
-		
+		<div>
+			<h5><b>Atención: </b>Un viaje periódico puede contener nuevas fechas, pero el horario de salida del viaje es siempre el mismo.</h5>
+			<br>
+		</div>
 		<%= submit_tag "Agregar fecha", :type => 'button', :id => 'addPeriodic', 
           :onclick => 'addPeriodicField()', class: "btn my-link-button my-button-color" %>
 
@@ -88,10 +91,10 @@
 			  <ul id="myList"> 
 			  </ul>
 
+		<br><br>
 		<div class=" actions" style="text-align: center;">
 			<%= form.submit "Crear viaje", class:"btn my-link-button my-button-color", data: {confirm: "Al crear el viaje se compromete a pagar el 5\% del costo de su viaje, ¿Está seguro que desea continuar?" } %>
 		</div>
 	<% end %>
 </div>
-<br><br><br>
-<br><br><br>
+<br><br><br> 

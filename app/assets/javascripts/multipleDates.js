@@ -18,7 +18,7 @@ function addPeriodicField() {
     //and append it to <li> element
     var labelFecha = document.createElement("label");
     labelFecha.setAttribute("for", idAttributFecha);
-    var fechaLabelText = document.createTextNode("Fecha");
+    var fechaLabelText = document.createTextNode("Fecha:");
     labelFecha.appendChild(fechaLabelText);
     li.appendChild(labelFecha);
  

@@ -36,6 +36,14 @@
 				  <b>Hora: </b> <%= t.hora_inicio.strftime('%H:%M') %>
 				</h5>
 				<h5>
+                      <b>Periodico: </b>
+                      <% if t.periodics.any? %>
+                        Si
+                      <% else %>
+                        No
+                      <% end %>
+                </h5>
+				<h5>
 				  <b>Piloto: </b> <%= link_to image_tag(t.piloto.avatar.url,:class=>"circular-image small-image")+'  '+usernameOf(t.piloto), user_path(t.piloto) %>
 				</h5>
 				<h5>
