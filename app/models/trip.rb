@@ -185,6 +185,19 @@ class Trip < ApplicationRecord
 end
 
 #SI SE MODIFICA ACÁ, MODIFICAR EN TRIP.RB
+  
+  def periodico_activo(viaje)
+    if !viaje.activo and !viaje.periodics.empty? #si es periodico no activo
+      viaje.periodics.each do |vp| #por cada fecha periodica
+#     Es un periodico activo si la fecha periodica es hoy y posterior a ahora
+#          o si es despues de hoy
+        (return true) if (vp.fecha == Date.today and viaje.hora_inicio.strftime('%H:%M') > 
+                        Time.now.strftime('%H:%M')) or (vp.fecha > Date.today)
+      end
+    end
+    return false #de cualquier otra forma no es periodico activo
+  end
+
   def seleccionar_periodicos(lista_de_viajes)
     lista_a_devolver = []
     lista_de_viajes.each do |v|
@@ -215,7 +228,7 @@ end
 
   def se_cruzan?(todos_viajes,v) #recibe una lista de viajes y un un viaje especifico
     viajes = todos_viajes - [v]
-    viajes = viajes.select{ |trip| trip.activo }
+    viajes = viajes.select{ |trip| trip.activo and periodico_activo(trip) }
     return false if viajes.empty?
     #checkea fija de v contra fijas del resto
     viajes.each do |t|
