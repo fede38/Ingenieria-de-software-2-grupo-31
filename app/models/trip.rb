@@ -228,7 +228,7 @@ end
 
   def se_cruzan?(todos_viajes,v) #recibe una lista de viajes y un un viaje especifico
     viajes = todos_viajes - [v]
-    viajes = viajes.select{ |trip| trip.activo and periodico_activo(trip) }
+    viajes = viajes.select{ |trip| trip.activo or periodico_activo(trip) }
     return false if viajes.empty?
     #checkea fija de v contra fijas del resto
     viajes.each do |t|
