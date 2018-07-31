@@ -184,7 +184,7 @@ class Trip < ApplicationRecord
 
 end
 
-#SI SE MODIFICA ACÁ, MODIFICAR EN TRIP.RB
+#SI SE MODIFICA ACÁ, MODIFICAR EN application_controller.RB
   
   def periodico_activo(viaje)
     if !viaje.activo and !viaje.periodics.empty? #si es periodico no activo
