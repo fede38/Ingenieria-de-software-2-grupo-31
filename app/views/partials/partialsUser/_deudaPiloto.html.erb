@@ -7,7 +7,7 @@
 	 			<div class=" col-md-9">
 	 				<div class="row">
 	 					<div class="col-md-8">
-	 					<h4> <b> <%= deuda.origen %> - <%= deuda.destino %> </b> </h4>
+	 					<h4> <b> <%= link_to deuda.origen+'  -  '+deuda.destino, user_trip_path(deuda.piloto, deuda) %> </b> </h4>
 	 					</div>
 	 					<div class="col-md-4">
 	 					<h5> <span class="glyphicon glyphicon-calendar"></span> <%= '  '+formato_fecha(deuda.fecha_inicio) %>  <%= deuda.hora_inicio.strftime('%H:%M') %> </h5>
@@ -31,3 +31,4 @@
 		</div>
 	<% end %>
 <% end %>
+ 
