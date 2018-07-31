@@ -29,7 +29,6 @@ class Trip < ApplicationRecord
   validate :fechas_mayores_a_hoy
   validate :posteriores_a_inicio
   validate :inferior_a_treinta_dias
-  validate :no_dejar_fechas_en_blanco
   validate :fechas_validas
 
   def fechas_validas
@@ -44,6 +43,7 @@ class Trip < ApplicationRecord
     end
 
   end
+
   def fecha_inicio_exacta
     return self.fecha_inicio.beginning_of_day() + self.hora_inicio.seconds_since_midnight
     #return Time.at(self.fecha_inicio + self.hora_inicio.hour*3600 + self.hora_inicio.min*60 + 
@@ -53,19 +53,6 @@ class Trip < ApplicationRecord
   def fecha_fin_exacta
     return self.fecha_inicio_exacta + self.duracion*3600
     #return Time.at(self.fecha_inicio_exacta + self.duracion*3600)
-  end
-
-  def no_dejar_fechas_en_blanco
-    resp = false
-    self.periodics.each do |fp|
-      if !fp
-        resp = true
-      end
-    end
-    if resp
-      errors.add("Las fechas, ", 'no pueden quedar en blanco.')
-    end
-    
   end
 
   def inferior_a_treinta_dias
@@ -84,9 +71,9 @@ class Trip < ApplicationRecord
 
   def posteriores_a_inicio
     resp = false
-    self.periodics.each do |periodica|
-      if !periodica && self.fecha_inicio
-        if periodica.fecha < self.fecha_inicio
+    self.periodics.each do |per|
+      if per && self.fecha_inicio && per.fecha
+        if per.fecha < self.fecha_inicio
           resp = true
         end
       end
@@ -97,11 +84,9 @@ class Trip < ApplicationRecord
   end
 
   def fechas_mayores_a_hoy
-    if self.periodics
-      self.periodics do |periodica|
-        if periodica.fecha < Date.today
-          errors.add("Las fechas,", 'deben ser posteriores a hoy')
-        end
+    self.periodics do |per|
+      if per.fecha < Date.today or per.fecha == Date.today
+        errors.add("Las fechas,", 'deben ser posteriores a hoy')
       end
     end
   end
@@ -113,6 +98,7 @@ class Trip < ApplicationRecord
         if fp && fp.fecha
           fp_inicio = fp.fecha.beginning_of_day + self.hora_inicio.seconds_since_midnight
           fp_fin = fp_inicio + self.duracion*3600
+          (x = true) if fechas_se_cruzan?(fp_inicio, fp_fin, self.fecha_inicio_exacta, self.fecha_fin_exacta)
           arr = self.periodics.to_a - [fp]
           arr.each do |fp2|
             if fp2 && fp2.fecha
@@ -124,7 +110,7 @@ class Trip < ApplicationRecord
         end
       end
       if x
-        errors.add("Dos fechas y horas, ", 'no pueden cruzarse')
+        errors.add("Dos fechas y hora, ", 'no pueden cruzarse')
       end
     end
   end
