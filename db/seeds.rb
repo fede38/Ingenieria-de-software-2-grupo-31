@@ -78,30 +78,30 @@ User.all.each do |user|
   end
 end
 
-15.times do |v|
-  begin
-    $user = User.find(rand(1..10))
-  end until !$user.vehicles.empty?
-  viaje = Trip.new(
-    descripcion: "Esta es la descripcion numero: "+ v.to_s + ".",
-    fecha_inicio: "2018-"+rand(Time.now.month+1..12).to_s+"-"+rand(1..31).to_s,
-    hora_inicio: rand(00..23).to_s+":"+rand(00..59).to_s,
-    costo: rand(1000.0...5000.0),
-    origen: origenes[v],
-    destino: destinos[v],
-    activo: true,
-    duracion: rand(1..72),
-    user_id: $user.id,
-    vehicle_id: $user.vehicles.all.sample.id
-  )
-  viaje.save!
-end
+# 15.times do |v|
+#   begin
+#     $user = User.find(rand(1..10))
+#   end until !$user.vehicles.empty?
+#   viaje = Trip.new(
+#     descripcion: "Esta es la descripcion numero: "+ v.to_s + ".",
+#     fecha_inicio: "2018-"+rand(Time.now.month+1..12).to_s+"-"+rand(1..31).to_s,
+#     hora_inicio: rand(00..23).to_s+":"+rand(00..59).to_s,
+#     costo: rand(1000.0...5000.0),
+#     origen: origenes[v],
+#     destino: destinos[v],
+#     activo: true,
+#     duracion: rand(1..72),
+#     user_id: $user.id,
+#     vehicle_id: $user.vehicles.all.sample.id
+#   )
+#   viaje.save!
+# end
 
-15.times do |i|
-  viaje = Trip.find(i+1)
-  User.all.each do |usuario|
-    if rand(1..10) <3 && viaje.piloto != usuario
-      viaje.postulantes << usuario
-    end
-  end
-end
+# 15.times do |i|
+#   viaje = Trip.find(i+1)
+#   User.all.each do |usuario|
+#     if rand(1..10) <3 && viaje.piloto != usuario
+#       viaje.postulantes << usuario
+#     end
+#   end
+# end
