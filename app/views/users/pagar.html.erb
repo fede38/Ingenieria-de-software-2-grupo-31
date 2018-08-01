@@ -54,20 +54,27 @@
 					<% if  !@user.tarjeta %>
 						<br><br>
 						<h4> No posee tarjeta de credito para poder pagar con tarjeta </h4>
+						<h5> Para agregar una tarjeta elija la ocion "Tarjeta" en "Editar Perfil" y complete con los datos de la misma.</h5>
 					<% else %>
-						<div class="row">
-							<div class="col-md-6">
-								<b> Tarjeta: </b> <%= @user.tarjeta %>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-										<input type="text" name="codigo" maxlength="3" id='codigo' value="xxx" onkeyup="validar();" />  	
+						<% if (@user.fecha_vencimiento.month >= Date.today.month and @user.fecha_vencimiento.year == Date.today.year) or (@user.fecha_vencimiento.year > Date.today.year) %>
+							<div class="row">
+								<div class="col-md-6">
+									<b> Tarjeta: </b> <%= @user.tarjeta %>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+											<input type="text" name="codigo" maxlength="3" id='codigo' value="xxx" onkeyup="validar();" />  	
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row centering" id='sePuede' style="visibility: hidden;">
-							<%= link_to 'Pagar', pagarViajeTarjeta_users_path(id: @user, tipo: @tipo, idT: @viaje), {class: "btn btn-sm colapso my-link-button my-button-with", method: :put} %>
-						</div>
+							<div class="row centering" id='sePuede' style="visibility: hidden;">
+								<%= link_to 'Pagar', pagarViajeTarjeta_users_path(id: @user, tipo: @tipo, idT: @viaje), {class: "btn btn-sm colapso my-link-button my-button-with", method: :put} %>
+							</div>
+						<% else %>
+							<br><br>
+							<h4> Su tarjeta de credito cargada en el sistema esta vencida </h4>
+							<h5> Para agregar una nueva tarjeta elija la opcion "Tarjeta" en "Editar Perfil" y cambie los datos de la misma.</h5>
+						<% end %>
 					<% end %>
 					<br>
 					</div>

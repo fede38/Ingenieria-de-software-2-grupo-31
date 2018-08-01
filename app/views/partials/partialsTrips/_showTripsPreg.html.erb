@@ -60,18 +60,20 @@
 			<div class="row">
 				<!-- <div class="col-md-1"></div> -->
 				<div class="col-md-12">
-					<div >
-						<%= form_for([@trip, @question]) do |q| %>
-							<div class="form-group">
-								<%= q.label :pregunta %> <br>
-								<%= q.text_area :pregunta, class: "form-control" %>
-							</div>
-							<div class=" actions">
-								<%= q.submit "Realizar pregunta", class:"btn my-link-button my-button-color" %>
-							</div>
-						<% end %>
-					</div>
+					<% if user_signed_in? %>
+						<div >
+							<%= form_for([@trip, @question]) do |q| %>
+								<div class="form-group">
+									<%= q.label :pregunta %> <br>
+									<%= q.text_area :pregunta, class: "form-control" %>
+								</div>
+								<div class=" actions">
+									<%= q.submit "Realizar pregunta", class:"btn my-link-button my-button-color" %>
+								</div>
+							<% end %>
+						</div>
 					<br>
+					<% end %>
 				</div>
 				<!-- <div class="col-md-1"></div> -->
 			</div>
